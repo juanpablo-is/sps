@@ -1,0 +1,148 @@
+/* 
+    Created on : 22/03/2020, 02:45:17 PM
+    Author     : Juan Pablo
+*/
+
+html {
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    display:flex;
+}
+
+.btn{
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color:#fdfdfd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.underline{    
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/*================================        Panel Join      ================================*/
+#pnlJoin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+#contentJoin{    
+    width: 80%;
+    height: 90%;
+    text-align: center;
+    margin: auto;
+}
+
+#contentJoin img{
+    width: 10%;
+}
+
+#contentJoin h1{
+    font-size: 20px;
+}
+
+#signIn{
+    margin: 40px 0px 10px 0px;
+}
+
+#signWith{
+    margin: 40px 0 ;
+}
+#signWith ul{
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.btnGoogle{
+    background-color: #DE4C33;
+}
+
+.btnFacebook{
+    background-color: #4167B2;
+}
+
+.btnTwitter{
+    background-color: #45B0E4;
+}
+
+.btnNegro{
+    background-color: #323232;
+}
+
+#inputLogin{
+    display: flex;
+}
+
+input[type="text"]{
+    width:100%;
+    background-color: #EEEEEE;
+    margin: 10px;
+    height: 40px;
+    border:none;
+    padding-left: 10px;
+}
+
+
+input[type="submit"]{
+    width:100%;
+    margin: 10px 0;
+    height: 40px;
+    padding: 10px;
+    font-weight: 700;
+    border:none;
+}
+
+#extraSignIn{
+    display: flex;
+    justify-content: space-between;
+}
+
+#extraSignIn div{
+    display: flex;
+    align-items: center;
+}
+
+#extraSignIn h3{
+    color: #444;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+#insideRegister h2{
+    font-size: 17px;
+}
+
+#insideRegister h3{
+    font-size: 14px;
+    color: #444;
+}
+
+/*================================        Panel Image Join      ================================*/
+#pnlImage{
+    background: url(../images/parking_background.jpg) no-repeat center;
+    background-size: 100%;
+    width: 100%;
+    height: 100vh;
+}
