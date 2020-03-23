@@ -1,12 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.software.servlet;
 
+import com.sps.entity.Persona;
+import com.sps.sessionBean.ClienteFacadeLocal;
+import com.sps.sessionBean.PersonaFacadeLocal;
+import com.sps.sessionBean.UsuarioFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +17,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author Juan Pablo
  */
 public class LoginServlet extends HttpServlet {
+
+    @EJB
+    private PersonaFacadeLocal sessioBeanPersona;
+    @EJB
+    private UsuarioFacadeLocal sessionBeanUsuario;
+    @EJB
+    private ClienteFacadeLocal sessionBeanCliente;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,16 +36,23 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        Persona persona = sessioBeanPersona.findLogin(email, password);
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+
+            out.println("<h1>" + persona + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -84,3 +98,38 @@ public class LoginServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+/*
+PERSON{
+    ID - CEDULA
+    NAME
+    PASSWORD
+    EMAIL
+    PHONE
+}
+
+USUARIO{
+    PLACA
+    MODELO
+    MARCA
+    ID-PROPIEDAD
+}
+
+CLIENT{
+    ADDRESS
+    CUPOS
+    SCHEDULE START
+    SCHEDULE END
+}
+
+
+ADMIN{
+    ID-PROPIEDAD
+    
+
+}
+
+LD_SPS_DB
+ldspsdb
+ */
