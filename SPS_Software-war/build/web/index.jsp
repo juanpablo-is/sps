@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/styles.css"/>
+        <link rel="stylesheet" href="css/acceso.css"/>
 
         <title>Smart Parking System</title>
     </head>
@@ -63,6 +63,6 @@
             </section>
         </main>
 
-        <script src="js/javascript.js" type="text/javascript"></script>
+        <script src="js/accesoJS.js" type="text/javascript"></script>
     </body>
 </html>

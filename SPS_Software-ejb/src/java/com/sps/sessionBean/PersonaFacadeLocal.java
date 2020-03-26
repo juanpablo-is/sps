@@ -16,11 +16,11 @@ import javax.ejb.Local;
 @Local
 public interface PersonaFacadeLocal {
 
-    void create(Persona persona);
+    boolean create(Persona persona);
 
-    void edit(Persona persona);
+    boolean edit(Persona persona);
 
-    void remove(Persona persona);
+    boolean remove(Persona persona);
 
     Persona find(Object id);
 
@@ -29,7 +29,7 @@ public interface PersonaFacadeLocal {
     List<Persona> findRange(int[] range);
 
     int count();
-
+    
     Persona findLogin(String email, String password);
 
 }

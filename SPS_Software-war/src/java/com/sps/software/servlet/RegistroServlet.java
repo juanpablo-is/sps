@@ -47,10 +47,6 @@ public class RegistroServlet extends HttpServlet {
         Persona personaFind = sessioBeanPersona.find(cedula);
         Persona persona = new Persona(cedula, name, password, email, phone);
 
-        if (personaFind == null) {
-            sessioBeanPersona.create(persona);
-        }
-
         switch (radio) {
             case "Usuario":
                 //Datos 'USUARIO'
@@ -60,10 +56,23 @@ public class RegistroServlet extends HttpServlet {
 
                 Usuario usuarioFind = sessionBeanUsuario.find(idPropiedad);
                 if (usuarioFind == null) {
+                    if (personaFind == null) {
+                        sessioBeanPersona.create(persona);
+                    }
+
                     Usuario usuario = new Usuario(idPropiedad, placa, marca);
                     usuario.setIdPersona(persona);
-                    sessionBeanUsuario.create(usuario);
-                    ingreso = true;
+                    if (sessionBeanUsuario.create(usuario)) {
+                        ingreso = true;
+                    } else {
+                        // EL USUARIO NO SE PUDO REGISTRAR
+                        sessioBeanPersona.remove(persona);
+                        request.setAttribute("error", "EL USUARIO NO PUDO SER REGISTRADO, INTENTE DE NUEVO");
+                    }
+                } else {
+                    //EL USUARIO YA ESTA REGISTRADO
+                    request.setAttribute("error", "EL USUARIO YA ESTA REGISTRADO");
+                    request.setAttribute("persona", persona);
                 }
 
                 break;
@@ -77,14 +86,26 @@ public class RegistroServlet extends HttpServlet {
 //                Cliente clienteFind = sessionBeanCliente.find(idPropiedad);
                 Cliente clienteFind = null;
                 if (clienteFind == null) {
+                    if (personaFind == null) {
+                        sessioBeanPersona.create(persona);
+                    }
                     Cliente cliente = new Cliente(direccion, Integer.parseInt(cupos));
 
                     cliente.setInicio(horaEntrada);
                     cliente.setFin(horaCierre);
                     cliente.setIdPersona(persona);
 
-                    sessionBeanCliente.create(cliente);
-                    ingreso = true;
+                    if (sessionBeanCliente.create(cliente)) {
+                        ingreso = true;
+                    } else {
+                        // EL USUARIO NO SE PUDO REGISTRAR
+                        sessioBeanPersona.remove(persona);
+                        request.setAttribute("error", "EL CLIENTE NO PUDO SER REGISTRADO, INTENTE DE NUEVO");
+                    }
+                } else {
+                    //EL USUARIO YA ESTA REGISTRADO
+                    request.setAttribute("error", "EL CLIENTE YA ESTA REGISTRADO");
+                    request.setAttribute("persona", persona);
                 }
                 break;
             case "Administracion":

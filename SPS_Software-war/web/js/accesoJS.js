@@ -28,6 +28,7 @@ if (textoBoton === '2') {
             input1.setAttribute("placeholder", "PLACA");
             input1.setAttribute("name", "placa");
             input1.setAttribute("required", "on");
+            input1.style.textTransform = 'UPPERCASE';
 
             var input2 = document.createElement("input");
             input2.setAttribute("type", "text");
@@ -39,6 +40,7 @@ if (textoBoton === '2') {
             input3.setAttribute("placeholder", "ID PROPIEDAD");
             input3.setAttribute("name", "idPropiedad");
             input3.setAttribute("required", "on");
+            input3.style.textTransform = 'UPPERCASE';
 
             divRow.appendChild(input1);
             divRow.appendChild(input2);

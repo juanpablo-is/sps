@@ -7,6 +7,7 @@ package com.sps.sessionBean;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -24,29 +25,41 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+    public boolean create(T entity) {
 
         try {
             getEntityManager().persist(entity);
+            return true;
         } catch (ConstraintViolationException e) {
             for (ConstraintViolation actual : e.getConstraintViolations()) {
                 System.out.println(actual.toString());
             }
+            return false;
         }
     }
 
-    public void edit(T entity) {
+    public boolean edit(T entity) {
         try {
             getEntityManager().merge(entity);
+            return true;
         } catch (ConstraintViolationException e) {
             for (ConstraintViolation actual : e.getConstraintViolations()) {
                 System.out.println(actual.toString());
             }
+            return false;
         }
     }
 
-    public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+    public boolean remove(T entity) {
+        try {
+            getEntityManager().remove(getEntityManager().merge(entity));
+            return true;
+        } catch (ConstraintViolationException e) {
+            for (ConstraintViolation actual : e.getConstraintViolations()) {
+                System.out.println(actual.toString());
+            }
+            return false;
+        }
     }
 
     public T find(Object id) {

@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/styles.css"/>
+        <link rel="stylesheet" href="css/acceso.css"/>
 
         <title>REGISTRO SPS</title>
     </head>
@@ -27,19 +27,20 @@
 
                     <div id="signIn">
                         <h3>REGISTRO</h3>
+                        <h4 style="color:red;font-size:12px;">${error}</h4>
                         <form action="./RegistroServlet" method="POST" name="registro">
                             <div class="row">
-                                <input type="email" class="" placeholder="CORREO" name="email" required/>
-                                <input type="password" class="" placeholder="CONTRASEÑA" name="password" minlength="8" required/>
+                                <input type="email" class="" placeholder="CORREO" name="email" required value="${persona.correo}"/>
+                                <input type="password" class="" placeholder="CONTRASEÑA" name="password" minlength="8" required />
                             </div>
 
                             <div class="row">
-                                <input type="text" class="" placeholder="NOMBRE" name="name" required/>
+                                <input type="text" class="" placeholder="NOMBRE" name="name" required value="${persona.nombre}"/>
                             </div>
 
                             <div class="row">
-                                <input type="number" class="" placeholder="CEDULA" name="idPerson" required/>
-                                <input type="number" class="" placeholder="TELÉFONO" name="phone"/>
+                                <input type="number" class="" placeholder="CEDULA" name="idPerson" required value="${persona.cedula}"/>
+                                <input type="number" class="" placeholder="TELÉFONO" name="phone" value="${persona.telefono}"/>
                             </div>
 
                             <div class="row">
@@ -70,6 +71,6 @@
             </section>
         </main>
 
-        <script src="js/javascript.js" type="text/javascript"></script>
+        <script src="js/accesoJS.js" type="text/javascript"></script>
     </body>
 </html>

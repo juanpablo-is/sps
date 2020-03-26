@@ -1,11 +1,14 @@
 package com.sps.software.servlet;
 
-import com.sps.entity.Persona;
+import com.sps.entity.*;
 import com.sps.sessionBean.ClienteFacadeLocal;
 import com.sps.sessionBean.PersonaFacadeLocal;
 import com.sps.sessionBean.UsuarioFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,20 +45,38 @@ public class LoginServlet extends HttpServlet {
 
         Persona persona = sessioBeanPersona.findLogin(email, password);
 
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        List<Usuario> usuarios = sessionBeanUsuario.findByCedula(persona);
+        List<Cliente> clientes = sessionBeanCliente.findByCedula(persona);
 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
+        ArrayList<String[]> mapPerfiles = new ArrayList<>();
 
-            out.println("<h1>" + persona + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        int total = usuarios.size() + clientes.size();
+        if (total > 1) {
+
+            for (Usuario usuario : usuarios) {
+                String dato[] = {"USUARIO", "PLACA", usuario.getPlaca(), usuario.getIdPropiedad()};
+                mapPerfiles.add(dato);
+            }
+
+            for (Cliente cliente : clientes) {
+                String dato[] = {"CLIENTE", "DIRECCIÓN", cliente.getDireccion(), String.valueOf(cliente.getId())};
+                mapPerfiles.add(dato);
+            }
+
+            request.setAttribute("perfil", mapPerfiles);
+            request.getRequestDispatcher("seleccion.jsp").forward(request, response);
+        } else {
+            request.setAttribute("persona", persona);
+            request.setAttribute("usuario", usuarios.get(0));
+            request.getRequestDispatcher("inicio.jsp").forward(request, response);
         }
+
+        if (!usuarios.isEmpty()) {
+
+        } else if (!clientes.isEmpty()) {
+
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

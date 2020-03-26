@@ -5,6 +5,7 @@
  */
 package com.sps.sessionBean;
 
+import com.sps.entity.Persona;
 import com.sps.entity.Usuario;
 import java.util.List;
 import javax.ejb.Local;
@@ -16,11 +17,11 @@ import javax.ejb.Local;
 @Local
 public interface UsuarioFacadeLocal {
 
-    void create(Usuario usuario);
+    boolean create(Usuario usuario);
 
-    void edit(Usuario usuario);
+    boolean edit(Usuario usuario);
 
-    void remove(Usuario usuario);
+    boolean remove(Usuario usuario);
 
     Usuario find(Object id);
 
@@ -28,6 +29,8 @@ public interface UsuarioFacadeLocal {
 
     List<Usuario> findRange(int[] range);
 
+    List<Usuario> findByCedula(Persona cedula);
+
     int count();
-    
+
 }

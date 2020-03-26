@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.sessionBean;
 
 import com.sps.entity.Cliente;
+import com.sps.entity.Persona;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,11 +12,11 @@ import javax.ejb.Local;
 @Local
 public interface ClienteFacadeLocal {
 
-    void create(Cliente cliente);
+    boolean create(Cliente cliente);
 
-    void edit(Cliente cliente);
+    boolean edit(Cliente cliente);
 
-    void remove(Cliente cliente);
+    boolean remove(Cliente cliente);
 
     Cliente find(Object id);
 
@@ -29,5 +25,7 @@ public interface ClienteFacadeLocal {
     List<Cliente> findRange(int[] range);
 
     int count();
-    
+
+    List<Cliente> findByCedula(Persona cedula);
+
 }

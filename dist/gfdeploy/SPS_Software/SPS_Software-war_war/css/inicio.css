@@ -1,0 +1,116 @@
+/* 
+    Created on : 25/03/2020, 06:17:20 PM
+    Author     : Juan Pablo
+*/
+
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+header{
+    position: fixed;
+    background-color: #1D1D1F;
+    height: 60px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    z-index: 1;
+    justify-content: center;
+}
+
+#headerLogo{
+    left:0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+
+#headerLogo img{
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin: 0 20px;
+}
+
+#headerLogo h2{
+    margin:0;
+    color:white;
+}
+
+#textoBienvenida{
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    color:white;
+    font-weight: 600;
+}
+
+main{
+    display:flex;
+    height: auto;
+}
+
+#pnlSide{
+    padding-top: 60px;
+    height: 100vh;
+    position: fixed;
+    width: 20%;
+    background-color: #1D1D1F;
+    flex: 0 0 20%;
+}
+
+#pnlPrincipal{
+    background-color: red;
+    flex: 0 0 80%;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    margin-left: 20%;
+    padding-top: 60px;
+}
+
+#contenido{
+    text-align: center;
+}
+
+#contenido img{
+    width:80px;
+    height: 80px;
+}
+
+#contenido h2{
+    margin: 5px 0;
+    color:white;
+}
+
+#pnlSide #salir{
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    color:white;
+}
+
+#salir{
+    cursor: pointer;
+    background-color: #242426;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#salir h2{
+    margin: 20px;
+}

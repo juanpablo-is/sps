@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
     , @NamedQuery(name = "Usuario.findByPlaca", query = "SELECT u FROM Usuario u WHERE u.placa = :placa")
     , @NamedQuery(name = "Usuario.findByMarca", query = "SELECT u FROM Usuario u WHERE u.marca = :marca")
+    , @NamedQuery(name = "Usuario.findByCedula", query = "SELECT u FROM Usuario u WHERE u.idPersona = :idPersona")
     , @NamedQuery(name = "Usuario.findByIdPropiedad", query = "SELECT u FROM Usuario u WHERE u.idPropiedad = :idPropiedad")})
 public class Usuario implements Serializable {
 
@@ -120,7 +121,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sps.entity.Usuario[ idPropiedad=" + idPropiedad + " ]";
+        return "Usuario{" + "placa=" + placa + ", marca=" + marca + ", idPropiedad=" + idPropiedad + ", idPersona=" + idPersona + '}';
     }
 
 }

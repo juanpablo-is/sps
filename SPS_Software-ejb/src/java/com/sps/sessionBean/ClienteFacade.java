@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.sessionBean;
 
 import com.sps.entity.Cliente;
+import com.sps.entity.Persona;
+import com.sps.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +27,13 @@ public class ClienteFacade extends AbstractFacade<Cliente> implements ClienteFac
     public ClienteFacade() {
         super(Cliente.class);
     }
-    
+
+    @Override
+    public List<Cliente> findByCedula(Persona cedula) {
+        Query query = getEntityManager().createNamedQuery("Cliente.findByCedula");
+        query.setParameter("idPersona", cedula);
+        List<Cliente> list = query.getResultList();
+        return list;
+    }
+
 }

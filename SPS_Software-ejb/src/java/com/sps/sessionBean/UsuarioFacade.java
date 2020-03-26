@@ -1,9 +1,12 @@
 package com.sps.sessionBean;
 
+import com.sps.entity.Persona;
 import com.sps.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -23,5 +26,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
+
+    @Override
+    public List<Usuario> findByCedula(Persona cedula) {
+        Query query = getEntityManager().createNamedQuery("Usuario.findByCedula");
+        query.setParameter("idPersona", cedula);
+        List<Usuario> list = query.getResultList();
+        return list;
+    }
+
 }

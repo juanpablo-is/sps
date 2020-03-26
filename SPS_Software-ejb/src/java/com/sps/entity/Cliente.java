@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.entity;
 
 import java.io.Serializable;
@@ -34,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion")
     , @NamedQuery(name = "Cliente.findByCupos", query = "SELECT c FROM Cliente c WHERE c.cupos = :cupos")
     , @NamedQuery(name = "Cliente.findByInicio", query = "SELECT c FROM Cliente c WHERE c.inicio = :inicio")
+    , @NamedQuery(name = "Cliente.findByCedula", query = "SELECT u FROM Cliente u WHERE u.idPersona = :idPersona")
     , @NamedQuery(name = "Cliente.findByFin", query = "SELECT c FROM Cliente c WHERE c.fin = :fin")})
 public class Cliente implements Serializable {
 
@@ -146,5 +142,5 @@ public class Cliente implements Serializable {
     public String toString() {
         return "com.sps.entity.Cliente[ id=" + id + " ]";
     }
-    
+
 }

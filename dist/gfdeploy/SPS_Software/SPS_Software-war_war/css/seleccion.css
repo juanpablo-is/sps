@@ -1,0 +1,140 @@
+/* 
+    Created on : 24/03/2020, 07:13:46 PM
+    Author     : Juan Pablo
+*/
+
+html {
+    box-sizing: border-box;
+    font-family: 'PT Sans', sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body{
+    font-family: 'PT Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    background-color: #f3f3f3;
+}
+
+p{
+    margin: 5px 0;
+}
+
+.contenedor{
+    position: relative;
+    width: 50%;
+    background-color: white;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+#img{
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#img img{
+    width:10%;
+}
+
+#img h1{
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+h2{
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+#seccionPerfil{
+    display: grid;
+    grid-template-columns:repeat(2,1fr);
+}
+
+.cardPerfil{
+    cursor: pointer;
+    padding: 10px;
+    margin: 20px 30px;
+    text-align: center;
+    border-radius: 7px;
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.65);
+    -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.65);
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.65);
+}
+
+.cardPerfil:hover{
+    background-color: #fafafa;
+}
+
+#topCard{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5px 0;
+}
+
+#topCard img{
+    border-radius: 50%;
+    overflow: hidden;
+    width: 60px;
+}
+
+#topCard h3{
+    font-size: 22px;
+    padding: 0;
+    margin: 0;
+}
+
+#textoCard{
+    text-align: left;
+    padding-left: 30px;
+}
+
+form{
+    margin: 20px 30px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+input[type="submit"]{
+    padding: 10px 20px;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color:black;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    border:1px solid #323232;
+    justify-content: center;
+    align-items: center;
+}
+
+.seleccion{
+    box-shadow:0px 0px 0px 3px #72BF43 inset;
+}
+
+.botonClick{
+    color:#fdfdfd !important;
+    background-color: #DE4C33 !important;
+    border:none!important;
+    cursor: pointer;
+}
+
+.botonClick:hover{
+    opacity: .8;
+}
