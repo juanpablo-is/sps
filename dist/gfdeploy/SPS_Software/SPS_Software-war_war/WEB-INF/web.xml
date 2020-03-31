@@ -12,6 +12,22 @@
         <servlet-name>SeleccionServlet</servlet-name>
         <servlet-class>com.sps.software.servlet.SeleccionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservaServlet</servlet-name>
+        <servlet-class>com.sps.software.servlet.ReservaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SalirServlet</servlet-name>
+        <servlet-class>com.sps.software.servlet.SalirServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistorialServlet</servlet-name>
+        <servlet-class>com.sps.software.servlet.HistorialServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ParqueaderosServlet</servlet-name>
+        <servlet-class>com.sps.software.servlet.ParqueaderosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>SeleccionServlet</servlet-name>
         <url-pattern>/SeleccionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservaServlet</servlet-name>
+        <url-pattern>/ReservaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SalirServlet</servlet-name>
+        <url-pattern>/SalirServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistorialServlet</servlet-name>
+        <url-pattern>/HistorialServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ParqueaderosServlet</servlet-name>
+        <url-pattern>/ParqueaderosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

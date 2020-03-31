@@ -18,6 +18,14 @@ body{
     height: 100%;
 }
 
+a{
+    text-decoration: none;
+}
+
+.seleccionPagina{
+    background-color: #2D3138;
+}
+
 header{
     position: fixed;
     background-color: #1D1D1F;
@@ -27,10 +35,15 @@ header{
     align-items: center;
     z-index: 1;
     justify-content: center;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
 }
 
 #headerLogo{
     left:0;
+    width: 20%;
+    justify-content: center;
     position: absolute;
     display: flex;
     align-items: center;
@@ -54,6 +67,7 @@ header{
     padding: 10px;
     color:white;
     font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 main{
@@ -71,13 +85,13 @@ main{
 }
 
 #pnlPrincipal{
-    background-color: red;
     flex: 0 0 80%;
     width: 100%;
     height: auto;
     min-height: 100vh;
     margin-left: 20%;
     padding-top: 60px;
+    background-color: #fafafa;
 }
 
 #contenido{
@@ -92,15 +106,32 @@ main{
 #contenido h2{
     margin: 5px 0;
     color:white;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-#pnlSide #salir{
-    position: absolute;
-    bottom: 0;
+#menu ul{
+    list-style: none;
+    padding: 0;
     margin: 0;
-    width: 100%;
-    text-align: center;
+    margin-left: 20px;
+}
+
+#menu li{
+    cursor: pointer;
+    padding: 20px 0;
     color:white;
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#menu li:hover{
+    background-color: #2D3138;
+}
+
+#menu svg{
+    margin-right: 10px;
 }
 
 #salir{
@@ -109,8 +140,142 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    color:white;
 }
 
 #salir h2{
     margin: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#formR{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+    margin: auto;
+}
+
+h3{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#formReserva{
+    width: 60%;
+}
+
+
+#formReserva div{
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+}
+
+#formReserva label{
+    width: 40%;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#formReserva input, #formReserva select{
+    height: 50px;
+}
+
+#formReserva select{
+    width: 100%;
+}
+
+#formReserva input[type="submit"]{
+    width: 70%;
+    margin: 0 auto;
+    color:white;
+    border:none;
+    cursor:pointer;
+    display: block;
+    background-color: #DE4C33;
+    font-size: 22px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#formReserva input[type="submit"]:hover{
+    opacity: .8;
+}
+
+/*============ HISTORIAL ============*/
+#history{
+    margin: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cardsHistory, .cardParqueaderos{
+    margin: 10px;
+    border-radius: 7px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.9);
+    -moz-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.9);
+    box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.9);
+    padding: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.cardsHistory span{
+    color:#DE4C33;
+}
+
+.ocupado span{
+    color:white;
+}
+
+.ocupado{
+    background-color: rgba(115, 191, 67,.75);
+}
+
+.cardsHistory h2{
+    margin: 4px 0;
+    padding: 0;
+}
+
+#textoReserva{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*====== PARQUEADEROS ======*/
+#pnlParqueaderos{
+    margin:15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+.cardParqueaderoInterno{
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.cardParqueaderoInterno img{
+    width: 100%;
+    height: 120px;
+    background-size: cover;
+}
+
+.cardParqueaderoInterno h3{
+    margin: 5px 0;
+    padding: 0;
+    color:#323232;
+}
+
+.cardParqueaderoInterno span{
+    color:#DE4C33;
 }

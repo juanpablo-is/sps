@@ -78,8 +78,16 @@ if (textoBoton === '2') {
             input4.setAttribute("type", "time");
             input4.setAttribute("placeholder", "HORA CIERRE");
             input4.setAttribute("name", "horaCierre");
+            
+            var input5 = document.createElement("input");
+            input5.setAttribute("type", "number");
+            input5.setAttribute("min", "0");
+            input5.setAttribute("step", "any");
+            input5.setAttribute("placeholder", "PRECIO POR MINUTO");
+            input5.setAttribute("name", "precio");
             divRow2.appendChild(input3);
             divRow2.appendChild(input4);
+            divRow2.appendChild(input5);
 
             divAdd.appendChild(divRow);
             divAdd.appendChild(divRow2);

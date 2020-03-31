@@ -6,7 +6,9 @@
 package com.sps.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByCedula", query = "SELECT u FROM Usuario u WHERE u.idPersona = :idPersona")
     , @NamedQuery(name = "Usuario.findByIdPropiedad", query = "SELECT u FROM Usuario u WHERE u.idPropiedad = :idPropiedad")})
 public class Usuario implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Reserva> reservaCollection;
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -121,7 +128,16 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario{" + "placa=" + placa + ", marca=" + marca + ", idPropiedad=" + idPropiedad + ", idPersona=" + idPersona + '}';
+        return "{perfil:'usuario', " + "placa:'" + placa + "', marca:'" + marca + "', idPropiedad:'" + idPropiedad + "'}";
+    }
+
+    @XmlTransient
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
 
 }

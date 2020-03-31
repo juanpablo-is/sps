@@ -50,9 +50,9 @@ public class RegistroServlet extends HttpServlet {
         switch (radio) {
             case "Usuario":
                 //Datos 'USUARIO'
-                String placa = request.getParameter("placa");
+                String placa = request.getParameter("placa").toUpperCase();
                 String marca = request.getParameter("marca");
-                String idPropiedad = request.getParameter("idPropiedad");
+                String idPropiedad = request.getParameter("idPropiedad").toUpperCase();
 
                 Usuario usuarioFind = sessionBeanUsuario.find(idPropiedad);
                 if (usuarioFind == null) {
@@ -82,6 +82,7 @@ public class RegistroServlet extends HttpServlet {
                 String cupos = request.getParameter("cupos");
                 String horaEntrada = request.getParameter("horaEntrada");
                 String horaCierre = request.getParameter("horaCierre");
+                String precio = request.getParameter("precio");
 
 //                Cliente clienteFind = sessionBeanCliente.find(idPropiedad);
                 Cliente clienteFind = null;
@@ -94,6 +95,7 @@ public class RegistroServlet extends HttpServlet {
                     cliente.setInicio(horaEntrada);
                     cliente.setFin(horaCierre);
                     cliente.setIdPersona(persona);
+                    cliente.setPrecio(Integer.parseInt(precio));
 
                     if (sessionBeanCliente.create(cliente)) {
                         ingreso = true;

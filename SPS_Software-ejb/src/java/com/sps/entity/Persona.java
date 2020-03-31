@@ -156,7 +156,7 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persona{" + "cedula=" + cedula + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", correo=" + correo + ", telefono=" + telefono + '}';
+        return "{cedula:'" + cedula + "', nombre:'" + nombre + "', contrasenia:'" + contrasenia + "', correo:'" + correo + "', telefono:'" + telefono + "'}";
     }
 
 }

@@ -5,15 +5,11 @@ import com.sps.sessionBean.ClienteFacadeLocal;
 import com.sps.sessionBean.PersonaFacadeLocal;
 import com.sps.sessionBean.UsuarioFacadeLocal;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 /**
  *
@@ -66,15 +62,20 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("perfil", mapPerfiles);
             request.getRequestDispatcher("seleccion.jsp").forward(request, response);
         } else {
-            request.setAttribute("persona", persona);
-            request.setAttribute("usuario", usuarios.get(0));
+
+            Object perfil = null;
+
+            if (usuarios.isEmpty()) {
+                perfil = clientes.get(0);
+            } else if (clientes.isEmpty()) {
+                perfil = usuarios.get(0);
+            }
+            
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("perfil", perfil);
+            sesion.setAttribute("persona", persona);
+            
             request.getRequestDispatcher("inicio.jsp").forward(request, response);
-        }
-
-        if (!usuarios.isEmpty()) {
-
-        } else if (!clientes.isEmpty()) {
-
         }
 
     }

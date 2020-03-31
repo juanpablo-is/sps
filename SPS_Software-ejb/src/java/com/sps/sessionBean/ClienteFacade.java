@@ -2,7 +2,6 @@ package com.sps.sessionBean;
 
 import com.sps.entity.Cliente;
 import com.sps.entity.Persona;
-import com.sps.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,6 +33,13 @@ public class ClienteFacade extends AbstractFacade<Cliente> implements ClienteFac
         query.setParameter("idPersona", cedula);
         List<Cliente> list = query.getResultList();
         return list;
+    }
+
+    @Override
+    public Cliente findByID(Integer id) {
+        Query query = getEntityManager().createNamedQuery("Cliente.findById");
+        query.setParameter("id", id);
+        return (Cliente) query.getSingleResult();
     }
 
 }

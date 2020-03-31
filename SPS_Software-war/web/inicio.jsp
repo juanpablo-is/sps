@@ -9,12 +9,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Bienvenido ${persona.nombre}</title>
+        <title>BIENVENIDO</title>
         <script src="js/all.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/inicio.css"/>
     </head>
     <body>
+        <input id="namePage" type="hidden" value="1"/>
         <header>
             <div id="headerLogo">
                 <img src="images/logo.jpg" alt="Logo"/>
@@ -24,25 +27,13 @@
         </header>
 
         <main>
-            <section id="pnlSide">
-                <div id="contenido">
-                    <img src="images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?'usuarioSeleccion':(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png" alt="Logo Perfil"/>
-                    <h2>
-                        <strong>
-                            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA: ' :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>
-                        </strong>
-                        <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>
-                    </h2>
-                </div>
-                <hr>
-                <div id="salir">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <h2>SALIR</h2>
-                </div>
-            </section>
+            <%@include  file="menu.jsp" %>
+
             <section id="pnlPrincipal">
                 <hr>                
             </section>
         </main>
+
+        <script type="text/javascript" src="js/inicio.js"></script>
     </body>
 </html>

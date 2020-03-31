@@ -28,4 +28,5 @@ public interface ClienteFacadeLocal {
 
     List<Cliente> findByCedula(Persona cedula);
 
+    Cliente findByID(Integer id);
 }

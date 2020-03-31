@@ -1,4 +1,4 @@
-SMART PARKING SYSTEM
+# SMART PARKING SYSTEM
 Repositorio 2020-1 Equipo Smart Parking System del curso Métodos formales
 
 INTEGRANTES:

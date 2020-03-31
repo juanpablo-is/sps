@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.sessionBean;
 
 import java.util.List;
@@ -63,7 +58,14 @@ public abstract class AbstractFacade<T> {
     }
 
     public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+        try {
+            return getEntityManager().find(entityClass, id);
+        } catch (ConstraintViolationException e) {
+            for (ConstraintViolation actual : e.getConstraintViolations()) {
+                System.out.println(actual.toString());
+            }
+            return null;
+        }
     }
 
     public List<T> findAll() {

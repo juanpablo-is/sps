@@ -8,11 +8,14 @@ import com.sps.sessionBean.PersonaFacadeLocal;
 import com.sps.sessionBean.UsuarioFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,14 +53,17 @@ public class SeleccionServlet extends HttpServlet {
             persona = usuario.getIdPersona();
             perfil = usuario;
         } else if (campos[0].equals("C")) {
-            Cliente cliente = sessionBeanCliente.find(id);
+            Cliente cliente = sessionBeanCliente.find(Integer.parseInt(id));
             persona = cliente.getIdPersona();
             perfil = cliente;
         }
-        
-        request.setAttribute("persona", persona);
-        request.setAttribute("perfil", perfil);
+
+        HttpSession sesion = request.getSession();
+        sesion.setAttribute("perfil", perfil);
+        sesion.setAttribute("persona", persona);
+
         request.getRequestDispatcher("inicio.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

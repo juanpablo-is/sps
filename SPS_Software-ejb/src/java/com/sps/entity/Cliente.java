@@ -1,7 +1,9 @@
 package com.sps.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,9 +33,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion")
     , @NamedQuery(name = "Cliente.findByCupos", query = "SELECT c FROM Cliente c WHERE c.cupos = :cupos")
     , @NamedQuery(name = "Cliente.findByInicio", query = "SELECT c FROM Cliente c WHERE c.inicio = :inicio")
-    , @NamedQuery(name = "Cliente.findByCedula", query = "SELECT u FROM Cliente u WHERE u.idPersona = :idPersona")
+    , @NamedQuery(name = "Cliente.findByCedula", query = "SELECT c FROM Cliente c WHERE c.idPersona = :idPersona")
+    , @NamedQuery(name = "Cliente.findByCedula", query = "SELECT c FROM Cliente c WHERE c.idPersona = :idPersona")
     , @NamedQuery(name = "Cliente.findByFin", query = "SELECT c FROM Cliente c WHERE c.fin = :fin")})
 public class Cliente implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PRECIO")
+    private double precio;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private Collection<Reserva> reservaCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -140,7 +152,25 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sps.entity.Cliente[ id=" + id + " ]";
+        return "Cliente{" + "precio=" + precio + ", reservaCollection=" + reservaCollection + ", id=" + id + ", direccion=" + direccion + ", cupos=" + cupos + ", inicio=" + inicio + ", fin=" + fin + ", idPersona=" + idPersona + '}';
+    }
+
+
+    @XmlTransient
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
 }
