@@ -23,10 +23,8 @@
             </div>
             <h2 id="textoBienvenida">BIENVENIDO ${persona.nombre}</h2>
         </header>
-
         <main>
             <%@include  file="menu.jsp" %>
-
             <section id="pnlPrincipal">
                 <div id="pnlParqueaderos">
                     <c:forEach items="${parqueaderos}" var="parqueadero" varStatus="loop">
@@ -42,7 +40,6 @@
                 </div>
             </section>
         </main>
-
         <script type="text/javascript" src="js/inicio.js"></script>
     </body>
 </html>

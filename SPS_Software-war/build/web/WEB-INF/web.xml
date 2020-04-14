@@ -28,6 +28,10 @@
         <servlet-name>ParqueaderosServlet</servlet-name>
         <servlet-class>com.sps.software.servlet.ParqueaderosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InicioServlet</servlet-name>
+        <servlet-class>com.sps.software.servlet.InicioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ParqueaderosServlet</servlet-name>
         <url-pattern>/ParqueaderosServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioServlet</servlet-name>
+        <url-pattern>/InicioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

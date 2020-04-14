@@ -59,6 +59,7 @@ header{
 #headerLogo h2{
     margin:0;
     color:white;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 #textoBienvenida{
@@ -67,6 +68,48 @@ header{
     padding: 10px;
     color:white;
     font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#panelInfo{
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    right: 0;
+    width: 300px;
+    height: 300px
+}
+
+#iconoInfo{
+    right: 0;
+    color: white;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    margin: 15px;
+    cursor: pointer;
+}
+
+#pnlInfo{
+    padding: 10px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
+    margin-top: 70px;
+    border-radius: 7px;
+    margin-right: 10px;
+    display: none;
+}
+
+#pnlInfo h2{
+    margin: 5px 0;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#pnlInfo p{
+    padding: 0 15px;    
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -151,6 +194,78 @@ main{
 #salir h2{
     margin: 20px;
     font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* =======  INICIO  
+    ESTIMADO
+    tamaño codigo = 3440
+    tiempo = 920
+
+
+=======*/
+
+#pnlInicio{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+#pnlInicio h2{
+    font-family: 'Roboto Condensed', sans-serif;
+    color:#323232;
+}
+
+#pnlReservasInicio{
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid #323232;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#infoInicio{
+    display: flex;
+    width: 100%;
+    height: 75%;
+}
+
+#mapaInicio{
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    border-right: .6px solid #323232;
+}
+
+#graficoInicio{
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    border-left: .5px solid #323232;
+}
+
+#grafico, #mapa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 90%;
+    height: 80%;
+    margin: auto;
+    -webkit-box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
+}
+
+#mapa{
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden
+}
+
+#grafico img{
+    width: 100%;
 }
 
 #formR{

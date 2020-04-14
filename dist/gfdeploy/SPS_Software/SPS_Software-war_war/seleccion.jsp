@@ -23,7 +23,6 @@
                 </div>
                 <h2>Seleccione un perfil a continuación:</h2>
                 <section id="seccionPerfil">
-
                     <c:forEach items="${perfil}" var="dato">
                         <div class="cardPerfil">
                             <input type="hidden" value="<c:out value="${((dato[0] == 'USUARIO')?'U-':(dato[0] == 'CLIENTE')?'C-':'A-')}${dato[3]}"/>"/>
@@ -39,14 +38,12 @@
                         </div>
                     </c:forEach>
                 </section>
-
                 <form action="./SeleccionServlet" method="POST">
                     <input type="hidden" id="valorSeleccion" name="id"/>
                     <input id="btnSubmit" type="submit" value="CONTINUAR" disabled="disabled"/>
                 </form>
             </div>
         </main>
-
         <script src="js/seleccionJS.js" type="text/javascript"></script>
     </body>
 </html>

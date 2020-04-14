@@ -20,7 +20,7 @@ public interface ReservaFacadeLocal {
     Reserva find(Object id);
 
     List<Reserva> findAll();
-    
+
     List<Reserva> findAllByUsuario(Usuario persona);
 
     List<Reserva> findRange(int[] range);
@@ -28,6 +28,10 @@ public interface ReservaFacadeLocal {
     int count();
 
     Number findSelector(Cliente idCliente);
-    
+
     Reserva findByUsuario(Usuario persona);
+
+    void getReservasPorHora();
+
+    String graficoReserva(Usuario persona);
 }

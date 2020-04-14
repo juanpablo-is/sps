@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
             sesion.setAttribute("perfil", perfil);
             sesion.setAttribute("persona", persona);
             
-            request.getRequestDispatcher("inicio.jsp").forward(request, response);
+            request.getRequestDispatcher("InicioServlet").forward(request, response);
         }
 
     }

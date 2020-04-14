@@ -24,7 +24,6 @@
             </div>
             <h2 id="textoBienvenida">BIENVENIDO ${persona.nombre}</h2>
         </header>
-
         <main>
             <%@include  file="menu.jsp" %>
             <section id="pnlPrincipal">
@@ -40,17 +39,10 @@
                                     <label for="dia">DIA:</label>
                                     <input type="date" id="dia" name="dia" required/>
                                 </div>
-
                                 <div>
                                     <label for="entrada">HORA ENTRADA:</label>
                                     <input type="time" id="entrada" name="entrada" required/>
                                 </div>
-
-                                <!--<div>-->
-                                <!--<label for="salida">HORA SALIDA:</label>-->
-                                <!--<input type="time" id="salida" name="salida"/>-->
-                                <!--</div>-->
-
                                 <div>
                                     <label for="parqueadero">PARQUEADERO:</label>
                                     <select name="idCliente" id="parqueadero">
@@ -60,7 +52,6 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-
                                 <input type="submit" value="RESERVAR" name="reservar"/>
                             </form>
                         <%--</c:otherwise>--%>
@@ -68,7 +59,6 @@
                 </div>
             </section>
         </main>
-
         <script type="text/javascript" src="js/inicio.js"></script>
     </body>
 </html>

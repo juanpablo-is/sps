@@ -24,10 +24,8 @@
             </div>
             <h2 id="textoBienvenida">BIENVENIDO ${persona.nombre}</h2>
         </header>
-
         <main>
             <%@include  file="menu.jsp" %>
-
             <section id="pnlPrincipal">
                 <c:choose>
                     <c:when test="${reservas == null}">
@@ -62,7 +60,6 @@
                 </c:choose>
             </section>
         </main>
-
         <script type="text/javascript" src="js/inicio.js"></script>
     </body>
 </html>
