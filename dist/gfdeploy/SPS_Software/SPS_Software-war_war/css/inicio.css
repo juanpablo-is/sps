@@ -218,7 +218,7 @@ main{
 
 #pnlReservasInicio{
     width: 100%;
-    height: 25%;
+    height: 20%;
     border-bottom: 1px solid #323232;
     display: flex;
     justify-content: center;
@@ -228,7 +228,7 @@ main{
 #infoInicio{
     display: flex;
     width: 100%;
-    height: 75%;
+    height: 80%;
 }
 
 #mapaInicio{
@@ -236,6 +236,17 @@ main{
     text-align: center;
     width: 100%;
     border-right: .6px solid #323232;
+    display:flex;
+    flex-direction: column;    
+}
+
+#mapaInicio h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    margin: 0;
+    padding: 0;
 }
 
 #graficoInicio{
@@ -249,20 +260,17 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    width: 90%;
-    height: 80%;
-    margin: auto;
+    /*border-radius: 10px;*/
+    width: 100%;
+    height: 100%;
     -webkit-box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px -2px  rgba(0,0,0,0.75);
-}
-
-#mapa{
     background-size: cover;
     background-repeat: no-repeat;
-    overflow: hidden
+    overflow: hidden;
 }
+
 
 #grafico img{
     width: 100%;

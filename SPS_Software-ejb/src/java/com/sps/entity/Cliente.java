@@ -1,6 +1,7 @@
 package com.sps.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -38,6 +39,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.findByFin", query = "SELECT c FROM Cliente c WHERE c.fin = :fin")})
 public class Cliente implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "LATITUD")
+    private BigDecimal latitud;
+    @Column(name = "LONGITUD")
+    private BigDecimal longitud;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRECIO")
@@ -52,7 +59,6 @@ public class Cliente implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "DIRECCION")
     private String direccion;
@@ -171,6 +177,22 @@ public class Cliente implements Serializable {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public BigDecimal getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(BigDecimal latitud) {
+        this.latitud = latitud;
+    }
+
+    public BigDecimal getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(BigDecimal longitud) {
+        this.longitud = longitud;
     }
 
 }

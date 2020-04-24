@@ -2,15 +2,18 @@ package com.sps.entity;
 
 import com.sps.entity.Persona;
 import com.sps.entity.Reserva;
+import java.math.BigDecimal;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-04-07T11:34:26")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-04-23T20:52:52")
 @StaticMetamodel(Cliente.class)
 public class Cliente_ { 
 
+    public static volatile SingularAttribute<Cliente, BigDecimal> latitud;
+    public static volatile SingularAttribute<Cliente, BigDecimal> longitud;
     public static volatile SingularAttribute<Cliente, Double> precio;
     public static volatile SingularAttribute<Cliente, String> direccion;
     public static volatile SingularAttribute<Cliente, String> inicio;

@@ -15,21 +15,34 @@
 </div>
 <section id="pnlSide">
     <div id="contenido">
-        <img src="images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?'usuarioSeleccion':(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png" alt="Logo Perfil"/>
+        <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?'usuarioSeleccion':(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
         <h2>
             <strong>
-                <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA: ' :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>
+                <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'LUGAR':'CEDULA')}: "/>
             </strong>
-            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>
+            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?perfil.direccion:'adminSeleccion')}"/>
         </h2>
     </div>
     <hr>
     <div id="menu">
         <ul>
-            <a href="./InicioServlet" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
-            <a href="./ReservaServlet" id="enlaceReserva"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
-            <a href="./ParqueaderosServlet" id="enlaceParqueadero"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
-            <a href="./HistorialServlet" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+            <c:choose>
+                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                    <a href="./InicioServlet" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                    <a href="./ReservaServlet" id="enlaceReserva"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
+                    <a href="./ParqueaderosServlet" id="enlaceParqueadero"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
+                    <a href="./HistorialServlet" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+                </c:when>    
+                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                    <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                </c:when>  
+                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Administracion'}">
+                    <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                </c:when>  
+                <c:otherwise>
+                    <h2>SE HA PRESENTADO UN ERROR</h2>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
     <a href="./SalirServlet">
@@ -39,3 +52,5 @@
         </div>
     </a>
 </section>
+
+<script src="js/menu.js"></script>

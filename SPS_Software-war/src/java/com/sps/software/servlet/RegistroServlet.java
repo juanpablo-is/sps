@@ -78,7 +78,6 @@ public class RegistroServlet extends HttpServlet {
                 break;
             case "Cliente":
                 //Datos 'CLIENTE'
-                String direccion = request.getParameter("direccion");
                 String cupos = request.getParameter("cupos");
                 String horaEntrada = request.getParameter("horaEntrada");
                 String horaCierre = request.getParameter("horaCierre");
@@ -90,8 +89,8 @@ public class RegistroServlet extends HttpServlet {
                     if (personaFind == null) {
                         sessioBeanPersona.create(persona);
                     }
-                    Cliente cliente = new Cliente(direccion, Integer.parseInt(cupos));
-
+                    Cliente cliente = new Cliente();
+                    cliente.setCupos(Integer.parseInt(cupos));
                     cliente.setInicio(horaEntrada);
                     cliente.setFin(horaCierre);
                     cliente.setIdPersona(persona);

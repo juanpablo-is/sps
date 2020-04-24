@@ -53,18 +53,19 @@ if (textoBoton === '2') {
             divRow.classList.add("row");
 
             var input1 = document.createElement("input");
-            input1.setAttribute("type", "text");
-            input1.setAttribute("placeholder", "DIRECCIÓN");
-            input1.setAttribute("name", "direccion");
-            input1.setAttribute("required", "on");
+            input1.setAttribute("type", "number");
+            input1.setAttribute("min", "0");
+            input1.setAttribute("step", "any");
+            input1.setAttribute("placeholder", "PRECIO POR MINUTO");
+            input1.setAttribute("name", "precio");
 
             var input2 = document.createElement("input");
             input2.setAttribute("type", "number");
             input2.setAttribute("placeholder", "CUPOS");
             input2.setAttribute("name", "cupos");
             input2.setAttribute("required", "on");
-            divRow.appendChild(input1);
             divRow.appendChild(input2);
+            divRow.appendChild(input1);
 
             var divRow2 = document.createElement("div");
             divRow2.classList.add("row");
@@ -78,16 +79,8 @@ if (textoBoton === '2') {
             input4.setAttribute("type", "time");
             input4.setAttribute("placeholder", "HORA CIERRE");
             input4.setAttribute("name", "horaCierre");
-            
-            var input5 = document.createElement("input");
-            input5.setAttribute("type", "number");
-            input5.setAttribute("min", "0");
-            input5.setAttribute("step", "any");
-            input5.setAttribute("placeholder", "PRECIO POR MINUTO");
-            input5.setAttribute("name", "precio");
             divRow2.appendChild(input3);
             divRow2.appendChild(input4);
-            divRow2.appendChild(input5);
 
             divAdd.appendChild(divRow);
             divAdd.appendChild(divRow2);

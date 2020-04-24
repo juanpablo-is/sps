@@ -33,35 +33,25 @@
             <h2 id="textoBienvenida">BIENVENIDO ${persona.nombre}</h2>
         </header>
         <main>
-            <%@include  file="menu.jsp" %>
-            <section id="pnlPrincipal">
-                <div id="pnlInicio">
-                    <div id ="pnlReservasInicio">
-                        <h2>No hay reservas por mostrar</h2>
-                    </div>
-                    <div id="infoInicio">
-                        <div id="mapaInicio">
-                            <h2>MAPA PARQUEADEROS</h2>
-                            <div id="mapa">
-                            </div>
-                        </div>
-                        <div id="graficoInicio">
-                            <h2>USO DE RESERVAS</h2>
-                            <div id="grafico">
-                                <c:choose>
-                                    <c:when test="${grafica.length() > 0}">
-                                        <img src="${grafica}"/>
-                                    </c:when>    
-                                    <c:otherwise>
-                                        <h2>NO HAY DATOS PARA GRAFICAR</h2>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <c:choose>
+                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                    <input id="parqueaderos" type="hidden" value="${parqueaderos}"/>
+                    <%@include  file="inicioUsuario.jsp" %>
+                    <script>
+                        var parqueaderosArray = ${parqueaderos};
+                    </script>
+                    <script type="text/javascript" src="js/inicioUsuario.js"></script>
+                </c:when>    
+                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                    <%@include  file="inicioCliente.jsp" %>
+                </c:when>  
+                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Administracion'}">
+                    <%@include  file="inicioAdministracion.jsp" %>
+                </c:when>  
+                <c:otherwise>
+                    <h2>SE HA PRESENTADO UN ERROR</h2>
+                </c:otherwise>
+            </c:choose>
         </main>
-        <script type="text/javascript" src="js/inicio.js"></script>
     </body>
 </html>

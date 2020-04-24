@@ -1,9 +1,11 @@
 package com.sps.software.servlet;
 
-import com.sps.entity.Usuario;
+import com.sps.entity.*;
+import com.sps.sessionBean.ClienteFacadeLocal;
 import com.sps.sessionBean.ReservaFacadeLocal;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author Juan Pablo
  */
 public class InicioServlet extends HttpServlet {
-
+    
     @EJB
     private ReservaFacadeLocal reservaSession;
+    @EJB
+    private ClienteFacadeLocal clienteSession;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,10 +36,18 @@ public class InicioServlet extends HttpServlet {
             throws ServletException, IOException {
 
 //        reservaSession.getReservasPorHora();
-        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
+//        Object perfil = request.getSession().getAttribute("perfil");
+//        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
+        List<Cliente> clientes = clienteSession.findAll();
+        ArrayList<String> parqueaderos = new ArrayList<>();
         
-        request.setAttribute("grafica", reservaSession.graficoReserva(perfil));
+        clientes.forEach((cliente) -> {
+            parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
+        });
+        
+        request.setAttribute("parqueaderos", parqueaderos);
         request.getRequestDispatcher("inicio.jsp").forward(request, response);
+//        request.setAttribute("grafica", reservaSession.graficoReserva(perfil));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

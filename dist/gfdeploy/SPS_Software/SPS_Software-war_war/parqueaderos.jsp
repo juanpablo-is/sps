@@ -40,6 +40,6 @@
                 </div>
             </section>
         </main>
-        <script type="text/javascript" src="js/inicio.js"></script>
+        <script type="text/javascript" src="js/inicioUsuario.js"></script>
     </body>
 </html>
