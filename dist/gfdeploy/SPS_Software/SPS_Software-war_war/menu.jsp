@@ -35,6 +35,7 @@
                 </c:when>    
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
                     <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                    <a href="./asignar.jsp" id="enlaceAsignar"><li><i class="fas fa-receipt"></i>ASIGNAR</li></a>
                 </c:when>  
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Administracion'}">
                     <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>

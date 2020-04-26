@@ -35,4 +35,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         return list;
     }
 
+    @Override
+    public Usuario findByPlaca(String placa) {
+        Query query = getEntityManager().createNamedQuery("Usuario.findByPlaca");
+        query.setParameter("placa", placa);
+        Usuario usuario = (Usuario) query.getSingleResult();
+        return usuario;
+    }
+
 }

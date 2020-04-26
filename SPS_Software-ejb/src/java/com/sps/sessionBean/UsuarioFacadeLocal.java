@@ -25,6 +25,8 @@ public interface UsuarioFacadeLocal {
     List<Usuario> findRange(int[] range);
 
     List<Usuario> findByCedula(Persona cedula);
+    
+    Usuario findByPlaca(String placa);
 
     int count();
     
