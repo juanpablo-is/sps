@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : Asignar
     Created on : 25/04/2020, 02:58:38 PM
     Author     : andre
@@ -33,7 +33,7 @@
                     <!--<h3>YA TIENE UNA RESERVA</h3>-->
                     <%--</c:when>--%>    
                     <%--<c:otherwise>--%>
-                    <h3>ASIGNAR UN PARQUEADERO DISPONIBLE</h3>
+                    <h3>RESERVAR UN PARQUEADERO DISPONIBLE</h3>
                     <form action="./AsignarServlet" method="POST" id="formReserva">
                         <div>
                             <label for="dia">DIA:</label>

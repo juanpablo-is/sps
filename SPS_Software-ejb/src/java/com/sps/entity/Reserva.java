@@ -35,14 +35,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "RESERVA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
-    , @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
-    , @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia ORDER BY r.id DESC")
-    , @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada")
-    , @NamedQuery(name = "Reserva.findBySalida", query = "SELECT r FROM Reserva r WHERE r.salida = :salida")
-    , @NamedQuery(name = "Reserva.findBySelector", query = "SELECT COUNT(r) FROM Reserva r WHERE r.idCliente =:idCliente")
-    , @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario")
-    , @NamedQuery(name = "Reserva.findByOcupado", query = "SELECT r FROM Reserva r WHERE r.ocupado = :ocupado")})
+    @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r"),
+    @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id"),
+    @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia ORDER BY r.id DESC"),
+    @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada"),
+    @NamedQuery(name = "Reserva.findBySalida", query = "SELECT r FROM Reserva r WHERE r.salida = :salida"),
+    @NamedQuery(name = "Reserva.findBySelector", query = "SELECT COUNT(r) FROM Reserva r WHERE r.idCliente =:idCliente"),
+    @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario"),
+    @NamedQuery(name = "Reserva.findByCliente", query = "SELECT r FROM Reserva r WHERE r.idCliente =:idCliente"),
+    @NamedQuery(name = "Reserva.findByOcupado", query = "SELECT r FROM Reserva r WHERE r.ocupado = :ocupado")})
 
 public class Reserva implements Serializable {
 

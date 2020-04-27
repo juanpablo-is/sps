@@ -108,4 +108,12 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
         return grafico;
     }
 
+    @Override
+    public List<Reserva> findAllByCliente(Cliente cliente) {
+        Query query = getEntityManager().createNamedQuery("Reserva.findByCliente");
+        query.setParameter("idCliente", cliente);
+        List<Reserva> reservas = query.getResultList();
+        return reservas;
+    }
+
 }

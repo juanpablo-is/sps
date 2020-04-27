@@ -337,7 +337,7 @@ h3{
     grid-template-columns: repeat(3, 1fr);
 }
 
-.cardsHistory, .cardParqueaderos{
+.cardsHistory , .cardParqueaderos{
     margin: 10px;
     border-radius: 7px;
     background-color: white;

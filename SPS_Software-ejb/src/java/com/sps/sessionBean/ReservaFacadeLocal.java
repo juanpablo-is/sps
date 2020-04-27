@@ -22,6 +22,8 @@ public interface ReservaFacadeLocal {
     List<Reserva> findAll();
 
     List<Reserva> findAllByUsuario(Usuario persona);
+    
+    List<Reserva> findAllByCliente(Cliente parqueo);
 
     List<Reserva> findRange(int[] range);
 
