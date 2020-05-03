@@ -30,13 +30,13 @@
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
                     <a href="./InicioServlet" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
                     <a href="./ReservaServlet" id="enlaceReserva"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
-                    <a href="./ParqueaderosServlet" id="enlaceParqueadero"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
                     <a href="./HistorialServlet" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+                    <a href="./ParqueaderosServlet" id="enlaceParqueadero"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
                 </c:when>    
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
-                    <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
-                    <a href="./asignar.jsp" id="enlaceAsignar"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
-                    <a href="./HistorialClienteServlet" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+                    <a href="./InicioServlet" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                    <a href="./reservar.jsp" id="enlaceAsignar"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
+                    <a href="./HistorialServlet" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
                 </c:when>  
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Administracion'}">
                     <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>

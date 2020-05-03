@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="css/inicio.css"/>
     </head>
     <body>
-        <input id="namePage" type="hidden" value="3"/>
+        <input id="namePage" type="hidden" value="4"/>
         <header>
             <div id="headerLogo">
                 <img src="images/logo.jpg" alt="Logo"/>

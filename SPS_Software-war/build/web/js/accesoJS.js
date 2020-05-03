@@ -23,6 +23,9 @@ if (textoBoton === '2') {
             var divRow = document.createElement("div");
             divRow.classList.add("row");
 
+            var divRow2 = document.createElement("div");
+            divRow2.classList.add("row");
+            
             var input1 = document.createElement("input");
             input1.setAttribute("type", "text");
             input1.setAttribute("placeholder", "PLACA");
@@ -42,11 +45,27 @@ if (textoBoton === '2') {
             input3.setAttribute("required", "on");
             input3.style.textTransform = 'UPPERCASE';
 
+            var input4 = document.createElement("select");
+            input4.setAttribute("placeholder", "TIPO VEHÍCULO CARRO/MOTO");
+            input4.setAttribute("name", "tipoVehiculo");
+            input4.setAttribute("required", "on");
+
+            let opcion1 = document.createElement("option");
+            opcion1.innerHTML = "CARRO";
+            opcion1.setAttribute("value", "carro");
+
+            let opcion2 = document.createElement("option");
+            opcion2.innerHTML = "MOTO";
+            opcion2.setAttribute("value", "moto");
+
+            input4.appendChild(opcion1);
+            input4.appendChild(opcion2);
             divRow.appendChild(input1);
             divRow.appendChild(input2);
-            divRow.appendChild(input3);
-
+            divRow2.appendChild(input3);
+            divRow2.appendChild(input4);
             divAdd.appendChild(divRow);
+            divAdd.appendChild(divRow2);
 
         } else if (e.target.id === 'cliente') {
             var divRow = document.createElement("div");
@@ -81,9 +100,27 @@ if (textoBoton === '2') {
             input4.setAttribute("name", "horaCierre");
             divRow2.appendChild(input3);
             divRow2.appendChild(input4);
+            
+            var divRow3 = document.createElement("div");
+            divRow3.classList.add("row");
+
+            var input5 = document.createElement("input");
+            input5.setAttribute("type", "number");
+            input5.setAttribute("min", "0");
+            input5.setAttribute("placeholder", "CANTIDAD CARROS");
+            input5.setAttribute("name", "cantidadCarros");
+
+            var input6 = document.createElement("input");
+            input6.setAttribute("type", "number");
+            input6.setAttribute("min", "0");
+            input6.setAttribute("placeholder", "CANTIDAD MOTOS");
+            input6.setAttribute("name", "cantidadMotos");
+            divRow3.appendChild(input5);
+            divRow3.appendChild(input6);
 
             divAdd.appendChild(divRow);
             divAdd.appendChild(divRow2);
+            divAdd.appendChild(divRow3);
         } else if (e.target.id === 'admin') {
         }
     }

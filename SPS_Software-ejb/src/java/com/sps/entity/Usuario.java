@@ -38,6 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByIdPropiedad", query = "SELECT u FROM Usuario u WHERE u.idPropiedad = :idPropiedad")})
 public class Usuario implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "TIPO_VEHICULO")
+    private String tipoVehiculo;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Reserva> reservaCollection;
 
@@ -68,10 +74,11 @@ public class Usuario implements Serializable {
         this.idPropiedad = idPropiedad;
     }
 
-    public Usuario(String idPropiedad, String placa, String marca) {
+    public Usuario(String idPropiedad, String placa, String marca, String tipoVehiculo) {
         this.idPropiedad = idPropiedad;
         this.placa = placa;
         this.marca = marca;
+        this.tipoVehiculo = tipoVehiculo;
     }
 
     public String getPlaca() {
@@ -138,6 +145,14 @@ public class Usuario implements Serializable {
 
     public void setReservaCollection(Collection<Reserva> reservaCollection) {
         this.reservaCollection = reservaCollection;
+    }
+
+    public String getTipoVehiculo() {
+        return tipoVehiculo;
+    }
+
+    public void setTipoVehiculo(String tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
     }
 
 }

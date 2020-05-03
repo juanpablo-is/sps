@@ -39,6 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.findByFin", query = "SELECT c FROM Cliente c WHERE c.fin = :fin")})
 public class Cliente implements Serializable {
 
+    @Column(name = "CARROS")
+    private Integer carros;
+    @Column(name = "MOTOS")
+    private Integer motos;
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "LATITUD")
     private BigDecimal latitud;
@@ -193,6 +198,22 @@ public class Cliente implements Serializable {
 
     public void setLongitud(BigDecimal longitud) {
         this.longitud = longitud;
+    }
+
+    public Integer getCarros() {
+        return carros;
+    }
+
+    public void setCarros(Integer carros) {
+        this.carros = carros;
+    }
+
+    public Integer getMotos() {
+        return motos;
+    }
+
+    public void setMotos(Integer motos) {
+        this.motos = motos;
     }
 
 }
