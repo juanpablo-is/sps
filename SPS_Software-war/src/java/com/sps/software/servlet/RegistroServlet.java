@@ -53,14 +53,14 @@ public class RegistroServlet extends HttpServlet {
                 String placa = request.getParameter("placa").toUpperCase();
                 String marca = request.getParameter("marca");
                 String idPropiedad = request.getParameter("idPropiedad").toUpperCase();
-
+                String tipoVehiculo = request.getParameter("tipoVehiculo").toUpperCase();
                 Usuario usuarioFind = sessionBeanUsuario.find(idPropiedad);
                 if (usuarioFind == null) {
                     if (personaFind == null) {
                         sessioBeanPersona.create(persona);
                     }
 
-                    Usuario usuario = new Usuario(idPropiedad, placa, marca);
+                    Usuario usuario = new Usuario(idPropiedad, placa, marca, tipoVehiculo);
                     usuario.setIdPersona(persona);
                     if (sessionBeanUsuario.create(usuario)) {
                         ingreso = true;
@@ -82,6 +82,8 @@ public class RegistroServlet extends HttpServlet {
                 String horaEntrada = request.getParameter("horaEntrada");
                 String horaCierre = request.getParameter("horaCierre");
                 String precio = request.getParameter("precio");
+                String carros = request.getParameter("cantidadCarros");
+                String motos = request.getParameter("cantidadMotos");
 
 //                Cliente clienteFind = sessionBeanCliente.find(idPropiedad);
                 Cliente clienteFind = null;
@@ -95,6 +97,8 @@ public class RegistroServlet extends HttpServlet {
                     cliente.setFin(horaCierre);
                     cliente.setIdPersona(persona);
                     cliente.setPrecio(Integer.parseInt(precio));
+                    cliente.setCarros(Integer.parseInt(carros));
+                    cliente.setMotos(Integer.parseInt(motos));
 
                     if (sessionBeanCliente.create(cliente)) {
                         ingreso = true;
