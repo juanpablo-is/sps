@@ -119,13 +119,15 @@ img{
     justify-content: space-around;
 }
 
-input:not([type='radio']) {    
+input:not([type='radio'])
+,select{    
     width:100%;
     background-color: #EEEEEE;
     margin: 0px 10px;
     height: 40px;
     border:none;
     padding-left: 10px;
+    outline:none;
 }
 
 input[type="submit"]{

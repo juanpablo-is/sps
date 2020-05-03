@@ -38,13 +38,16 @@ public class HistorialServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
-        Persona persona = (Persona) request.getSession().getAttribute("persona");
+        Object perfilObject = request.getSession().getAttribute("perfil");
 
-        List<Reserva> reservas = reservaSession.findAllByUsuario(perfil);
-        if (!reservas.isEmpty()) {
-            request.setAttribute("reservas", reservas);
-        }
+        if (perfilObject.getClass().getName().equals("com.sps.entity.Usuario")) {
+            Usuario perfil = (Usuario) perfilObject;
+            Persona persona = (Persona) request.getSession().getAttribute("persona");
+
+            List<Reserva> reservas = reservaSession.findAllByUsuario(perfil);
+            if (!reservas.isEmpty()) {
+                request.setAttribute("reservas", reservas);
+            }
 //        ArrayList<Reserva> reservasHistorial = null;
 //
 //        for (Reserva reserva : reservas) {
@@ -72,6 +75,14 @@ public class HistorialServlet extends HttpServlet {
 //            }
 //            reservasHistorial.add(reserva);
 //        }
+        } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
+            Cliente parqueo = (Cliente) request.getSession().getAttribute("perfil");
+
+            List<Reserva> reservas = reservaSession.findAllByCliente(parqueo);
+            if (!reservas.isEmpty()) {
+                request.setAttribute("reservas", reservas);
+            }
+        }
 
         request.getRequestDispatcher("historial.jsp").forward(request, response);
     }

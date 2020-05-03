@@ -330,6 +330,13 @@ h3{
     opacity: .8;
 }
 
+#formReserva input[type="text"]{
+    text-transform: uppercase;
+    margin: 0px 10px;
+    padding-left: 10px;
+    outline: none;
+}
+
 /*============ HISTORIAL ============*/
 #history{
     margin: 15px;

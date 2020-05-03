@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/inicio.css"/>
     </head>
     <body>
-        <input id="namePage" type="hidden" value="4"/>
+        <input id="namePage" type="hidden" value="3"/>
         <header>
             <div id="headerLogo">
                 <img src="images/logo.jpg" alt="Logo"/>
@@ -38,20 +38,46 @@
                             <c:forEach items="${reservas}" var="reserva">
                                 <c:choose>
                                     <c:when test="${reserva.ocupado == true}">
-                                        <div class="cardsHistory ocupado">
-                                            <h2><span>Dia: </span> ${reserva.dia}</h2>
-                                            <h2><span>Entrada: </span> ${reserva.entrada}</h2>
-                                            <h2><span>Ubicación: </span> ${reserva.idCliente.direccion}</h2>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                                                <div class="cardsHistory ocupado">
+                                                    <h2><span>Dia: </span> ${reserva.dia}</h2>
+                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                                    <h2><span>Ubicación: </span> ${reserva.idCliente.direccion}</h2>
+                                                </div>
+                                            </c:when>    
+                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                                                <div class="cardsHistory ocupado">
+                                                    <h2><span>Placa: </span>${reserva.idUsuario.placa}</h2>
+                                                    <h2><span>Estado: </span><c:out value="${(reserva.ocupado) ? 'Ocupado':'Disponible'}"/> </h2>
+                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                                    <h2><span>Plaza: </span> </h2>
+                                                    <h2><span>Cedula: </span>${reserva.idUsuario.idPersona.cedula} </h2>
+                                                </div>
+                                            </c:when>
+                                        </c:choose>
                                     </c:when> 
                                     <c:otherwise>
-                                        <div class="cardsHistory">
-                                            <h2><span>Dia: </span> ${reserva.dia}</h2>
-                                            <h2><span>Entrada: </span> ${reserva.entrada}</h2>
-                                            <h2><span>Ubicación: </span> ${reserva.idCliente.direccion}</h2>
-                                            <h2><span>Salida: </span> ${reserva.salida}</h2>
-                                            <h2><span>Precio: </span> ${reserva.precio}</h2>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                                                <div class="cardsHistory">
+                                                    <h2><span>Dia: </span> ${reserva.dia}</h2>
+                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                                    <h2><span>Ubicación: </span> ${reserva.idCliente.direccion}</h2>
+                                                    <h2><span>Salida: </span> ${reserva.salida}</h2>
+                                                    <h2><span>Precio: </span> ${reserva.precio}</h2>
+                                                </div>
+                                            </c:when>    
+                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                                                <div class="cardsHistory">
+                                                    <h2><span>Dia: </span> ${reserva.dia}</h2>
+                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                                    <h2><span>Salida: </span> ${reserva.salida}</h2>
+                                                    <h2><span>Tiempo transcurrido: </span> ${reserva.salida} </h2>
+                                                    <h2><span>Precio: </span> ${reserva.precio} </h2>
+                                                </div>
+                                            </c:when>
+                                        </c:choose>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>

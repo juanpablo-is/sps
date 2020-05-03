@@ -29,11 +29,13 @@
             <section id="pnlPrincipal">
                 <div id="formR">
                     <%--<c:choose>--%>
-                        <%--<c:when test="${parqueaderos == 3}">--%>
-                            <!--<h3>YA TIENE UNA RESERVA</h3>-->
-                        <%--</c:when>--%>    
-                        <%--<c:otherwise>--%>
-                            <h3>RESERVA TU ESPACIO AHORA</h3>
+                    <%--<c:when test="${parqueaderos == 3}">--%>
+                    <!--<h3>YA TIENE UNA RESERVA</h3>-->
+                    <%--</c:when>--%>    
+                    <%--<c:otherwise>--%>
+                    <h3>RESERVA TU ESPACIO AHORA</h3>
+                    <c:choose>
+                        <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
                             <form action="./ReservaServlet" method="POST" id="formReserva">
                                 <div>
                                     <label for="dia">DIA:</label>
@@ -54,7 +56,33 @@
                                 </div>
                                 <input type="submit" value="RESERVAR" name="reservar"/>
                             </form>
-                        <%--</c:otherwise>--%>
+                        </c:when>  
+                        <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                            <form action="./ReservaServlet" method="POST" id="formReserva">
+                                <div>
+                                    <label for="dia">DIA:</label>
+                                    <input type="date" id="dia" name="dia" required/>
+                                    <input type="hidden" name="cliente" value="${perfil.id}"/>
+                                </div>
+                                <div>
+                                    <label for="hora">HORA:</label>
+                                    <input type="time" id="hora" name="hora" required/>
+                                </div>
+
+                                <div>
+                                    <label for="placa">PLACA:</label>
+                                    <input type="text" id="placa" name="placa" required/>
+                                </div>
+
+                                <input type="submit" value="ASIGNAR" name="reservar"/>
+                            </form>
+                        </c:when>    
+                        <c:otherwise>
+                            <h2>SE HA PRESENTADO UN ERROR</h2>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <%--</c:otherwise>--%>
                     <%--</c:choose>--%>
                 </div>
             </section>
