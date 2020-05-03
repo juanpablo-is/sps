@@ -26,6 +26,8 @@ public class ReservaServlet extends HttpServlet {
     private ReservaFacadeLocal reservaSession;
     @EJB
     private ClienteFacadeLocal clienteSession;
+    @EJB
+    private UsuarioFacadeLocal usuarioSession;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,59 +42,62 @@ public class ReservaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String opcion = request.getParameter("reservar");
-        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
+        Object perfilObject = request.getSession().getAttribute("perfil");
 
-        if (opcion == null) {
+        if (perfilObject.getClass().getName().equals("com.sps.entity.Usuario")) {
+            Usuario perfil = (Usuario) perfilObject;
 
+            if (opcion == null) {
 //            Reserva reservaPersona = reservaSession.findByUsuario(perfil);
 //            if (reservaPersona == null) {
-            List<Cliente> clientesSelector = clienteSession.findAll();
-            ArrayList<Cliente> clientes = new ArrayList<>();
+                List<Cliente> clientesSelector = clienteSession.findAll();
+                ArrayList<Cliente> clientes = new ArrayList<>();
 
-            for (int i = 0; i < clientesSelector.size(); i++) {
-                Cliente cliente = clientesSelector.get(i);
-                Number count = reservaSession.findSelector(cliente);
-                cliente.setCupos(cliente.getCupos() - count.intValue());
-                clientes.add(cliente);
-            }
+                for (int i = 0; i < clientesSelector.size(); i++) {
+                    Cliente cliente = clientesSelector.get(i);
+                    Number count = reservaSession.findSelector(cliente);
+                    cliente.setCupos(cliente.getCupos() - count.intValue());
+                    clientes.add(cliente);
+                }
 
-            request.setAttribute("parqueaderos", clientes);
+                request.setAttribute("parqueaderos", clientes);
 //            }
-            request.getRequestDispatcher("reservar.jsp").forward(request, response);
-        } else if (opcion.equalsIgnoreCase("reservar")) {
+                request.getRequestDispatcher("reservar.jsp").forward(request, response);
+            } else if (opcion.equalsIgnoreCase("reservar")) {
+                String dia = request.getParameter("dia");
+
+                String entrada = request.getParameter("entrada");
+                String clienteID = request.getParameter("idCliente");
+
+                Cliente cliente = clienteSession.findByID(Integer.parseInt(clienteID));
+
+                Reserva reservaRegistrar = new Reserva(dia, entrada, null, perfil, cliente, true);
+
+                if (reservaSession.create(reservaRegistrar)) {
+                    System.out.println("CREADO RESERVA");
+                } else {
+                    System.out.println("RESERVA NO CREADA");
+                }
+                request.getRequestDispatcher("InicioServlet").forward(request, response);
+            }
+        } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
             String dia = request.getParameter("dia");
+            String placa = request.getParameter("placa").toUpperCase();
+            String hora = request.getParameter("hora");
+            String idCliente = request.getParameter("cliente");
 
-            String entrada = request.getParameter("entrada");
-            String clienteID = request.getParameter("idCliente");
+            Cliente cliente = clienteSession.findByID(Integer.parseInt(idCliente));
+            Usuario perfil = usuarioSession.findByPlaca(placa);
 
-            Cliente cliente = clienteSession.findByID(Integer.parseInt(clienteID));
-
-            Reserva reservaRegistrar = new Reserva(dia, entrada, null, perfil, cliente, true);
+            Reserva reservaRegistrar = new Reserva(dia, hora, null, perfil, cliente, true);
 
             if (reservaSession.create(reservaRegistrar)) {
                 System.out.println("CREADO RESERVA");
             } else {
                 System.out.println("RESERVA NO CREADA");
             }
-            request.getRequestDispatcher("reservar.jsp").forward(request, response);
-
+            request.getRequestDispatcher("asignar.jsp").forward(request, response);
         }
-
-//        HttpSession sesion = request.getSession();
-//        Persona persona = (Persona) sesion.getAttribute("persona");
-//        Usuario usuario = (Usuario) sesion.getAttribute("perfil");
-//try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet ReservaServlet</title>");
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Servlet ReservaServlet at " + request.getContextPath() + "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
