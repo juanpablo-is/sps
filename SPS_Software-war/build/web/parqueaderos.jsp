@@ -15,6 +15,12 @@
         <link rel="stylesheet" href="css/inicio.css"/>
     </head>
     <body>
+        <input type="hidden" id="inputPerfil" value="${perfil}"/>
+        <script>
+            if (document.getElementById("inputPerfil").value === '') {
+                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+            }
+        </script>
         <input id="namePage" type="hidden" value="4"/>
         <header>
             <div id="headerLogo">
@@ -30,7 +36,7 @@
                     <c:forEach items="${parqueaderos}" var="parqueadero" varStatus="loop">
                         <div class="cardParqueaderos">
                             <div class="cardParqueaderoInterno">
-                                <img src="images/imagen_parking_<c:out value="<%= (int)(Math.random() * 5 + 1)%>"/>.jpg"/>
+                                <img src="images/imagen_parking_<c:out value="<%= (int) (Math.random() * 5 + 1)%>"/>.jpg"/>
                                 <h3><span>Ubicación: </span>${parqueadero.direccion}</h3>
                                 <h3><span>Cupos: </span>${parqueadero.cupos}</h3>
                                 <h3><span>Precio/min :</span>${parqueadero.precio}</h3>

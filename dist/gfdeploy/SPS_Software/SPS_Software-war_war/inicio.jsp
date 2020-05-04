@@ -24,6 +24,12 @@
         <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
     </head>
     <body>
+        <input type="hidden" id="inputPerfil" value="${perfil}"/>
+        <script>
+            if (document.getElementById("inputPerfil").value === '') {
+                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+            }
+        </script>
         <input id="namePage" type="hidden" value="1"/>
         <header>
             <div id="headerLogo">

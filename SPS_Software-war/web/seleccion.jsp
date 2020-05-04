@@ -15,6 +15,12 @@
         <title>Selección Acceso</title>
     </head>
     <body>
+        <input type="hidden" id="inputPerfil" value="${persona}"/>
+        <script>
+            if (document.getElementById("inputPerfil").value === '') {
+                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+            }
+        </script>
         <main>
             <div class="contenedor">
                 <div id="img">
@@ -23,17 +29,21 @@
                 </div>
                 <h2>Seleccione un perfil a continuación:</h2>
                 <section id="seccionPerfil">
-                    <c:forEach items="${perfil}" var="dato">
+                    <c:forEach items="${perfiles}" var="perfil">
                         <div class="cardPerfil">
-                            <input type="hidden" value="<c:out value="${((dato[0] == 'USUARIO')?'U-':(dato[0] == 'CLIENTE')?'C-':'A-')}${dato[3]}"/>"/>
+                            <input type="hidden" value="<c:out value="${((perfil.getClass().name == 'com.sps.entity.Usuario')?'U-'+=perfil.idPropiedad:(perfil.getClass().name eq 'com.sps.entity.Cliente')?'C-'+=perfil.id:'A-')}"/>"/>
 
                             <div id="topCard">
-                                <img src="images/<c:out value="${((dato[0] == 'USUARIO')?'usuarioSeleccion':(dato[0] == 'CLIENTE')?'clienteSeleccion':'adminSeleccion')}"/>.png" alt="Logo Perfil"/>
-                                <h3>${dato[0]}</h3>
+                                <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'CARRO'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
+                                <h3>
+                                    ${((perfil.class.name == 'com.sps.entity.Usuario')? 'USUARIO' :(perfil.class.name == 'com.sps.entity.Cliente')?'CLIENTE':'ADMINISTRACIÓN')}
+                                </h3>
                             </div>
                             <hr>
                             <div id="textoCard">
-                                <p><strong>${dato[1]}: </strong>${dato[2]}</p>
+                                <p><strong>${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'DIRECCIÓN':'ADMINISTRACIÓN')}: 
+                                    </strong>${((perfil.class.name == 'com.sps.entity.Usuario')? perfil.placa :(perfil.class.name == 'com.sps.entity.Cliente')?perfil.direccion:'ADMINISTRACIÓN')}
+                                </p>
                             </div>
                         </div>
                     </c:forEach>

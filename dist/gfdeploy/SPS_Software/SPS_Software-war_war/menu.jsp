@@ -15,7 +15,7 @@
 </div>
 <section id="pnlSide">
     <div id="contenido">
-        <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?'usuarioSeleccion':(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
+        <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'CARRO'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
         <h2>
             <strong>
                 <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'LUGAR':'CEDULA')}: "/>

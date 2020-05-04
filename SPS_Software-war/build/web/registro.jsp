@@ -31,7 +31,7 @@
                                 <input type="password" class="" placeholder="CONTRASEÑA" name="password" minlength="8" required />
                             </div>
                             <div class="row">
-                                <input type="text" class="" placeholder="NOMBRE" name="name" required value="${persona.nombre}"/>
+                                <input type="text" style="text-transform: capitalize" class="" placeholder="NOMBRE" name="name" required value="${persona.nombre}"/>
                             </div>
                             <div class="row">
                                 <input type="number" class="" placeholder="CEDULA" name="idPerson" required value="${persona.cedula}"/>

@@ -15,6 +15,12 @@
         <title>Smart Parking System</title>
     </head>
     <body>
+        <input type="hidden" id="inputPerfil" value="${perfil}"/>
+        <script>
+            if (document.getElementById("inputPerfil").value !== '') {
+                window.open("http://localhost:8080/SPS_Software-war/InicioServlet", "_self");
+            }
+        </script>
         <main>
             <section id="pnlJoin">
                 <div id="contentJoin">
@@ -36,14 +42,14 @@
                             <h3 class="underline">¿Olvido Contraseña?</h3>
                         </div>
                     </div>
-                    <div id="signWith">
-                        <h3>Iniciar Sesión Con</h3>
-                        <ul>
-                            <li class="btn btnGoogle">GOOGLE</li>
-                            <li class="btn btnTwitter">TWITTER</li>
-                            <li class="btn btnFacebook">FACEBOOK</li>
-                        </ul>
-                    </div>
+                    <!--                    <div id="signWith">
+                                            <h3>Iniciar Sesión Con</h3>
+                                            <ul>
+                                                <li class="btn btnGoogle">GOOGLE</li>
+                                                <li class="btn btnTwitter">TWITTER</li>
+                                                <li class="btn btnFacebook">FACEBOOK</li>
+                                            </ul>
+                                        </div>-->
                     <div id="insideRegister">
                         <h2>¿No tiene cuenta?</h2>
                         <h3 class="underline btnOtraPagina" data-tipo="1">REGISTRAR</h3>
