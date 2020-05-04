@@ -39,43 +39,49 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        Persona persona = sessioBeanPersona.findLogin(email, password);
+        if (email != null || password != null) {
 
-        List<Usuario> usuarios = sessionBeanUsuario.findByCedula(persona);
-        List<Cliente> clientes = sessionBeanCliente.findByCedula(persona);
+            HttpSession sesion = request.getSession(true);
+            Persona persona = sessioBeanPersona.findLogin(email, password);
 
-        ArrayList<String[]> mapPerfiles = new ArrayList<>();
+            if (persona != null) {
+                List<Usuario> usuarios = sessionBeanUsuario.findByCedula(persona);
+                List<Cliente> clientes = sessionBeanCliente.findByCedula(persona);
 
-        int total = usuarios.size() + clientes.size();
-        if (total > 1) {
+                ArrayList<Object> mapPerfiles = new ArrayList<>();
 
-            for (Usuario usuario : usuarios) {
-                String dato[] = {"USUARIO", "PLACA", usuario.getPlaca(), usuario.getIdPropiedad()};
-                mapPerfiles.add(dato);
+                int total = usuarios.size() + clientes.size();
+                if (total > 1) {
+
+                    for (Usuario usuario : usuarios) {
+                        mapPerfiles.add(usuario);
+                    }
+
+                    for (Cliente cliente : clientes) {
+                        mapPerfiles.add(cliente);
+                    }
+
+                    sesion.setAttribute("persona", persona);
+                    request.setAttribute("perfiles", mapPerfiles);
+                    request.getRequestDispatcher("seleccion.jsp").forward(request, response);
+                } else {
+
+                    Object perfil = null;
+
+                    if (usuarios.isEmpty()) {
+                        perfil = clientes.get(0);
+                    } else if (clientes.isEmpty()) {
+                        perfil = usuarios.get(0);
+                    }
+
+                    sesion.setAttribute("perfil", perfil);
+
+                    response.sendRedirect("InicioServlet");
+//            request.getRequestDispatcher("InicioServlet").forward(request, response);
+                }
             }
-
-            for (Cliente cliente : clientes) {
-                String dato[] = {"CLIENTE", "DIRECCIÓN", cliente.getDireccion(), String.valueOf(cliente.getId())};
-                mapPerfiles.add(dato);
-            }
-
-            request.setAttribute("perfil", mapPerfiles);
-            request.getRequestDispatcher("seleccion.jsp").forward(request, response);
         } else {
-
-            Object perfil = null;
-
-            if (usuarios.isEmpty()) {
-                perfil = clientes.get(0);
-            } else if (clientes.isEmpty()) {
-                perfil = usuarios.get(0);
-            }
-            
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("perfil", perfil);
-            sesion.setAttribute("persona", persona);
-            
-            request.getRequestDispatcher("InicioServlet").forward(request, response);
+            response.sendRedirect("index.jsp");
         }
 
     }

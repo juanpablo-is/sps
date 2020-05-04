@@ -40,14 +40,15 @@ public class HistorialServlet extends HttpServlet {
 
         Object perfilObject = request.getSession().getAttribute("perfil");
 
-        if (perfilObject.getClass().getName().equals("com.sps.entity.Usuario")) {
-            Usuario perfil = (Usuario) perfilObject;
-            Persona persona = (Persona) request.getSession().getAttribute("persona");
+        if (perfilObject != null) {
+            if (perfilObject.getClass().getName().equals("com.sps.entity.Usuario")) {
+                Usuario perfil = (Usuario) perfilObject;
+                Persona persona = (Persona) request.getSession().getAttribute("persona");
 
-            List<Reserva> reservas = reservaSession.findAllByUsuario(perfil);
-            if (!reservas.isEmpty()) {
-                request.setAttribute("reservas", reservas);
-            }
+                List<Reserva> reservas = reservaSession.findAllByUsuario(perfil);
+                if (!reservas.isEmpty()) {
+                    request.setAttribute("reservas", reservas);
+                }
 //        ArrayList<Reserva> reservasHistorial = null;
 //
 //        for (Reserva reserva : reservas) {
@@ -75,16 +76,18 @@ public class HistorialServlet extends HttpServlet {
 //            }
 //            reservasHistorial.add(reserva);
 //        }
-        } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
-            Cliente parqueo = (Cliente) request.getSession().getAttribute("perfil");
+            } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
+                Cliente parqueo = (Cliente) request.getSession().getAttribute("perfil");
 
-            List<Reserva> reservas = reservaSession.findAllByCliente(parqueo);
-            if (!reservas.isEmpty()) {
-                request.setAttribute("reservas", reservas);
+                List<Reserva> reservas = reservaSession.findAllByCliente(parqueo);
+                if (!reservas.isEmpty()) {
+                    request.setAttribute("reservas", reservas);
+                }
             }
+            request.getRequestDispatcher("historial.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("index.jsp");
         }
-
-        request.getRequestDispatcher("historial.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

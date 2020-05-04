@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono")})
 public class Persona implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    private Collection<Movilidad> movilidadCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -157,6 +160,15 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "{cedula:'" + cedula + "', nombre:'" + nombre + "', contrasenia:'" + contrasenia + "', correo:'" + correo + "', telefono:'" + telefono + "'}";
+    }
+
+    @XmlTransient
+    public Collection<Movilidad> getMovilidadCollection() {
+        return movilidadCollection;
+    }
+
+    public void setMovilidadCollection(Collection<Movilidad> movilidadCollection) {
+        this.movilidadCollection = movilidadCollection;
     }
 
 }

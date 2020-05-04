@@ -42,28 +42,33 @@ public class SeleccionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Object perfilObject = request.getSession().getAttribute("persona");
+        System.out.println("PERSONA: "+perfilObject);
+        
         String id = request.getParameter("id");
-        String campos[] = id.split("-");
-        id = campos[1];
-        Persona persona = null;
-        Object perfil = null;
+        if (id != null) {
+            String campos[] = id.split("-");
+            id = campos[1];
+            Object perfil = null;
 
-        if (campos[0].equals("U")) {
-            Usuario usuario = sessionBeanUsuario.find(id);
-            persona = usuario.getIdPersona();
-            perfil = usuario;
-        } else if (campos[0].equals("C")) {
-            Cliente cliente = sessionBeanCliente.find(Integer.parseInt(id));
-            persona = cliente.getIdPersona();
-            perfil = cliente;
+            if (campos[0].equals("U")) {
+                Usuario usuario = sessionBeanUsuario.find(id);
+                perfil = usuario;
+            } else if (campos[0].equals("C")) {
+                Cliente cliente = sessionBeanCliente.find(Integer.parseInt(id));
+                perfil = cliente;
+            }
+
+            HttpSession sesion = request.getSession(true);
+            sesion.setAttribute("perfil", perfil);
+
+            response.sendRedirect("InicioServlet");
+//        request.getRequestDispatcher("InicioServlet").include(request, response);
+        } else if (perfilObject != null) {
+            response.sendRedirect("InicioServlet");
+        } else {
+            response.sendRedirect("index.jsp");
         }
-
-        HttpSession sesion = request.getSession();
-        sesion.setAttribute("perfil", perfil);
-        sesion.setAttribute("persona", persona);
-
-        request.getRequestDispatcher("InicioServlet").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

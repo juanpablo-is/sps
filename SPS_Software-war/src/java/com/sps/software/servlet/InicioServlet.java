@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Juan Pablo
  */
 public class InicioServlet extends HttpServlet {
-    
+
     @EJB
     private ReservaFacadeLocal reservaSession;
     @EJB
@@ -35,19 +35,25 @@ public class InicioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Object perfilObject = request.getSession().getAttribute("perfil");
+
+        if (perfilObject != null) {
 //        reservaSession.getReservasPorHora();
 //        Object perfil = request.getSession().getAttribute("perfil");
 //        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
-        List<Cliente> clientes = clienteSession.findAll();
-        ArrayList<String> parqueaderos = new ArrayList<>();
-        
-        clientes.forEach((cliente) -> {
-            parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
-        });
-        
-        request.setAttribute("parqueaderos", parqueaderos);
-        request.getRequestDispatcher("inicio.jsp").forward(request, response);
+            List<Cliente> clientes = clienteSession.findAll();
+            ArrayList<String> parqueaderos = new ArrayList<>();
+
+            clientes.forEach((cliente) -> {
+                parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
+            });
+
+            request.setAttribute("parqueaderos", parqueaderos);
+            request.getRequestDispatcher("inicio.jsp").forward(request, response);
 //        request.setAttribute("grafica", reservaSession.graficoReserva(perfil));
+        } else {
+            response.sendRedirect("index.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

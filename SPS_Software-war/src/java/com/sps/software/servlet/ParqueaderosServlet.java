@@ -38,18 +38,24 @@ public class ParqueaderosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Cliente> clientesSelector = clienteSession.findAll();
-        ArrayList<Cliente> clientes = new ArrayList<>();
+        Object perfilObject = request.getSession().getAttribute("perfil");
 
-        for (int i = 0; i < clientesSelector.size(); i++) {
-            Cliente cliente = clientesSelector.get(i);
-            Number count = reservaSession.findSelector(cliente);
-            cliente.setCupos(cliente.getCupos() - count.intValue());
-            clientes.add(cliente);
+        if (perfilObject != null) {
+            List<Cliente> clientesSelector = clienteSession.findAll();
+            ArrayList<Cliente> clientes = new ArrayList<>();
+
+            for (int i = 0; i < clientesSelector.size(); i++) {
+                Cliente cliente = clientesSelector.get(i);
+                Number count = reservaSession.findSelector(cliente);
+                cliente.setCupos(cliente.getCupos() - count.intValue());
+                clientes.add(cliente);
+            }
+
+            request.setAttribute("parqueaderos", clientes);
+            request.getRequestDispatcher("parqueaderos.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("index.jsp");
         }
-
-        request.setAttribute("parqueaderos", clientes);
-        request.getRequestDispatcher("parqueaderos.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

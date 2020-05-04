@@ -25,7 +25,7 @@ if (textoBoton === '2') {
 
             var divRow2 = document.createElement("div");
             divRow2.classList.add("row");
-            
+
             var input1 = document.createElement("input");
             input1.setAttribute("type", "text");
             input1.setAttribute("placeholder", "PLACA");
@@ -37,6 +37,7 @@ if (textoBoton === '2') {
             input2.setAttribute("type", "text");
             input2.setAttribute("placeholder", "MARCA");
             input2.setAttribute("name", "marca");
+            input2.style.textTransform = 'CAPITALIZE';
 
             var input3 = document.createElement("input");
             input3.setAttribute("type", "text");
@@ -100,7 +101,7 @@ if (textoBoton === '2') {
             input4.setAttribute("name", "horaCierre");
             divRow2.appendChild(input3);
             divRow2.appendChild(input4);
-            
+
             var divRow3 = document.createElement("div");
             divRow3.classList.add("row");
 
@@ -122,6 +123,61 @@ if (textoBoton === '2') {
             divAdd.appendChild(divRow2);
             divAdd.appendChild(divRow3);
         } else if (e.target.id === 'admin') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let array = this.responseText.split("\n");
+                    array.pop();
+
+                    var divRow = document.createElement("div");
+                    divRow.classList.add("row");
+                    divRow.id = "rowEmpresa";
+
+                    var input1 = document.createElement("select");
+                    input1.id = "selectEmpresa";
+                    input1.setAttribute("name", "empresa");
+                    input1.setAttribute("required", "on");
+
+                    let opcion1 = document.createElement("option");
+                    opcion1.innerHTML = "Seleccione una empresa";
+                    opcion1.setAttribute("selected", true);
+                    opcion1.setAttribute("disabled", "disabled");
+                    input1.appendChild(opcion1);
+
+                    for (let i = 0; i < array.length; i++) {
+                        let opcion1 = document.createElement("option");
+                        opcion1.innerHTML = array[i];
+                        opcion1.setAttribute("value", array[i]);
+                        input1.appendChild(opcion1);
+                    }
+
+                    let opcion2 = document.createElement("option");
+                    opcion2.innerHTML = "Agregar una nueva";
+                    opcion2.setAttribute("value", "nueva");
+                    input1.appendChild(opcion2);
+
+                    divRow.appendChild(input1);
+                    divAdd.appendChild(divRow);
+
+                    input1.addEventListener('change', function (e) {
+                        let empresa = document.getElementById("rowEmpresa");
+                        if (e.target.value === "nueva") {
+                            var inputEmpresa = document.createElement("input");
+                            inputEmpresa.setAttribute("type", "text");
+                            inputEmpresa.setAttribute("placeholder", "Nombre de la empresa");
+                            inputEmpresa.setAttribute("name", "empresa");
+                            inputEmpresa.setAttribute("required", "on");
+                            inputEmpresa.style.textTransform = 'CAPITALIZE';
+
+                            empresa.appendChild(inputEmpresa);
+                        } else if (empresa.childElementCount > 1) {
+                            empresa.removeChild(empresa.lastElementChild);
+                        }
+                    }, true);
+                }
+            };
+            xhttp.open("GET", "EmpresasMovilidadServlet", true);
+            xhttp.send();
         }
     }
 }
