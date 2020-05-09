@@ -163,9 +163,8 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "precio=" + precio + ", reservaCollection=" + reservaCollection + ", id=" + id + ", direccion=" + direccion + ", cupos=" + cupos + ", inicio=" + inicio + ", fin=" + fin + ", idPersona=" + idPersona + '}';
+        return "{\"id\":" + id + ", \"direccion\":\"" + direccion + "\", \"perfil\":\"cliente\"}";
     }
-
 
     @XmlTransient
     public Collection<Reserva> getReservaCollection() {

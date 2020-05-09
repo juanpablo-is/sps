@@ -135,7 +135,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "{perfil:'usuario', " + "placa:'" + placa + "', marca:'" + marca + "', idPropiedad:'" + idPropiedad + "'}";
+        return "{\"id\":\"" + placa + "\", \"marca\":\"" + marca + "\", \"perfil\":\"usuario\"}";
     }
 
     @XmlTransient
