@@ -1,15 +1,8 @@
 package com.sps.software.servlet;
 
-import com.sps.entity.Cliente;
-import com.sps.entity.Persona;
-import com.sps.entity.Usuario;
-import com.sps.sessionBean.ClienteFacadeLocal;
-import com.sps.sessionBean.PersonaFacadeLocal;
-import com.sps.sessionBean.UsuarioFacadeLocal;
+import com.sps.entity.*;
+import com.sps.sessionBean.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +22,8 @@ public class SeleccionServlet extends HttpServlet {
     private UsuarioFacadeLocal sessionBeanUsuario;
     @EJB
     private ClienteFacadeLocal sessionBeanCliente;
+    @EJB
+    private MovilidadFacadeLocal sessionBeanMovilidad;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,9 +38,8 @@ public class SeleccionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Object perfilObject = request.getSession().getAttribute("persona");
-        System.out.println("PERSONA: "+perfilObject);
-        
         String id = request.getParameter("id");
+        
         if (id != null) {
             String campos[] = id.split("-");
             id = campos[1];
@@ -57,6 +51,9 @@ public class SeleccionServlet extends HttpServlet {
             } else if (campos[0].equals("C")) {
                 Cliente cliente = sessionBeanCliente.find(Integer.parseInt(id));
                 perfil = cliente;
+            } else if (campos[0].equals("A")) {
+                Movilidad movilidad = sessionBeanMovilidad.find(id);
+                perfil = movilidad;
             }
 
             HttpSession sesion = request.getSession(true);

@@ -1,11 +1,16 @@
 package com.sps.sessionBean;
 
+import com.sps.entity.Cliente;
 import com.sps.entity.Movilidad;
+import com.sps.entity.Persona;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -32,5 +37,23 @@ public class MovilidadFacade extends AbstractFacade<Movilidad> implements Movili
         List<String> list = query.getResultList();
         return list;
     }
-    
+
+    @Override
+    public Movilidad findByCedula(String cedula) {
+        Query query = getEntityManager().createNamedQuery("Movilidad.findById");
+        query.setParameter("id", cedula);
+        return (Movilidad) query.getSingleResult();
+    }
+
+    @Override
+    public Movilidad findByPersona(Persona cedula) {
+        try {
+            Query query = getEntityManager().createNamedQuery("Movilidad.findByPersona");
+            query.setParameter("idPersona", cedula);
+            return (Movilidad) query.getSingleResult();
+
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

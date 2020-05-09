@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.entity;
 
 import java.io.Serializable;
@@ -29,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Movilidad.findAll", query = "SELECT m FROM Movilidad m")
     , @NamedQuery(name = "Movilidad.findById", query = "SELECT m FROM Movilidad m WHERE m.id = :id")
+    , @NamedQuery(name = "Movilidad.findByPersona", query = "SELECT m FROM Movilidad m WHERE m.idPersona = :idPersona")
     , @NamedQuery(name = "Movilidad.findByEmpresa", query = "SELECT m FROM Movilidad m WHERE m.empresa = :empresa")
     , @NamedQuery(name = "Movilidad.findByEmpresaGroup", query = "SELECT m.empresa FROM Movilidad m GROUP BY m.empresa")})
 public class Movilidad implements Serializable {
@@ -107,7 +103,7 @@ public class Movilidad implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sps.entity.Movilidad[ id=" + id + " ]";
+        return "{\"id\":\"" + id + "\", \"empresa\":\"" + empresa + "\", \"perfil\":\"movilidad\"}";
     }
-
+    
 }

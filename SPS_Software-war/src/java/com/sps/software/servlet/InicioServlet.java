@@ -41,14 +41,22 @@ public class InicioServlet extends HttpServlet {
 //        reservaSession.getReservasPorHora();
 //        Object perfil = request.getSession().getAttribute("perfil");
 //        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
-            List<Cliente> clientes = clienteSession.findAll();
-            ArrayList<String> parqueaderos = new ArrayList<>();
 
-            clientes.forEach((cliente) -> {
-                parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
-            });
+            if (perfilObject instanceof Usuario) {
+                List<Cliente> clientes = clienteSession.findAll();
+                ArrayList<String> parqueaderos = new ArrayList<>();
 
-            request.setAttribute("parqueaderos", parqueaderos);
+                clientes.forEach((cliente) -> {
+                    parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
+                });
+
+                request.setAttribute("parqueaderos", parqueaderos);
+            } else if (perfilObject instanceof Cliente) {
+
+            } else if (perfilObject instanceof Movilidad) {
+
+            }
+
             request.getRequestDispatcher("inicio.jsp").forward(request, response);
 //        request.setAttribute("grafica", reservaSession.graficoReserva(perfil));
         } else {
@@ -56,7 +64,7 @@ public class InicioServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -20,6 +20,7 @@
             if (document.getElementById("inputPerfil").value === '') {
                 window.open("http://localhost:8080/SPS_Software-war/", "_self");
             }
+            document.getElementById("inputPerfil").remove();
         </script>
         <main>
             <div class="contenedor">
@@ -31,18 +32,18 @@
                 <section id="seccionPerfil">
                     <c:forEach items="${perfiles}" var="perfil">
                         <div class="cardPerfil">
-                            <input type="hidden" value="<c:out value="${((perfil.getClass().name == 'com.sps.entity.Usuario')?'U-'+=perfil.idPropiedad:(perfil.getClass().name eq 'com.sps.entity.Cliente')?'C-'+=perfil.id:'A-')}"/>"/>
+                            <input type="hidden" value="<c:out value="${((perfil.getClass().name == 'com.sps.entity.Usuario')?'U-'+=perfil.idPropiedad:(perfil.getClass().name eq 'com.sps.entity.Cliente')?'C-'+=perfil.id:'A-'+=perfil.id)}"/>"/>
 
                             <div id="topCard">
                                 <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'CARRO'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
                                 <h3>
-                                    ${((perfil.class.name == 'com.sps.entity.Usuario')? 'USUARIO' :(perfil.class.name == 'com.sps.entity.Cliente')?'CLIENTE':'ADMINISTRACIÓN')}
+                                    ${((perfil.class.name == 'com.sps.entity.Usuario')? 'USUARIO' :(perfil.class.name == 'com.sps.entity.Cliente')?'CLIENTE':'MOVILIDAD')}
                                 </h3>
                             </div>
                             <hr>
                             <div id="textoCard">
-                                <p><strong>${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'DIRECCIÓN':'ADMINISTRACIÓN')}: 
-                                    </strong>${((perfil.class.name == 'com.sps.entity.Usuario')? perfil.placa :(perfil.class.name == 'com.sps.entity.Cliente')?perfil.direccion:'ADMINISTRACIÓN')}
+                                <p><strong>${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'DIRECCIÓN':'LUGAR')}: 
+                                    </strong>${((perfil.class.name == 'com.sps.entity.Usuario')? perfil.placa :(perfil.class.name == 'com.sps.entity.Cliente')?perfil.direccion:perfil.empresa)}
                                 </p>
                             </div>
                         </div>

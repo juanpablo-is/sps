@@ -1,6 +1,7 @@
 package com.sps.sessionBean;
 
 import com.sps.entity.Movilidad;
+import com.sps.entity.Persona;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -24,6 +25,11 @@ public interface MovilidadFacadeLocal {
     List<Movilidad> findRange(int[] range);
 
     int count();
-    
-    List<String> findByEmpresa();    
+
+    List<String> findByEmpresa();
+
+    Movilidad findByCedula(String cedula);
+
+    Movilidad findByPersona(Persona cedula);
+
 }

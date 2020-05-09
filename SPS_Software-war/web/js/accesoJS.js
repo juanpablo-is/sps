@@ -176,7 +176,7 @@ if (textoBoton === '2') {
                     }, true);
                 }
             };
-            xhttp.open("GET", "EmpresasMovilidadServlet", true);
+            xhttp.open("GET", "AJAXEmpresasMovilidad", true);
             xhttp.send();
         }
     }

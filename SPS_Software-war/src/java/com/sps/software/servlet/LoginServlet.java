@@ -1,9 +1,7 @@
 package com.sps.software.servlet;
 
 import com.sps.entity.*;
-import com.sps.sessionBean.ClienteFacadeLocal;
-import com.sps.sessionBean.PersonaFacadeLocal;
-import com.sps.sessionBean.UsuarioFacadeLocal;
+import com.sps.sessionBean.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +21,8 @@ public class LoginServlet extends HttpServlet {
     private UsuarioFacadeLocal sessionBeanUsuario;
     @EJB
     private ClienteFacadeLocal sessionBeanCliente;
+    @EJB
+    private MovilidadFacadeLocal sessionBeanMovilidad;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,11 +47,13 @@ public class LoginServlet extends HttpServlet {
             if (persona != null) {
                 List<Usuario> usuarios = sessionBeanUsuario.findByCedula(persona);
                 List<Cliente> clientes = sessionBeanCliente.findByCedula(persona);
+                Movilidad movilidad = sessionBeanMovilidad.findByPersona(persona);
 
-                ArrayList<Object> mapPerfiles = new ArrayList<>();
+                sesion.setAttribute("persona", persona);
 
-                int total = usuarios.size() + clientes.size();
+                int total = usuarios.size() + clientes.size() + (movilidad != null ? 1 : 0);
                 if (total > 1) {
+                    ArrayList<Object> mapPerfiles = new ArrayList<>();
 
                     for (Usuario usuario : usuarios) {
                         mapPerfiles.add(usuario);
@@ -61,17 +63,22 @@ public class LoginServlet extends HttpServlet {
                         mapPerfiles.add(cliente);
                     }
 
-                    sesion.setAttribute("persona", persona);
-                    request.setAttribute("perfiles", mapPerfiles);
+                    if (movilidad != null) {
+                        mapPerfiles.add(movilidad);
+                    }
+
+                    sesion.setAttribute("perfiles", mapPerfiles);
                     request.getRequestDispatcher("seleccion.jsp").forward(request, response);
                 } else {
 
                     Object perfil = null;
 
-                    if (usuarios.isEmpty()) {
+                    if (usuarios.isEmpty() && movilidad == null) {
                         perfil = clientes.get(0);
-                    } else if (clientes.isEmpty()) {
+                    } else if (clientes.isEmpty() && movilidad == null) {
                         perfil = usuarios.get(0);
+                    } else if (clientes.isEmpty() && usuarios.isEmpty()) {
+                        perfil = movilidad;
                     }
 
                     sesion.setAttribute("perfil", perfil);
