@@ -42,7 +42,7 @@
                     <h3>RESERVA TU ESPACIO AHORA</h3>
                     <c:choose>
                         <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
-                            <form action="./ReservaServlet" method="POST" id="formReserva">
+                            <form action="./reservar" method="POST" id="formReserva">
                                 <div>
                                     <label for="dia">DIA:</label>
                                     <input type="date" id="dia" name="dia" required/>
@@ -64,7 +64,7 @@
                             </form>
                         </c:when>  
                         <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
-                            <form action="./ReservaServlet" method="POST" id="formReserva">
+                            <form action="./reservar" method="POST" id="formReserva">
                                 <div>
                                     <label for="dia">DIA:</label>
                                     <input type="date" id="dia" name="dia" required/>

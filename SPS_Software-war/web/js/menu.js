@@ -32,30 +32,56 @@ function iconoAccount() {
     click = !click;
     pnlInfo.innerHTML = "";
     if (click) {
+        let divPerfil = document.createElement("div");
+        divPerfil.addEventListener('click',function(){
+            window.open("http://localhost:8080/SPS_Software-war/perfil.jsp","_self");
+        });
+        let divSoporte = document.createElement("div");
+        divPerfil.classList.add("menuDesplegable");
+        divSoporte.classList.add("menuDesplegable");
+
+        let iconoPerfil = document.createElement("i");
+        iconoPerfil.classList.add("fas", "fa-user-circle");
+        let textoPerfil = document.createElement("h3");
+        textoPerfil.innerHTML = "PERFIL";
+        divPerfil.appendChild(iconoPerfil);
+        divPerfil.appendChild(textoPerfil);
+
+        let iconoSoporte = document.createElement("i");
+        iconoSoporte.classList.add("fas", "fa-headset");
+        let textoSoporte = document.createElement("h3");
+        textoSoporte.innerHTML = "SOPORTE";
+        divSoporte.appendChild(iconoSoporte);
+        divSoporte.appendChild(textoSoporte);
+
+        pnlInfo.appendChild(divPerfil);
+        pnlInfo.appendChild(divSoporte);
+        pnlInfo.appendChild(document.createElement("hr"));
+        let textoCuenta = document.createElement("h3");
+        textoCuenta.innerHTML = "CAMBIAR CUENTA";
+        textoCuenta.id = "textoCuenta";
+        pnlInfo.appendChild(textoCuenta);
         pnlInfo.classList.add("accountsList");
         for (let i = 0; i < accounts.length - 1; i++) {
             let elements = Object.values(accounts[i]);
-            let elementH2 = document.createElement("h2");
-            elementH2.innerHTML = elements[1];
-            if (elements[0] === Object.values(accounts[accounts.length - 1])[0]) {
-                elementH2.classList.add("accountActive");
+            if (elements[0] !== Object.values(accounts[accounts.length - 1])[0]) {
+                let elementH2 = document.createElement("h2");
+                elementH2.innerHTML = elements[1];
+                elementH2.addEventListener('click', function () {
+                    pnlInfo.style.display = "none";
+                    click = false;
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {
+                            window.open("http://localhost:8080/SPS_Software-war/inicio", "_self");
+                        }
+                    };
+                    xhttp.open("GET", "AJAXCuentasPersona?proceso=2&valor=" + elements[0] + "&perfil=" + elements[2], true);
+                    xhttp.send();
+                }, false);
+                pnlInfo.appendChild(elementH2);
             }
-            elementH2.addEventListener('click', function () {
-                pnlInfo.style.display = "none";
-                click = false;
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState === 4 && this.status === 200) {
-                        window.open("http://localhost:8080/SPS_Software-war/InicioServlet", "_self");
-                    }
-                };
-                xhttp.open("GET", "AJAXCuentasPersona?proceso=2&valor=" + elements[0] + "&perfil=" + elements[2], true);
-                xhttp.send();
-            }, false);
-            pnlInfo.appendChild(elementH2);
-            pnlInfo.appendChild(document.createElement("hr"));
         }
-        pnlInfo.removeChild(pnlInfo.lastChild);
     }
     pnlInfo.style.display = click ? "block" : "none";
 }

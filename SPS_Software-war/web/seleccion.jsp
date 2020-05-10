@@ -49,7 +49,7 @@
                         </div>
                     </c:forEach>
                 </section>
-                <form action="./SeleccionServlet" method="POST">
+                <form action="./seleccion" method="POST">
                     <input type="hidden" id="valorSeleccion" name="id"/>
                     <input id="btnSubmit" type="submit" value="CONTINUAR" disabled="disabled"/>
                 </form>

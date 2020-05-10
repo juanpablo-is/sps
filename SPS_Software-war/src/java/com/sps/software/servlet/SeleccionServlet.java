@@ -59,10 +59,10 @@ public class SeleccionServlet extends HttpServlet {
             HttpSession sesion = request.getSession(true);
             sesion.setAttribute("perfil", perfil);
 
-            response.sendRedirect("InicioServlet");
+            response.sendRedirect("inicio");
 //        request.getRequestDispatcher("InicioServlet").include(request, response);
         } else if (perfilObject != null) {
-            response.sendRedirect("InicioServlet");
+            response.sendRedirect("inicio");
         } else {
             response.sendRedirect("index.jsp");
         }

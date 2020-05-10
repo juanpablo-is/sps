@@ -25,7 +25,7 @@
                     <div id="signIn">
                         <h3>REGISTRO</h3>
                         <h4 style="color:red;font-size:12px;">${error}</h4>
-                        <form action="./RegistroServlet" method="POST" name="registro">
+                        <form action="./registro" method="POST" name="registro">
                             <div class="row">
                                 <input type="email" class="" placeholder="CORREO" name="email" required value="${persona.correo}"/>
                                 <input type="password" class="" placeholder="CONTRASEÑA" name="password" minlength="8" required />

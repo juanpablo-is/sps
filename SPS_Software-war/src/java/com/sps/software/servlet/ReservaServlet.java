@@ -79,7 +79,7 @@ public class ReservaServlet extends HttpServlet {
                     } else {
                         System.out.println("RESERVA NO CREADA");
                     }
-                    request.getRequestDispatcher("InicioServlet").forward(request, response);
+                    request.getRequestDispatcher("inicio").forward(request, response);
                 }
             } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
                 String dia = request.getParameter("dia");

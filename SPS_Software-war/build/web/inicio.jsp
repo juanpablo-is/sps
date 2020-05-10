@@ -32,23 +32,6 @@
             document.getElementById("inputPerfil").remove();
         </script>
         <input id="namePage" type="hidden" value="1"/>
-        <header>
-            <div id="headerLogo">
-                <a href="http://localhost:8080/SPS_Software-war/" style="display: contents;">
-                    <img src="images/logo.jpg" alt="Logo"/>
-                    <h2>SPSystem</h2>
-                </a>
-            </div>
-            <h2 id="textoBienvenida">BIENVENIDO ${persona.nombre}</h2>
-            <div id="panelInfo">
-                <i onclick="iconoAccount()" id="iconoAccount" class="fas fa-user-circle"></i>
-                <i onmouseenter="iconoFunction(true)" onmouseleave="iconoFunction(false)" id="iconoInfo" class="far fa-market"></i>
-                <div id="pnlInfo">
-                    <h2></h2>
-                    <p></p>
-                </div>
-            </div>
-        </header>
         <main>
             <c:choose>
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
@@ -71,5 +54,4 @@
             </c:choose>
         </main>
     </body>
-    <script src="js/menu.js"></script>
 </html>

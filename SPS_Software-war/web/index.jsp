@@ -18,7 +18,7 @@
         <input type="hidden" id="inputPerfil" value="${perfil}"/>
         <script>
             if (document.getElementById("inputPerfil").value !== '') {
-                window.open("http://localhost:8080/SPS_Software-war/InicioServlet", "_self");
+                window.open("http://localhost:8080/SPS_Software-war/inicio", "_self");
             }
         </script>
         <main>
@@ -28,7 +28,7 @@
                     <h1>Smart Parking System</h1>
                     <div id="signIn">
                         <h3>Iniciar Sesión</h3>
-                        <form action="./LoginServlet" method="POST">
+                        <form action="./ingresar" method="POST">
                             <div class="row">
                                 <input type="email" name="email" placeholder="CORREO" required="on"/>
                                 <input type="password" name="password" placeholder="CONTRASEÑA" required="on" minlength="8"/>

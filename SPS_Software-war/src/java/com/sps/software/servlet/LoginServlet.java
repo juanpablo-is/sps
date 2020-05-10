@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 
                     sesion.setAttribute("perfil", perfil);
 
-                    response.sendRedirect("InicioServlet");
+                    response.sendRedirect("inicio");
 //            request.getRequestDispatcher("InicioServlet").forward(request, response);
                 }
             }

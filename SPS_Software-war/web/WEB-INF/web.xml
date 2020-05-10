@@ -34,35 +34,35 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
+        <url-pattern>/ingresar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegistroServlet</servlet-name>
-        <url-pattern>/RegistroServlet</url-pattern>
+        <url-pattern>/registro</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SeleccionServlet</servlet-name>
-        <url-pattern>/SeleccionServlet</url-pattern>
+        <url-pattern>/seleccion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservaServlet</servlet-name>
-        <url-pattern>/ReservaServlet</url-pattern>
+        <url-pattern>/reservar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SalirServlet</servlet-name>
-        <url-pattern>/SalirServlet</url-pattern>
+        <url-pattern>/salir</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HistorialServlet</servlet-name>
-        <url-pattern>/HistorialServlet</url-pattern>
+        <url-pattern>/historial</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ParqueaderosServlet</servlet-name>
-        <url-pattern>/ParqueaderosServlet</url-pattern>
+        <url-pattern>/parqueaderos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InicioServlet</servlet-name>
-        <url-pattern>/InicioServlet</url-pattern>
+        <url-pattern>/inicio</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
