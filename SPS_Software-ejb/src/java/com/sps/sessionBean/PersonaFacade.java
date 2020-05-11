@@ -26,10 +26,10 @@ public class PersonaFacade extends AbstractFacade<Persona> implements PersonaFac
     }
 
     @Override
-    public Persona findLogin(String email, String password) {
+    public Persona findLogin(String email, String contrasenia) {
         Query query = em.createNamedQuery("Persona.findByLogin");
         query.setParameter("correo", email);
-        query.setParameter("contrasenia", password);
+        query.setParameter("contrasenia", contrasenia);
         return (Persona) query.getSingleResult();
     }
 }

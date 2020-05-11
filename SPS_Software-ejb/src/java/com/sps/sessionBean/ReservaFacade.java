@@ -4,10 +4,8 @@ import com.sps.entity.Cliente;
 import com.sps.entity.Reserva;
 import com.sps.entity.Usuario;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -31,7 +29,7 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
 
     @Override
-    public Number findSelector(Cliente idCliente) {
+    public Number findBySelector(Cliente idCliente) {
         Query query = getEntityManager().createNamedQuery("Reserva.findBySelector");
         query.setParameter("idCliente", idCliente);
         Number select = (Number) query.getSingleResult();
@@ -39,9 +37,9 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
 
     @Override
-    public Reserva findByUsuario(Usuario persona) {
+    public Reserva findByUsuario(Usuario usuario) {
         Query query = getEntityManager().createNamedQuery("Reserva.findByUsuario");
-        query.setParameter("idUsuario", persona);
+        query.setParameter("idUsuario", usuario);
 
         if (query.getResultList().size() < 1) {
             return null;
@@ -51,9 +49,17 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
 
     @Override
-    public List<Reserva> findAllByUsuario(Usuario persona) {
+    public List<Reserva> findAllByUsuario(Usuario usuario) {
         Query query = getEntityManager().createNamedQuery("Reserva.findByUsuario");
-        query.setParameter("idUsuario", persona);
+        query.setParameter("idUsuario", usuario);
+        List<Reserva> reservas = query.getResultList();
+        return reservas;
+    }
+
+    @Override
+    public List<Reserva> findAllByCliente(Cliente cliente) {
+        Query query = getEntityManager().createNamedQuery("Reserva.findByCliente");
+        query.setParameter("idCliente", cliente);
         List<Reserva> reservas = query.getResultList();
         return reservas;
     }
@@ -72,8 +78,8 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
 
     @Override
-    public String graficoReserva(Usuario persona) {
-        Query query = getEntityManager().createNativeQuery("SELECT MONTH(dia), count(*) FROM RESERVA WHERE id_usuario = '" + persona.getPlaca() + "' GROUP BY MONTH(dia) ");
+    public String graficoReserva(Usuario usuario) {
+        Query query = getEntityManager().createNativeQuery("SELECT MONTH(dia), count(*) FROM RESERVA WHERE id_usuario = '" + usuario.getPlaca() + "' GROUP BY MONTH(dia) ");
         List<Object[]> list = query.getResultList();
         String grafico = "";
         if (list.size() > 0) {
@@ -106,14 +112,6 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
         }
 
         return grafico;
-    }
-
-    @Override
-    public List<Reserva> findAllByCliente(Cliente cliente) {
-        Query query = getEntityManager().createNamedQuery("Reserva.findByCliente");
-        query.setParameter("idCliente", cliente);
-        List<Reserva> reservas = query.getResultList();
-        return reservas;
     }
 
 }

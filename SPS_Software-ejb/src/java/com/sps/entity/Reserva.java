@@ -1,15 +1,6 @@
 package com.sps.entity;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,14 +24,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "RESERVA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r"),
-    @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id"),
-    @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia ORDER BY r.id DESC"),
-    @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada"),
-    @NamedQuery(name = "Reserva.findBySalida", query = "SELECT r FROM Reserva r WHERE r.salida = :salida"),
-    @NamedQuery(name = "Reserva.findBySelector", query = "SELECT COUNT(r) FROM Reserva r WHERE r.idCliente =:idCliente"),
-    @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario"),
-    @NamedQuery(name = "Reserva.findByCliente", query = "SELECT r FROM Reserva r WHERE r.idCliente =:idCliente"),
+    @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
+    ,
+    @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
+    ,
+    @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia ORDER BY r.id DESC")
+    ,
+    @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada")
+    ,
+    @NamedQuery(name = "Reserva.findBySalida", query = "SELECT r FROM Reserva r WHERE r.salida = :salida")
+    ,
+    @NamedQuery(name = "Reserva.findBySelector", query = "SELECT COUNT(r) FROM Reserva r WHERE r.idCliente =:idCliente")
+    ,
+    @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario")
+    ,
+    @NamedQuery(name = "Reserva.findByCliente", query = "SELECT r FROM Reserva r WHERE r.idCliente =:idCliente")
+    ,
     @NamedQuery(name = "Reserva.findByOcupado", query = "SELECT r FROM Reserva r WHERE r.ocupado = :ocupado")})
 
 public class Reserva implements Serializable {
@@ -80,10 +77,6 @@ public class Reserva implements Serializable {
     private Usuario idUsuario;
 
     public Reserva() {
-    }
-
-    public Reserva(Integer id) {
-        this.id = id;
     }
 
     public Reserva(String dia, String entrada, String salida, Usuario usuario, Cliente cliente, boolean opcion) {
@@ -135,6 +128,14 @@ public class Reserva implements Serializable {
         this.ocupado = ocupado;
     }
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     public Cliente getIdCliente() {
         return idCliente;
     }
@@ -174,14 +175,6 @@ public class Reserva implements Serializable {
     @Override
     public String toString() {
         return "Reserva{" + "id=" + id + ", dia=" + dia + ", entrada=" + entrada + ", salida=" + salida + ", ocupado=" + ocupado + ", idCliente=" + idCliente + ", idUsuario=" + idUsuario + '}';
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
 }

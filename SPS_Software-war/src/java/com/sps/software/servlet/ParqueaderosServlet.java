@@ -46,7 +46,7 @@ public class ParqueaderosServlet extends HttpServlet {
 
             for (int i = 0; i < clientesSelector.size(); i++) {
                 Cliente cliente = clientesSelector.get(i);
-                Number count = reservaSession.findSelector(cliente);
+                Number count = reservaSession.findBySelector(cliente);
                 cliente.setCupos(cliente.getCupos() - count.intValue());
                 clientes.add(cliente);
             }

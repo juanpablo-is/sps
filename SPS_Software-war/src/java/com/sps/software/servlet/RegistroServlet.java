@@ -60,8 +60,7 @@ public class RegistroServlet extends HttpServlet {
                         sessioBeanPersona.create(persona);
                     }
 
-                    Usuario usuario = new Usuario(idPropiedad, placa, marca, tipoVehiculo);
-                    usuario.setIdPersona(persona);
+                    Usuario usuario = new Usuario(persona, idPropiedad, placa, marca, tipoVehiculo);
                     if (sessionBeanUsuario.create(usuario)) {
                         ingreso = true;
                     } else {

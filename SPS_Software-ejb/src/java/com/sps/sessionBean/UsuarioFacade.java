@@ -28,9 +28,9 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     }
 
     @Override
-    public List<Usuario> findByCedula(Persona cedula) {
+    public List<Usuario> findByCedula(Persona persona) {
         Query query = getEntityManager().createNamedQuery("Usuario.findByCedula");
-        query.setParameter("idPersona", cedula);
+        query.setParameter("idPersona", persona);
         List<Usuario> list = query.getResultList();
         return list;
     }

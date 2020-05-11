@@ -3,13 +3,8 @@ package com.sps.software.servlet;
 import com.sps.entity.*;
 import com.sps.sessionBean.*;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +51,7 @@ public class ReservaServlet extends HttpServlet {
 
                     for (int i = 0; i < clientesSelector.size(); i++) {
                         Cliente cliente = clientesSelector.get(i);
-                        Number count = reservaSession.findSelector(cliente);
+                        Number count = reservaSession.findBySelector(cliente);
                         cliente.setCupos(cliente.getCupos() - count.intValue());
                         clientes.add(cliente);
                     }

@@ -29,7 +29,7 @@ public interface ReservaFacadeLocal {
 
     int count();
 
-    Number findSelector(Cliente idCliente);
+    Number findBySelector(Cliente idCliente);
 
     Reserva findByUsuario(Usuario persona);
 

@@ -28,9 +28,9 @@ public class ClienteFacade extends AbstractFacade<Cliente> implements ClienteFac
     }
 
     @Override
-    public List<Cliente> findByCedula(Persona cedula) {
+    public List<Cliente> findByCedula(Persona persona) {
         Query query = getEntityManager().createNamedQuery("Cliente.findByCedula");
-        query.setParameter("idPersona", cedula);
+        query.setParameter("idPersona", persona);
         List<Cliente> list = query.getResultList();
         return list;
     }

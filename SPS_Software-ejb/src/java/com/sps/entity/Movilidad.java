@@ -48,13 +48,10 @@ public class Movilidad implements Serializable {
     public Movilidad() {
     }
 
-    public Movilidad(String id) {
-        this.id = id;
-    }
-
-    public Movilidad(String id, String empresa) {
+    public Movilidad(String id, String empresa, Persona idPersona) {
         this.id = id;
         this.empresa = empresa;
+        this.idPersona = idPersona;
     }
 
     public String getId() {

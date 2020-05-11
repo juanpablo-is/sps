@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sps.entity;
 
 import java.io.Serializable;
@@ -70,11 +65,8 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String idPropiedad) {
-        this.idPropiedad = idPropiedad;
-    }
-
-    public Usuario(String idPropiedad, String placa, String marca, String tipoVehiculo) {
+    public Usuario(Persona idPersona, String idPropiedad, String placa, String marca, String tipoVehiculo) {
+        this.idPersona = idPersona;
         this.idPropiedad = idPropiedad;
         this.placa = placa;
         this.marca = marca;
@@ -113,6 +105,14 @@ public class Usuario implements Serializable {
         this.idPersona = idPersona;
     }
 
+    public String getTipoVehiculo() {
+        return tipoVehiculo;
+    }
+
+    public void setTipoVehiculo(String tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -145,14 +145,6 @@ public class Usuario implements Serializable {
 
     public void setReservaCollection(Collection<Reserva> reservaCollection) {
         this.reservaCollection = reservaCollection;
-    }
-
-    public String getTipoVehiculo() {
-        return tipoVehiculo;
-    }
-
-    public void setTipoVehiculo(String tipoVehiculo) {
-        this.tipoVehiculo = tipoVehiculo;
     }
 
 }
