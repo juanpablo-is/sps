@@ -22,6 +22,11 @@ a{
     text-decoration: none;
 }
 
+#top{
+   position: absolute;
+   width: 100%;
+}
+
 header{
     z-index: 1;
     width: 100%;
@@ -58,6 +63,7 @@ nav{
 .seleccionItem{
     color: #DE4C33;
     border-bottom-color: #DE4C33;
+    cursor: default;
     transition: all .4s ease;
 }
 
@@ -87,4 +93,10 @@ nav li {
 
 nav li:hover{
     background-color: #e8e8e8;
+}
+
+#target{
+    padding-top: 110px;
+    width: 100vw;
+    height: 100vh;
 }

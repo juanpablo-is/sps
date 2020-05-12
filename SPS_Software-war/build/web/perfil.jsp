@@ -15,17 +15,22 @@
         <script src="js/all.min.js"></script>
     </head>
     <body>
-        <header>
-            <i class="fas fa-arrow-circle-left"></i>
-            <h1>Perfil</h1>
-        </header>
-        <nav>
-            <ul>
-                <li class="seleccionItem">PERFIL</li>
-                <li>AJUSTES</li>
-                <li>CAMBIOS</li>
-                <li>INFO</li>
-            </ul>
-        </nav>
+        <div id="top">
+            <header>
+                <i onclick="goBack()" class="fas fa-arrow-circle-left" id="botonBack"></i>
+                <h1>Perfil</h1>
+            </header>
+            <nav>
+                <ul id="listaItems">
+                    <li class="seleccionItem">PERFIL</li>
+                    <li>AJUSTES</li>
+                    <li>CAMBIOS</li>
+                    <li>INFO</li>
+                </ul>
+            </nav>
+        </div>
+        <div id="target"></div>
     </body>
+
+    <script src="js/perfil.js"></script>
 </html>
