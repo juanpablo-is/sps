@@ -1,4 +1,4 @@
-package com.sps.sessionBean;
+package com.sps.session;
 
 import com.sps.entity.Cliente;
 import com.sps.entity.Reserva;
@@ -69,12 +69,14 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
         Query query = getEntityManager().createNativeQuery("SELECT SUBSTR(CHAR(TIME(r.entrada)),1,2), COUNT(SUBSTR(CHAR(TIME(r.entrada)),1,2)) FROM RESERVA r WHERE r.dia = current_date GROUP BY SUBSTR(CHAR(TIME(r.entrada)),1,2) ORDER BY 1");
 
         List<Object[]> list = query.getResultList();
-        for (Object[] result : list) {
-            String name = (String) result[0];
-            int count = (int) result[1];
-            System.out.println(name + "   :   " + count);
-        }
+        String name = "";
+        int count = 0;
 
+        /**
+         * for (Object[] result : list) { name = (String) result[0]; count =
+         * (int) result[1]; System.err.println(name + " : " + count); }
+         *
+         */
     }
 
     @Override

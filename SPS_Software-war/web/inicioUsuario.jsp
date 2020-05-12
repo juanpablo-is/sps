@@ -16,19 +16,19 @@
                 <div id="mapa">
                 </div>
             </div>
-            <!--                        <div id="graficoInicio">
-                                        <h2>USO DE RESERVAS</h2>
-                                        <div id="grafico">
-            <c:choose>
-                <c:when test="${grafica.length() > 0}">
-                    <img src="${grafica}"/>
-                </c:when>    
-                <c:otherwise>
-                    <h2>NO HAY DATOS PARA GRAFICAR</h2>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </div>-->
+            <%--<div id="graficoInicio">
+                <h2>USO DE RESERVAS</h2>
+                <div id="grafico">
+                    <c:choose>
+                        <c:when test="${grafica.length() > 0}">
+                            <img src="${grafica}"/>
+                        </c:when>    
+                        <c:otherwise>
+                            <h2>NO HAY DATOS PARA GRAFICAR</h2>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>--%>
         </div>
     </div>
 </section>

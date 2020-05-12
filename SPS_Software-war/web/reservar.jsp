@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>RESERVAR</title>
@@ -36,7 +36,7 @@
                 <div id="formR">
                     <%--<c:choose>--%>
                     <%--<c:when test="${parqueaderos == 3}">--%>
-                    <!--<h3>YA TIENE UNA RESERVA</h3>-->
+                    <%--<h3>YA TIENE UNA RESERVA</h3>--%>
                     <%--</c:when>--%>    
                     <%--<c:otherwise>--%>
                     <h3>RESERVA TU ESPACIO AHORA</h3>

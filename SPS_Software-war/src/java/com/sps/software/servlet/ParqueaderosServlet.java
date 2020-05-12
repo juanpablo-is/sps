@@ -1,6 +1,7 @@
 package com.sps.software.servlet;
 
-import com.sps.sessionBean.*;
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.ReservaFacadeLocal;
 import com.sps.entity.*;
 import java.io.IOException;
 import java.io.PrintWriter;

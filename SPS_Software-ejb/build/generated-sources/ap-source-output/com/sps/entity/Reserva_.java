@@ -1,14 +1,15 @@
 package com.sps.entity;
 
-import com.sps.entity.Cliente;
-import com.sps.entity.Usuario;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-05-11T14:51:55")
+@Generated(value = "EclipseLink-2.5.2.v20140319-rNA", date = "2020-05-11T14:51:55")
 @StaticMetamodel(Reserva.class)
-public class Reserva_ { 
+public class Reserva_ {
+
+    private Reserva_() {
+    }
 
     public static volatile SingularAttribute<Reserva, Double> precio;
     public static volatile SingularAttribute<Reserva, Cliente> idCliente;

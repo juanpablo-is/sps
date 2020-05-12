@@ -1,8 +1,8 @@
 package com.sps.software.servlet;
 
 import com.sps.entity.*;
-import com.sps.sessionBean.ClienteFacadeLocal;
-import com.sps.sessionBean.ReservaFacadeLocal;
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.ReservaFacadeLocal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +38,6 @@ public class InicioServlet extends HttpServlet {
         Object perfilObject = request.getSession().getAttribute("perfil");
 
         if (perfilObject != null) {
-//        reservaSession.getReservasPorHora();
-//        Object perfil = request.getSession().getAttribute("perfil");
-//        Usuario perfil = (Usuario) request.getSession().getAttribute("perfil");
-
             if (perfilObject instanceof Usuario) {
                 List<Cliente> clientes = clienteSession.findAll();
                 ArrayList<String> parqueaderos = new ArrayList<>();
@@ -51,14 +47,19 @@ public class InicioServlet extends HttpServlet {
                 });
 
                 request.setAttribute("parqueaderos", parqueaderos);
-            } else if (perfilObject instanceof Cliente) {
-
-            } else if (perfilObject instanceof Movilidad) {
-
+                /**
+                 * } else if (perfilObject instanceof Cliente) {
+                 * System.err.println("Cliente"); } else if (perfilObject
+                 * instanceof Movilidad) { System.err.println("Movilidad");*
+                 *
+                 */
             }
 
             request.getRequestDispatcher("inicio.jsp").forward(request, response);
-//        request.setAttribute("grafica", reservaSession.graficoReserva(perfil));
+            /**
+             * request.setAttribute("grafica",
+             * reservaSession.graficoReserva(perfil));*
+             */
         } else {
             response.sendRedirect("index.jsp");
         }

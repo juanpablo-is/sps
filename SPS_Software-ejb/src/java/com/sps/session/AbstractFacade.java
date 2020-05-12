@@ -1,8 +1,9 @@
-package com.sps.sessionBean;
+package com.sps.session;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -13,6 +14,7 @@ import javax.validation.ConstraintViolationException;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
+    private final static Logger LOGGER = Logger.getLogger("com.sps.sessionBean.AbstractFacade");
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -27,7 +29,7 @@ public abstract class AbstractFacade<T> {
             return true;
         } catch (ConstraintViolationException e) {
             for (ConstraintViolation actual : e.getConstraintViolations()) {
-                System.out.println(actual.toString());
+                LOGGER.log(Level.WARNING, actual.toString());
             }
             return false;
         }
@@ -39,7 +41,7 @@ public abstract class AbstractFacade<T> {
             return true;
         } catch (ConstraintViolationException e) {
             for (ConstraintViolation actual : e.getConstraintViolations()) {
-                System.out.println(actual.toString());
+                LOGGER.log(Level.WARNING, actual.toString());
             }
             return false;
         }
@@ -51,7 +53,7 @@ public abstract class AbstractFacade<T> {
             return true;
         } catch (ConstraintViolationException e) {
             for (ConstraintViolation actual : e.getConstraintViolations()) {
-                System.out.println(actual.toString());
+                LOGGER.log(Level.WARNING, actual.toString());
             }
             return false;
         }
@@ -62,7 +64,7 @@ public abstract class AbstractFacade<T> {
             return getEntityManager().find(entityClass, id);
         } catch (ConstraintViolationException e) {
             for (ConstraintViolation actual : e.getConstraintViolations()) {
-                System.out.println(actual.toString());
+                LOGGER.log(Level.WARNING, actual.toString());
             }
             return null;
         }

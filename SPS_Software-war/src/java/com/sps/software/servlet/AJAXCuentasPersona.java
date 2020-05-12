@@ -1,9 +1,9 @@
 package com.sps.software.servlet;
 
 import com.sps.entity.Usuario;
-import com.sps.sessionBean.ClienteFacadeLocal;
-import com.sps.sessionBean.MovilidadFacadeLocal;
-import com.sps.sessionBean.UsuarioFacadeLocal;
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.MovilidadFacadeLocal;
+import com.sps.session.UsuarioFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

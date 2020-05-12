@@ -1,7 +1,10 @@
 package com.sps.software.servlet;
 
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.UsuarioFacadeLocal;
+import com.sps.session.MovilidadFacadeLocal;
+import com.sps.session.PersonaFacadeLocal;
 import com.sps.entity.*;
-import com.sps.sessionBean.*;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -39,7 +42,7 @@ public class SeleccionServlet extends HttpServlet {
 
         Object perfilObject = request.getSession().getAttribute("persona");
         String id = request.getParameter("id");
-        
+
         if (id != null) {
             String campos[] = id.split("-");
             id = campos[1];
@@ -60,7 +63,9 @@ public class SeleccionServlet extends HttpServlet {
             sesion.setAttribute("perfil", perfil);
 
             response.sendRedirect("inicio");
-//        request.getRequestDispatcher("InicioServlet").include(request, response);
+            /**
+             * request.getRequestDispatcher("InicioServlet").include(request, response);*
+             */
         } else if (perfilObject != null) {
             response.sendRedirect("inicio");
         } else {

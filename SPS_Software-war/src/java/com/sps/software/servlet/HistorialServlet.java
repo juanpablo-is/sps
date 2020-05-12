@@ -1,13 +1,11 @@
 package com.sps.software.servlet;
 
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.ReservaFacadeLocal;
 import com.sps.entity.Cliente;
-import com.sps.entity.Persona;
 import com.sps.entity.Reserva;
 import com.sps.entity.Usuario;
-import com.sps.sessionBean.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -41,42 +39,41 @@ public class HistorialServlet extends HttpServlet {
         Object perfilObject = request.getSession().getAttribute("perfil");
 
         if (perfilObject != null) {
-            if (perfilObject.getClass().getName().equals("com.sps.entity.Usuario")) {
+            if (perfilObject instanceof Usuario) {
                 Usuario perfil = (Usuario) perfilObject;
-                Persona persona = (Persona) request.getSession().getAttribute("persona");
 
                 List<Reserva> reservas = reservaSession.findAllByUsuario(perfil);
                 if (!reservas.isEmpty()) {
                     request.setAttribute("reservas", reservas);
                 }
-//        ArrayList<Reserva> reservasHistorial = null;
-//
-//        for (Reserva reserva : reservas) {
-//            if (!reserva.getOcupado()) {
-//
-//                Cliente cliente = clienteSession.find(reserva.getIdCliente());
-//
-//                String horaEntrada[] = reserva.getEntrada().split(":");
-//                String horaSalida[] = reserva.getSalida().split(":");
-//                int horaE = Integer.parseInt(horaEntrada[0]);
-//                int horaS = Integer.parseInt(horaSalida[0]);
-//                int minutoE = Integer.parseInt(horaEntrada[1]);
-//                int minutoS = Integer.parseInt(horaSalida[2]);
-//                int total = 0;
-//
-//                if (minutoS - minutoE < 0) {
-//                    horaE = horaE - 1;
-//                    minutoE = minutoE + 60;
-//                }
-//
-//                total += minutoS - minutoE;
-//                total += (horaS - horaE) * 60;
-//
-//                reserva.setPrecio(cliente.getPrecio() * total);
-//            }
-//            reservasHistorial.add(reserva);
-//        }
-            } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
+                /**
+                 * Persona persona = (Persona)
+                 * request.getSession().getAttribute("persona");
+                 * ArrayList<Reserva> reservasHistorial = null;
+                 *
+                 * for (Reserva reserva : reservas) { if (!reserva.getOcupado())
+                 * {
+                 *
+                 * Cliente cliente =
+                 * clienteSession.find(reserva.getIdCliente());
+                 *
+                 * String horaEntrada[] = reserva.getEntrada().split(":");
+                 * String horaSalida[] = reserva.getSalida().split(":"); int
+                 * horaE = Integer.parseInt(horaEntrada[0]); int horaS =
+                 * Integer.parseInt(horaSalida[0]); int minutoE =
+                 * Integer.parseInt(horaEntrada[1]); int minutoS =
+                 * Integer.parseInt(horaSalida[2]); int total = 0;
+                 *
+                 * if (minutoS - minutoE < 0) { horaE = horaE - 1; minutoE =
+                 * minutoE + 60; }
+                 *
+                 * total += minutoS - minutoE; total += (horaS - horaE) * 60;
+                 *
+                 * reserva.setPrecio(cliente.getPrecio() * total); }
+                 * reservasHistorial.add(reserva); }
+                 *
+                 */
+            } else if (perfilObject instanceof Cliente) {
                 Cliente parqueo = (Cliente) request.getSession().getAttribute("perfil");
 
                 List<Reserva> reservas = reservaSession.findAllByCliente(parqueo);

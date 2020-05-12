@@ -1,7 +1,10 @@
 package com.sps.software.servlet;
 
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.UsuarioFacadeLocal;
+import com.sps.session.MovilidadFacadeLocal;
+import com.sps.session.PersonaFacadeLocal;
 import com.sps.entity.*;
-import com.sps.sessionBean.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +87,6 @@ public class LoginServlet extends HttpServlet {
                     sesion.setAttribute("perfil", perfil);
 
                     response.sendRedirect("inicio");
-//            request.getRequestDispatcher("InicioServlet").forward(request, response);
                 }
             }
         } else {
@@ -135,7 +137,7 @@ public class LoginServlet extends HttpServlet {
 }
 
 
-/*
+/**
 PERSON{
     ID - CEDULA
     NAME
@@ -167,4 +169,4 @@ ADMIN{
 
 LD_SPS_DB
 ldspsdb
- */
+ **/

@@ -1,8 +1,11 @@
 package com.sps.software.servlet;
 
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.UsuarioFacadeLocal;
+import com.sps.session.PersonaFacadeLocal;
 import com.sps.entity.*;
-import com.sps.sessionBean.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -84,9 +87,9 @@ public class RegistroServlet extends HttpServlet {
                 String carros = request.getParameter("cantidadCarros");
                 String motos = request.getParameter("cantidadMotos");
 
-//                Cliente clienteFind = sessionBeanCliente.find(idPropiedad);
-                Cliente clienteFind = null;
-                if (clienteFind == null) {
+                ArrayList<Cliente> clienteFind = (ArrayList<Cliente>) sessionBeanCliente.findByCedula(persona);
+
+                if (clienteFind.isEmpty()) {
                     if (personaFind == null) {
                         sessioBeanPersona.create(persona);
                     }

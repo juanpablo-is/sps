@@ -1,7 +1,9 @@
 package com.sps.software.servlet;
 
+import com.sps.session.ClienteFacadeLocal;
+import com.sps.session.UsuarioFacadeLocal;
+import com.sps.session.ReservaFacadeLocal;
 import com.sps.entity.*;
-import com.sps.sessionBean.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +40,17 @@ public class ReservaServlet extends HttpServlet {
 
         String opcion = request.getParameter("reservar");
         Object perfilObject = request.getSession().getAttribute("perfil");
-        
+
         if (perfilObject != null) {
-            if (perfilObject.getClass().getName().equals("com.sps.entity.Usuario")) {
+            if (perfilObject instanceof Usuario) {
                 Usuario perfil = (Usuario) perfilObject;
 
                 if (opcion == null) {
-//            Reserva reservaPersona = reservaSession.findByUsuario(perfil);
-//            if (reservaPersona == null) {
+                    /**
+                     * Reserva reservaPersona =
+                     * reservaSession.findByUsuario(perfil); if (reservaPersona
+                     * == null) {*
+                     */
                     List<Cliente> clientesSelector = clienteSession.findAll();
                     ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -57,7 +62,9 @@ public class ReservaServlet extends HttpServlet {
                     }
 
                     request.setAttribute("parqueaderos", clientes);
-//            }
+                    /**
+                     * }*
+                     */
                     request.getRequestDispatcher("reservar.jsp").forward(request, response);
                 } else if (opcion.equalsIgnoreCase("reservar")) {
                     String dia = request.getParameter("dia");
@@ -69,14 +76,16 @@ public class ReservaServlet extends HttpServlet {
 
                     Reserva reservaRegistrar = new Reserva(dia, entrada, null, perfil, cliente, true);
 
-                    if (reservaSession.create(reservaRegistrar)) {
-                        System.out.println("CREADO RESERVA");
-                    } else {
-                        System.out.println("RESERVA NO CREADA");
-                    }
+                    reservaSession.create(reservaRegistrar);
+                    /**
+                     * if (reservaSession.create(reservaRegistrar)) {
+                     * System.err.println("CREADO RESERVA"); } else {
+                     * System.err.println("RESERVA NO CREADA"); }
+                     *
+                     */
                     request.getRequestDispatcher("inicio").forward(request, response);
                 }
-            } else if (perfilObject.getClass().getName().equals("com.sps.entity.Cliente")) {
+            } else if (perfilObject instanceof Cliente) {
                 String dia = request.getParameter("dia");
                 String placa = request.getParameter("placa").toUpperCase();
                 String hora = request.getParameter("hora");
@@ -87,11 +96,13 @@ public class ReservaServlet extends HttpServlet {
 
                 Reserva reservaRegistrar = new Reserva(dia, hora, null, perfil, cliente, true);
 
-                if (reservaSession.create(reservaRegistrar)) {
-                    System.out.println("CREADO RESERVA");
-                } else {
-                    System.out.println("RESERVA NO CREADA");
-                }
+                reservaSession.create(reservaRegistrar);
+                /**
+                 * if (reservaSession.create(reservaRegistrar)) {
+                 * System.err.println("CREADO RESERVA"); } else {
+                 * System.err.println("RESERVA NO CREADA"); }*
+                 *
+                 */
                 request.getRequestDispatcher("asignar.jsp").forward(request, response);
             }
         } else {

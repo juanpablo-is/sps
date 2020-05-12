@@ -1,4 +1,4 @@
-package com.sps.sessionBean;
+package com.sps.session;
 
 import com.sps.entity.Persona;
 import java.util.List;
