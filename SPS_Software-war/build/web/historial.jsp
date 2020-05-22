@@ -23,71 +23,101 @@
             }
         </script>
         <input id="namePage" type="hidden" value="3"/>
-        <header>
-            <div id="headerLogo">
-                <img src="images/logo.jpg" alt="Logo"/>
-                <h2>SPSystem</h2>
-            </div>
-            <h2 id="textoBienvenida">BIENVENIDO ${persona.nombre}</h2>
-        </header>
         <main>
             <%@include  file="menu.jsp" %>
             <section id="pnlPrincipal">
                 <c:choose>
-                    <c:when test="${reservas == null}">
+                    <c:when test="${historiales == null}">
                         <div id="textoReserva">
                             <h3>NO TIENE HISTORIAL AUN</h3>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div id="history">
-                            <c:forEach items="${reservas}" var="reserva">
+                        <table id="history">
+                            <c:choose>
+                                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                                    <tr class="row">
+                                        <th>DIA</th>
+                                        <th>ENTRADA</th>
+                                        <th>UBICACIÓN</th>
+                                        <th>PRECIO</th>
+                                    </tr>
+                                    <c:forEach items="${historiales}" var="historial">
+                                        <tr class="row">
+                                            <td>${historial.idReserva.dia}</td>
+                                            <td>${historial.idReserva.entrada}</td>
+                                            <td>${historial.idReserva.idPlaza.idCliente.direccion}</td>
+                                            <td>${historial.precio}</td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </c:when>    
+                                <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                                    <tr class="row">
+                                        <th>CEDULA</th>
+                                        <th>PLACA</th>
+                                        <th>ENTRADA</th>
+                                        <th>SALIDA</th>
+                                        <th>PRECIO</th>
+                                    </tr>
+                                    <c:forEach items="${historiales}" var="historial">
+                                        <tr class="row">
+                                            <td>${historial.idReserva.idUsuario.idPersona.cedula}</td>
+                                            <td>${historial.idReserva.idUsuario.placa}</td>
+                                            <td> ${historial.idReserva.entrada}</td>
+                                            <td>${historial.salida}</td>
+                                            <td>$ ${historial.precio}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                            </c:choose>
+                            <%--<c:forEach items="${historiales}" var="historial">
                                 <c:choose>
-                                    <c:when test="${reserva.ocupado == true}">
-                                        <c:choose>
-                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
-                                                <div class="cardsHistory ocupado">
-                                                    <h2><span>Dia: </span> ${reserva.dia}</h2>
-                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
-                                                    <h2><span>Ubicación: </span> ${reserva.idCliente.direccion}</h2>
-                                                </div>
-                                            </c:when>    
-                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
-                                                <div class="cardsHistory ocupado">
-                                                    <h2><span>Placa: </span>${reserva.idUsuario.placa}</h2>
-                                                    <h2><span>Estado: </span><c:out value="${(reserva.ocupado) ? 'Ocupado':'Disponible'}"/> </h2>
-                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
-                                                    <h2><span>Plaza: </span> </h2>
-                                                    <h2><span>Cedula: </span>${reserva.idUsuario.idPersona.cedula} </h2>
-                                                </div>
-                                            </c:when>
-                                        </c:choose>
-                                    </c:when> 
-                                    <c:otherwise>
-                                        <c:choose>
-                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
-                                                <div class="cardsHistory">
-                                                    <h2><span>Dia: </span> ${reserva.dia}</h2>
-                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
-                                                    <h2><span>Ubicación: </span> ${reserva.idCliente.direccion}</h2>
-                                                    <h2><span>Salida: </span> ${reserva.salida}</h2>
-                                                    <h2><span>Precio: </span> ${reserva.precio}</h2>
-                                                </div>
-                                            </c:when>    
-                                            <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
-                                                <div class="cardsHistory">
-                                                    <h2><span>Dia: </span> ${reserva.dia}</h2>
-                                                    <h2><span>Entrada: </span> ${reserva.entrada}</h2>
-                                                    <h2><span>Salida: </span> ${reserva.salida}</h2>
-                                                    <h2><span>Tiempo transcurrido: </span> ${reserva.salida} </h2>
-                                                    <h2><span>Precio: </span> ${reserva.precio} </h2>
-                                                </div>
-                                            </c:when>
-                                        </c:choose>
-                                    </c:otherwise>
+                                <c:when test="${reserva.estado == true}">
+                                <c:choose>
+                                    <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                                        <div class="cardsHistory">
+                                            <h2><span>Dia: </span> ${reserva.dia}</h2>
+                                            <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                            <h2><span>Ubicación: </span> ${reserva.idPlaza.idCliente.direccion}</h2>
+                                        </div>
+                                    </c:when>    
+                                    <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                                        <div class="cardsHistory">
+                                            <h2><span>Cedula: </span>${historial.idReserva.idUsuario.idPersona.cedula} </h2>
+                                            <h2><span>Placa: </span>${historial.idReserva.idUsuario.placa}</h2>
+                                            <h2><span>Entrada: </span> ${historial.idReserva.entrada}</h2>
+                                            <h2><span>Salida: </span> ${historial.salida}</h2>
+                                            <h2><span>Precio: </span> $ ${historial.precio}</h2>
+                                        </div>
+                                    </c:when>
                                 </c:choose>
-                            </c:forEach>
-                        </div>
+                            <%--</c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
+                                        <div class="cardsHistory">
+                                            <h2><span>Dia: </span> ${reserva.dia}</h2>
+                                            <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                            <h2><span>Ubicación: </span> ${reserva.idPlaza.idCliente.direccion}</h2>
+                                            <h2><span>Salida: </span> ${reserva.salida}</h2>
+                                            <h2><span>Precio: </span> ${reserva.precio}</h2>
+                                        </div>
+                                    </c:when>    
+                                    <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
+                                        <div class="cardsHistory">
+                                            <h2><span>Dia: </span> ${reserva.dia}</h2>
+                                            <h2><span>Entrada: </span> ${reserva.entrada}</h2>
+                                            <h2><span>Salida: </span> ${reserva.salida}</h2>
+                                            <h2><span>Tiempo transcurrido: </span> ${reserva.salida} </h2>
+                                            <h2><span>Precio: </span> ${reserva.precio} </h2>
+                                        </div>
+                                    </c:when>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                        </c:forEach>--%>
+                        </table>
                     </c:otherwise>
                 </c:choose>
             </section>

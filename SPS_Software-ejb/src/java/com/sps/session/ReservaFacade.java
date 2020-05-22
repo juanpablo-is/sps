@@ -65,6 +65,29 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
 
     @Override
+    public List<Object[]> getPlazasByCliente(Cliente cliente) {
+        Query query = getEntityManager().createNativeQuery("SELECT p.id, r.ID_USUARIO, p.TIPO_VEHICULO FROM Plaza p LEFT JOIN Reserva r ON p.id = r.ID_PLAZA AND r.id IN (SELECT r2.id FROM Reserva r2 WHERE r2.id IN (SELECT MAX(r3.id) FROM Reserva r3 GROUP BY r3.ID_PLAZA)) WHERE p.ID_CLIENTE = '" + cliente.getId() + "'");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Reserva> findAllByUsuarioInicio(Usuario usuario) {
+        Query query = getEntityManager().createNamedQuery("Reserva.findByUsuarioInicio");
+        query.setParameter("idUsuario", usuario);
+        List<Reserva> reservas = query.setMaxResults(5).getResultList();
+        return reservas;
+    }
+    
+    @Override
+    public List<Reserva> findAllByUsuarioCliente(Usuario usuario, Cliente cliente) {
+        Query query = getEntityManager().createNamedQuery("Reserva.findByUsuarioCliente");
+        query.setParameter("idUsuario", usuario);
+        query.setParameter("idCliente", cliente);
+        List<Reserva> reservas = query.setMaxResults(5).getResultList();
+        return reservas;
+    }
+
+    @Override
     public void getReservasPorHora() {
         Query query = getEntityManager().createNativeQuery("SELECT SUBSTR(CHAR(TIME(r.entrada)),1,2), COUNT(SUBSTR(CHAR(TIME(r.entrada)),1,2)) FROM RESERVA r WHERE r.dia = current_date GROUP BY SUBSTR(CHAR(TIME(r.entrada)),1,2) ORDER BY 1");
 

@@ -45,8 +45,11 @@ public class InicioServlet extends HttpServlet {
                 clientes.forEach((cliente) -> {
                     parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
                 });
+                
+                List<Reserva> reservas = reservaSession.findAllByUsuarioInicio((Usuario) perfilObject);
 
                 request.setAttribute("parqueaderos", parqueaderos);
+                request.setAttribute("reservas", reservas);
                 /**
                  * } else if (perfilObject instanceof Cliente) {
                  * System.err.println("Cliente"); } else if (perfilObject

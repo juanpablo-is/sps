@@ -21,8 +21,12 @@ public interface ReservaFacadeLocal {
 
     List<Reserva> findAll();
 
-    List<Reserva> findAllByUsuario(Usuario persona);
+    List<Reserva> findAllByUsuario(Usuario usuario);
     
+    List<Reserva> findAllByUsuarioInicio(Usuario usuario);
+    
+    List<Reserva> findAllByUsuarioCliente(Usuario usuario, Cliente cliente);
+
     List<Reserva> findAllByCliente(Cliente parqueo);
 
     List<Reserva> findRange(int[] range);
@@ -36,4 +40,7 @@ public interface ReservaFacadeLocal {
     void getReservasPorHora();
 
     String graficoReserva(Usuario persona);
+
+    List<Object[]> getPlazasByCliente(Cliente cliente);
+
 }

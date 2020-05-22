@@ -43,16 +43,17 @@ public class SeleccionServlet extends HttpServlet {
         Object perfilObject = request.getSession().getAttribute("persona");
         String id = request.getParameter("id");
 
+        System.out.println("IDDDDD: " + id);
         if (id != null) {
             String campos[] = id.split("-");
             id = campos[1];
             Object perfil = null;
 
             if (campos[0].equals("U")) {
-                Usuario usuario = sessionBeanUsuario.find(id);
+                Usuario usuario = sessionBeanUsuario.findByPlaca(id);
                 perfil = usuario;
             } else if (campos[0].equals("C")) {
-                Cliente cliente = sessionBeanCliente.find(Integer.parseInt(id));
+                Cliente cliente = sessionBeanCliente.find(id);
                 perfil = cliente;
             } else if (campos[0].equals("A")) {
                 Movilidad movilidad = sessionBeanMovilidad.find(id);
@@ -62,9 +63,13 @@ public class SeleccionServlet extends HttpServlet {
             HttpSession sesion = request.getSession(true);
             sesion.setAttribute("perfil", perfil);
 
+            System.out.println("PERSONA: " + perfilObject);
+            System.out.println("PERFIL: " + perfil);
+
             response.sendRedirect("inicio");
             /**
-             * request.getRequestDispatcher("InicioServlet").include(request, response);*
+             * request.getRequestDispatcher("InicioServlet").include(request,
+             * response);*
              */
         } else if (perfilObject != null) {
             response.sendRedirect("inicio");

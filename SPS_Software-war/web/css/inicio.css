@@ -28,14 +28,13 @@ a{
 
 header{
     position: fixed;
-    position: absolute;
     top: 0;
     background-color: #1D1D1F;
     height: 60px;
     display: flex;
     width: 100%;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
     /*justify-content: center;*/
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
@@ -122,6 +121,7 @@ main{
     width: 20%;
     background-color: #1D1D1F;
     flex: 0 0 20%;
+    z-index: 1;
 }
 
 #pnlPrincipal{
@@ -174,10 +174,22 @@ main{
     margin-right: 10px;
 }
 
+.accountsList div{
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+.accountsList div:hover{
+    background-color: #f1f1f1;
+}
+
+.accountsList img{
+    width: 40px;
+}
+
 .accountsList h2{
     margin: 0px !important;
     padding: 4px 0;
-    cursor: pointer;
     font-weight: normal;
     font-size: 18px;
 }
@@ -263,13 +275,44 @@ main{
     color:#323232;
 }
 
+.cardReserva{
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border-color: #c1c1c1;
+    color: #c1c1c1;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cardReserva h3{
+    font-weight: normal;
+    margin:5px 0px;
+}
+
+.cardReserva em{
+    font-weight: bold;
+    font-style: normal;
+}
+
+.reservaActiva{
+    border-color: green;
+    color: black;
+}
+
 #pnlReservasInicio{
     width: 100%;
     height: 20%;
     border-bottom: 1px solid #323232;
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+#pnlReservasGrid{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
 }
 
 #infoInicio{
@@ -287,11 +330,10 @@ main{
     flex-direction: column;    
 }
 
-#mapaInicio h2{
+#mapaInicio h2, #pnlInicio h2{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
     margin: 0;
     padding: 0;
 }
@@ -361,6 +403,11 @@ h3{
     width: 100%;
 }
 
+.select{
+    pointer-events: none;
+    opacity: .2;
+}
+
 #formReserva input[type="submit"]{
     width: 70%;
     margin: 0 auto;
@@ -386,37 +433,45 @@ h3{
 
 /*============ HISTORIAL ============*/
 #history{
-    margin: 15px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.cardsHistory , .cardParqueaderos{
-    margin: 10px;
-    border-radius: 7px;
-    background-color: white;
-    -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.9);
-    -moz-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.9);
-    box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.9);
-    padding: 10px;
+    width: 100%;
+    text-align: center;
+    flex:1;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.cardsHistory span{
-    color:#DE4C33;
+#history th{
+    padding: 10px 0;
+    background: #2d3138;
+    color: white;
 }
 
-.ocupado span{
+tr{
+    background-color: white;
+    transition: all .4s ease; 
+}
+tr:hover{
+    background-color: #2d3138;
     color:white;
 }
 
-.ocupado{
-    background-color: rgba(115, 191, 67,.75);
+.row{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
 }
 
-.cardsHistory h2{
-    margin: 4px 0;
-    padding: 0;
+.row >*{
+    flex:1;
+}
+
+.cardParqueaderos{
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+    -webkit-box-shadow:inset 0px 0px 0px 2px #535353;
+    -moz-box-shadow:inset 0px 0px 0px 2px #535353;
+    box-shadow:inset 0px 0px 0px 2px #535353;
 }
 
 #textoReserva{
@@ -432,13 +487,17 @@ h3{
 #pnlParqueaderos{
     margin:15px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
 }
 
 
 .cardParqueaderoInterno{
     overflow: hidden;
     border-radius: 7px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 19px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 19px -5px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 19px -5px rgba(0,0,0,0.75);
 }
 
 .cardParqueaderoInterno img{
@@ -449,10 +508,146 @@ h3{
 
 .cardParqueaderoInterno h3{
     margin: 5px 0;
-    padding: 0;
+    padding: 0px 7px;
     color:#323232;
 }
 
 .cardParqueaderoInterno span{
     color:#DE4C33;
+}
+
+.cardParqueaderoInterno div{
+    margin: 20px 0;
+}
+
+/*Panel Tiempo Real*/
+
+.pnlDrop{
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #242426;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 10px 0;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.pnlDrop h3{
+    width: 100%;
+    margin: 0;
+}
+
+.pnlDrop svg{
+    margin-right: 20px;
+}
+
+#pnlMotos, #pnlCarros{
+    display: grid;
+    padding: 0 10px;
+    grid-template-columns: repeat(8,1fr);
+}
+
+.cardTiempoReal{
+    width: 100%;
+    flex: 1;
+    height: 150px;
+    padding: 5px;
+    border-left: 2px solid #8e8e8e;
+    border-bottom: 4px solid #8e8e8e;
+    border-right: 2px solid #8e8e8e;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cardTiempoReal:nth-child(8n), .cardTiempoReal:last-of-type{
+    border-right: 4px solid #8e8e8e;
+}
+
+.cardTiempoReal:nth-child(8n+1){
+    border-left: 4px solid #8e8e8e;
+}
+
+.ocupado{
+    border-color: #1cbd1c !important;
+}
+
+.cardTiempoReal h3{
+    margin: 0;
+}
+
+.cardTiempoReal img{
+    height: 100px
+}
+
+/*PANEL PARQUEADERO INDIVIDUAL*/
+
+#pnlParqueaderoIndividual{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#mapaParqueaderoIndividual{
+    width: 70%;
+    background-color: red;
+    height: 100%;
+}
+
+#infoParqueadero{
+    width: 30%;
+    background-color: white;
+    height: 100%;
+    padding: 7px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#infoParqueadero h2{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#infoParqueadero h4{
+    text-align: center;
+    font-weight: normal;
+    margin: 5px;
+}
+
+#reservarPI{
+    display: flex;   
+    padding: 10px 0;
+    flex-direction: column;
+}
+
+#reservarPI button, #reservarPI input[type='submit']{
+    background-color: #DE4C33;
+    margin: 0 auto;
+    padding: 7px 12px;
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+#reservarPI .fila{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+#reservarPI .columna{
+    margin: 10px;
+    width: 100%;
+}
+
+#reservarPI input[type='submit']{
+    display: flex;
+    justify-content: center;
 }

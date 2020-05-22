@@ -35,14 +35,14 @@
                             </div>
                             <div class="row">
                                 <input type="number" class="" placeholder="CEDULA" name="idPerson" required value="${persona.cedula}"/>
-                                <input type="number" class="" placeholder="TELÉFONO" name="phone" value="${persona.telefono}"/>
+                                <input type="number" class="" minlength="10" maxlength="10" placeholder="TELÉFONO" name="phone" value="${persona.telefono}"/>
                             </div>
                             <div class="row">
                                 <input id="usuario" type="radio" class="" name="radio" value="Usuario" required="true"/>
                                 <label for="usuario">Usuario</label><br>
                                 <input id="cliente" type="radio" class="" name="radio" value="Cliente" required="true"/>
                                 <label for="cliente">Cliente</label><br>
-                                <input id="admin" type="radio" class="" name="radio" value="Administración" required="true"/>
+                                <input id="admin" type="radio" class="" name="radio" value="Movilidad" required="true"/>
                                 <label for="admin">Administración</label>
                             </div>
                             <div id="addRow"></div>

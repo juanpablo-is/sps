@@ -53,11 +53,11 @@ if (textoBoton === '2') {
 
             let opcion1 = document.createElement("option");
             opcion1.innerHTML = "CARRO";
-            opcion1.setAttribute("value", "carro");
+            opcion1.setAttribute("value", "true");
 
             let opcion2 = document.createElement("option");
             opcion2.innerHTML = "MOTO";
-            opcion2.setAttribute("value", "moto");
+            opcion2.setAttribute("value", "false");
 
             input4.appendChild(opcion1);
             input4.appendChild(opcion2);
@@ -80,12 +80,27 @@ if (textoBoton === '2') {
             input1.setAttribute("name", "precio");
 
             var input2 = document.createElement("input");
-            input2.setAttribute("type", "number");
-            input2.setAttribute("placeholder", "CUPOS");
-            input2.setAttribute("name", "cupos");
+            input2.setAttribute("type", "text");
+            input2.setAttribute("placeholder", "ID PARQUEADERO");
+            input2.setAttribute("name", "idParqueadero");
             input2.setAttribute("required", "on");
             divRow.appendChild(input2);
             divRow.appendChild(input1);
+
+            var divRow4 = document.createElement("div");
+            divRow4.classList.add("row");
+
+            var inputDireccion = document.createElement("input");
+            inputDireccion.setAttribute("type", "text");
+            inputDireccion.setAttribute("placeholder", "DIRECCIÓN PARQUEADERO");
+            inputDireccion.setAttribute("name", "direccion");
+            
+            var inputNombre = document.createElement("input");
+            inputNombre.setAttribute("type", "text");
+            inputNombre.setAttribute("placeholder", "NOMBRE PARQUEADERO");
+            inputNombre.setAttribute("name", "nombreParqueadero");
+            divRow4.appendChild(inputNombre);
+            divRow4.appendChild(inputDireccion);
 
             var divRow2 = document.createElement("div");
             divRow2.classList.add("row");
@@ -120,64 +135,72 @@ if (textoBoton === '2') {
             divRow3.appendChild(input6);
 
             divAdd.appendChild(divRow);
+            divAdd.appendChild(divRow4);
             divAdd.appendChild(divRow2);
             divAdd.appendChild(divRow3);
         } else if (e.target.id === 'admin') {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    let array = this.responseText.split("\n");
-                    array.pop();
+//            var xhttp = new XMLHttpRequest();
+//            xhttp.onreadystatechange = function () {
+//                if (this.readyState === 4 && this.status === 200) {
+//            let array = this.responseText.split("\n");
+//            array.pop();
 
-                    var divRow = document.createElement("div");
-                    divRow.classList.add("row");
-                    divRow.id = "rowEmpresa";
+            var divRow = document.createElement("div");
+            divRow.classList.add("row");
+            divRow.id = "rowEmpresa";
 
-                    var input1 = document.createElement("select");
-                    input1.id = "selectEmpresa";
-                    input1.setAttribute("name", "empresa");
-                    input1.setAttribute("required", "on");
+            var input1 = document.createElement("input");
+            input1.id = "selectEmpresa";
+            input1.setAttribute("name", "empresa");
+            input1.setAttribute("required", "on");
+            input1.setAttribute("placeholder", "NOMBRE SEDE");
 
-                    let opcion1 = document.createElement("option");
-                    opcion1.innerHTML = "Seleccione una empresa";
-                    opcion1.setAttribute("selected", true);
-                    opcion1.setAttribute("disabled", "disabled");
-                    input1.appendChild(opcion1);
+            var input2 = document.createElement("input");
+            input2.setAttribute("name", "id");
+            input2.setAttribute("required", "on");
+            input2.setAttribute("placeholder", "ID MOVILIDAD");
 
-                    for (let i = 0; i < array.length; i++) {
-                        let opcion1 = document.createElement("option");
-                        opcion1.innerHTML = array[i];
-                        opcion1.setAttribute("value", array[i]);
-                        input1.appendChild(opcion1);
-                    }
+//            let opcion1 = document.createElement("option");
+//            opcion1.innerHTML = "Seleccione una empresa";
+//            opcion1.setAttribute("selected", true);
+//            opcion1.setAttribute("disabled", "disabled");
+//            input1.appendChild(opcion1);
 
-                    let opcion2 = document.createElement("option");
-                    opcion2.innerHTML = "Agregar una nueva";
-                    opcion2.setAttribute("value", "nueva");
-                    input1.appendChild(opcion2);
+//            for (let i = 0; i < array.length; i++) {
+//                let opcion1 = document.createElement("option");
+//                opcion1.innerHTML = array[i];
+//                opcion1.setAttribute("value", array[i]);
+//                input1.appendChild(opcion1);
+//            }
 
-                    divRow.appendChild(input1);
-                    divAdd.appendChild(divRow);
+//            let opcion2 = document.createElement("option");
+//            opcion2.innerHTML = "Agregar una nueva";
+//            opcion2.setAttribute("value", "nueva");
+//            input1.appendChild(opcion2);
 
-                    input1.addEventListener('change', function (e) {
-                        let empresa = document.getElementById("rowEmpresa");
-                        if (e.target.value === "nueva") {
-                            var inputEmpresa = document.createElement("input");
-                            inputEmpresa.setAttribute("type", "text");
-                            inputEmpresa.setAttribute("placeholder", "Nombre de la empresa");
-                            inputEmpresa.setAttribute("name", "empresa");
-                            inputEmpresa.setAttribute("required", "on");
-                            inputEmpresa.style.textTransform = 'CAPITALIZE';
+            divRow.appendChild(input1);
+            divRow.appendChild(input2);
+            divAdd.appendChild(divRow);
 
-                            empresa.appendChild(inputEmpresa);
-                        } else if (empresa.childElementCount > 1) {
-                            empresa.removeChild(empresa.lastElementChild);
-                        }
-                    }, true);
-                }
-            };
-            xhttp.open("GET", "AJAXEmpresasMovilidad", true);
-            xhttp.send();
+//            input1.addEventListener('change', function (e) {
+//                let empresa = document.getElementById("rowEmpresa");
+//                if (e.target.value === "nueva") {
+//                    var inputEmpresa = document.createElement("input");
+//                    inputEmpresa.setAttribute("type", "text");
+//                    inputEmpresa.setAttribute("placeholder", "Nombre de la empresa");
+//                    inputEmpresa.setAttribute("name", "empresa");
+//                    inputEmpresa.setAttribute("required", "on");
+//                    inputEmpresa.style.textTransform = 'CAPITALIZE';
+//
+//                    empresa.appendChild(inputEmpresa);
+//                } else if (empresa.childElementCount > 1) {
+//                    empresa.removeChild(empresa.lastElementChild);
+//                }
+//            }, true);
         }
+//            };
+//            xhttp.open("GET", "AJAXEmpresasMovilidad", true);
+//            xhttp.send();
+//        }
     }
 }

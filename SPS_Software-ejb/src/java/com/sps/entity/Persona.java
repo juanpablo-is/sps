@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.sps.entity;
 
 import java.io.Serializable;
@@ -33,16 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono")})
 public class Persona implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
-    private Collection<Movilidad> movilidadCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 15)
     @Column(name = "CEDULA")
-    private String cedula;
+    private Integer cedula;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -53,12 +54,16 @@ public class Persona implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "CONTRASENIA")
     private String contrasenia;
-    @Size(max = 30)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "CORREO")
     private String correo;
-    @Size(max = 15)
+    @Size(max = 10)
     @Column(name = "TELEFONO")
     private String telefono;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    private Collection<Movilidad> movilidadCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
     private Collection<Cliente> clienteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
@@ -67,23 +72,22 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    public Persona(String cedula) {
+    public Persona(Integer cedula) {
         this.cedula = cedula;
     }
 
-    public Persona(String cedula, String nombre, String contrasenia, String email, String phone) {
+    public Persona(Integer cedula, String nombre, String contrasenia, String correo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.contrasenia = contrasenia;
-        this.correo = email;
-        this.telefono = phone;
+        this.correo = correo;
     }
 
-    public String getCedula() {
+    public Integer getCedula() {
         return cedula;
     }
 
-    public void setCedula(String cedula) {
+    public void setCedula(Integer cedula) {
         this.cedula = cedula;
     }
 
@@ -117,6 +121,15 @@ public class Persona implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @XmlTransient
+    public Collection<Movilidad> getMovilidadCollection() {
+        return movilidadCollection;
+    }
+
+    public void setMovilidadCollection(Collection<Movilidad> movilidadCollection) {
+        this.movilidadCollection = movilidadCollection;
     }
 
     @XmlTransient
@@ -159,16 +172,7 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "{cedula:'" + cedula + "', nombre:'" + nombre + "', contrasenia:'" + contrasenia + "', correo:'" + correo + "', telefono:'" + telefono + "'}";
+        return "com.sps.entity.Persona[ cedula=" + cedula + " ]";
     }
-
-    @XmlTransient
-    public Collection<Movilidad> getMovilidadCollection() {
-        return movilidadCollection;
-    }
-
-    public void setMovilidadCollection(Collection<Movilidad> movilidadCollection) {
-        this.movilidadCollection = movilidadCollection;
-    }
-
+    
 }

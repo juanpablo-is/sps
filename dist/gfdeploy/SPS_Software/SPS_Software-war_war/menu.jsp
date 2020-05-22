@@ -25,12 +25,12 @@
 </header>
 <section id="pnlSide">
     <div id="contenido">
-        <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'CARRO'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
+        <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'true'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
         <h2>
             <strong>
                 <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'LUGAR':'CEDULA')}: "/>
             </strong>
-            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?perfil.direccion:'adminSeleccion')}"/>
+            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?perfil.nombre:'adminSeleccion')}"/>
         </h2>
     </div>
     <hr>
@@ -39,7 +39,7 @@
             <c:choose>
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
                     <a href="./inicio" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
-                    <a href="./reservar" id="enlaceReserva"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
+                    <a href="./reservar.jsp" id="enlaceReserva"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
                     <a href="./historial" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
                     <a href="./parqueaderos" id="enlaceParqueadero"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
                 </c:when>    
@@ -47,6 +47,7 @@
                     <a href="./inicio" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
                     <a href="./reservar.jsp" id="enlaceAsignar"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
                     <a href="./historial" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+                    <a href="./tiemporeal" id="enlaceTiempoReal"><li><i class="fas fa-stopwatch"></i>TIEMPO REAL</li></a>
                 </c:when>  
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Movilidad'}">
                     <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>

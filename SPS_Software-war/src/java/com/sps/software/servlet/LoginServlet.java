@@ -88,9 +88,15 @@ public class LoginServlet extends HttpServlet {
 
                     response.sendRedirect("inicio");
                 }
+            } else {
+                request.setAttribute("error", "CORREO O CONTRASEÑA INCORRECTOS, INTENTE DE NUEVO");
+//                response.sendRedirect("index.jsp");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         } else {
-            response.sendRedirect("index.jsp");
+            request.setAttribute("error", "SE HA PRESENTADO UN ERROR, INTENTE DE NUEVO");
+//            response.sendRedirect("index.jsp");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
     }
@@ -136,37 +142,19 @@ public class LoginServlet extends HttpServlet {
 
 }
 
-
 /**
-PERSON{
-    ID - CEDULA
-    NAME
-    PASSWORD
-    EMAIL
-    PHONE
-}
-
-USUARIO{
-    PLACA
-    MODELO
-    MARCA
-    ID-PROPIEDAD
-}
-
-CLIENT{
-    ADDRESS
-    CUPOS
-    SCHEDULE START
-    SCHEDULE END
-}
-
-
-ADMIN{
-    ID-PROPIEDAD
-    
-
-}
-
-LD_SPS_DB
-ldspsdb
- **/
+ * PERSON{ ID - CEDULA NAME PASSWORD EMAIL PHONE }
+ *
+ * USUARIO{ PLACA MODELO MARCA ID-PROPIEDAD }
+ *
+ * CLIENT{ ADDRESS CUPOS SCHEDULE START SCHEDULE END }
+ *
+ *
+ * ADMIN{ ID-PROPIEDAD
+ *
+ *
+ * }
+ *
+ * LD_SPS_DB ldspsdb
+ *
+ */

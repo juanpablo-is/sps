@@ -3,6 +3,39 @@ let page = document.getElementById("namePage").value;
 if (page === "2") {
     document.getElementById('dia').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
     document.getElementById('dia').value = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+    let checkRadio = document.getElementsByName('cubierto');
+
+    checkRadio[0].addEventListener('click', function () {
+        ajaxParqueaderos("si");
+    });
+
+    checkRadio[1].addEventListener('click', function () {
+        ajaxParqueaderos("no");
+    });
+
+    function  ajaxParqueaderos(estado) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let selector = document.getElementById('parqueadero');
+                selector.style.pointerEvents = "auto";
+                selector.style.opacity = "1";
+                selector.innerHTML = "";
+                let arrayParqueaderos = this.responseText.split("\n");
+                arrayParqueaderos.pop();
+                for (let i = 0; i < arrayParqueaderos.length; i++) {
+                    console.log(arrayParqueaderos[i]);
+                    let elements = JSON.parse(arrayParqueaderos[i]);
+                    let option = document.createElement('option');
+                    option.setAttribute('value', elements.id);
+                    option.innerHTML = elements.nombre + ' - ' + elements.direccion;
+                    selector.appendChild(option);
+                }
+            }
+        };
+        xhttp.open("GET", "reservar?cubierto=" + estado, true);
+        xhttp.send();
+    }
 }
 
 if (page === "1") {
@@ -71,4 +104,87 @@ if (page === "1") {
 //                    }
 //                });
     }
+}
+
+function reservaPI(idCliente) {
+    let reservaDiv = document.getElementById("reservarPI");
+    reservaDiv.innerHTML = "";
+
+    let form = document.createElement("form");
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', './reservar');
+
+    let divInputs = document.createElement("div");
+    divInputs.classList.add("fila");
+    let divDay = document.createElement("div");
+    divDay.classList.add("columna");
+    let labelDay = document.createElement("label");
+    labelDay.innerHTML = "Día reserva";
+    let inputDay = document.createElement("input");
+    inputDay.setAttribute('type', 'date');
+    inputDay.setAttribute('name', 'dia');
+    inputDay.setAttribute('required', 'on');
+    divDay.appendChild(labelDay);
+    divDay.appendChild(inputDay);
+    let divTime = document.createElement("div");
+    divTime.classList.add("columna");
+    let labelTime = document.createElement("label");
+    labelTime.innerHTML = "Fecha reserva";
+    let inputTime = document.createElement("input");
+    inputTime.setAttribute('type', 'time');
+    inputTime.setAttribute('name', 'entrada');
+    inputTime.setAttribute('required', 'on');
+    divTime.appendChild(labelTime);
+    divTime.appendChild(inputTime);
+    divInputs.appendChild(divDay);
+    divInputs.appendChild(divTime);
+
+    let divCheck = document.createElement("div");
+    divCheck.classList.add("fila");
+
+    let labelCubierto = document.createElement("label");
+    labelCubierto.classList.add("columna");
+    labelCubierto.innerHTML = "Cubierto";
+
+    let divInputCheck = document.createElement("div");
+    divInputCheck.classList.add("fila");
+    let inputSi = document.createElement("input");
+    inputSi.setAttribute('type', 'radio');
+    inputSi.setAttribute('name', 'cubierto');
+    inputSi.setAttribute('value', 'si');
+    let inputNo = document.createElement("input");
+    inputNo.setAttribute('type', 'radio');
+    inputNo.setAttribute('name', 'cubierto');
+    inputNo.setAttribute('value', 'no');
+    inputNo.setAttribute('checked', 'on');
+    let labelSi = document.createElement("label");
+    labelSi.classList.add("columna");
+    labelSi.innerHTML = "SI";
+    let labelNo = document.createElement("label");
+    labelNo.classList.add("columna");
+    labelNo.innerHTML = "NO";
+
+    divInputCheck.appendChild(labelSi);
+    divInputCheck.appendChild(inputSi);
+    divInputCheck.appendChild(labelNo);
+    divInputCheck.appendChild(inputNo);
+
+    divCheck.appendChild(labelCubierto);
+    divCheck.appendChild(divInputCheck);
+    
+    let inputCliente = document.createElement("input");
+    inputCliente.setAttribute('name', 'idCliente');
+    inputCliente.setAttribute('value', idCliente);
+    inputCliente.setAttribute('type', 'hidden');
+
+    let inputSubmit = document.createElement("input");
+    inputSubmit.setAttribute('type', 'submit');
+    inputSubmit.setAttribute('value', 'RESERVAR');
+    inputSubmit.setAttribute('name', 'reservar');
+
+    form.appendChild(divInputs);
+    form.appendChild(divCheck);
+    form.appendChild(inputSubmit);
+    form.appendChild(inputCliente);
+    reservaDiv.appendChild(form);
 }

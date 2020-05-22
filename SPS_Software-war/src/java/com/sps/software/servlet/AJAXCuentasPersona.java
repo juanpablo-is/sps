@@ -64,11 +64,10 @@ public class AJAXCuentasPersona extends HttpServlet {
                 if (perfil.equals("usuario")) {
                     perfilObject = sessionBeanUsuario.findByPlaca(idCuenta);
                 } else if (perfil.equals("cliente")) {
-                    perfilObject = sessionBeanCliente.findByID(Integer.parseInt(idCuenta));
+                    perfilObject = sessionBeanCliente.find(idCuenta);
                 } else if (perfil.equals("movilidad")) {
                     perfilObject = sessionBeanMovilidad.findByCedula(idCuenta);
                 }
-                out.println("GET: " + perfilObject);
                 sesion.setAttribute("perfil", perfilObject);
             }
 

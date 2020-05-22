@@ -1,10 +1,9 @@
 package com.sps.software.servlet;
 
-import com.sps.session.ClienteFacadeLocal;
-import com.sps.session.UsuarioFacadeLocal;
-import com.sps.session.ReservaFacadeLocal;
+import com.sps.session.*;
 import com.sps.entity.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -25,6 +24,8 @@ public class ReservaServlet extends HttpServlet {
     private ClienteFacadeLocal clienteSession;
     @EJB
     private UsuarioFacadeLocal usuarioSession;
+    @EJB
+    private PlazaFacadeLocal plazaSession;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,6 +40,7 @@ public class ReservaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String opcion = request.getParameter("reservar");
+        System.out.println("OPCION: " + opcion);
         Object perfilObject = request.getSession().getAttribute("perfil");
 
         if (perfilObject != null) {
@@ -51,32 +53,40 @@ public class ReservaServlet extends HttpServlet {
                      * reservaSession.findByUsuario(perfil); if (reservaPersona
                      * == null) {*
                      */
-                    List<Cliente> clientesSelector = clienteSession.findAll();
-                    ArrayList<Cliente> clientes = new ArrayList<>();
+                    boolean cubierto = request.getParameter("cubierto").equals("si");
+                    List<Object[]> plazas = plazaSession.findNoExistsGroup(perfil.getTipoVehiculo(), cubierto);
 
-                    for (int i = 0; i < clientesSelector.size(); i++) {
-                        Cliente cliente = clientesSelector.get(i);
-                        Number count = reservaSession.findBySelector(cliente);
-                        cliente.setCupos(cliente.getCupos() - count.intValue());
-                        clientes.add(cliente);
+                    for (int i = 0; i < plazas.size(); i++) {
+                        Object cliente = plazas.get(i);
+
+                        try (PrintWriter out = response.getWriter()) {
+                            out.println(clienteSession.find(cliente));
+                        }
                     }
 
-                    request.setAttribute("parqueaderos", clientes);
+//                    request.setAttribute("parqueaderos", clientes);
                     /**
                      * }*
                      */
-                    request.getRequestDispatcher("reservar.jsp").forward(request, response);
+//                    request.getRequestDispatcher("reservar.jsp").forward(request, response);
                 } else if (opcion.equalsIgnoreCase("reservar")) {
-                    String dia = request.getParameter("dia");
 
-                    String entrada = request.getParameter("entrada");
+                    boolean cubierto = request.getParameter("cubierto").equals("si");
+                    boolean tipoVehiculo = perfil.getTipoVehiculo();
+
                     String clienteID = request.getParameter("idCliente");
+                    Cliente cliente = clienteSession.find(clienteID);
 
-                    Cliente cliente = clienteSession.findByID(Integer.parseInt(clienteID));
+                    Plaza plaza = plazaSession.findPlazaNoExists(tipoVehiculo, cubierto, cliente);
+                    String dia = request.getParameter("dia");
+                    String entrada = request.getParameter("entrada");
 
-                    Reserva reservaRegistrar = new Reserva(dia, entrada, null, perfil, cliente, true);
+                    Reserva reserva = new Reserva(dia, entrada, true, plaza, perfil);
+                    reservaSession.create(reserva);
 
-                    reservaSession.create(reservaRegistrar);
+//                    Reserva reservaRegistrar = new Reserva(dia, entrada, "", 0, null, perfil);
+//
+//                    reservaSession.create(reservaRegistrar);
                     /**
                      * if (reservaSession.create(reservaRegistrar)) {
                      * System.err.println("CREADO RESERVA"); } else {
@@ -90,20 +100,24 @@ public class ReservaServlet extends HttpServlet {
                 String placa = request.getParameter("placa").toUpperCase();
                 String hora = request.getParameter("hora");
                 String idCliente = request.getParameter("cliente");
-
-                Cliente cliente = clienteSession.findByID(Integer.parseInt(idCliente));
+                boolean cubierto = request.getParameter("cubierto").equals("si");
+                Cliente cliente = clienteSession.find(idCliente);
                 Usuario perfil = usuarioSession.findByPlaca(placa);
 
-                Reserva reservaRegistrar = new Reserva(dia, hora, null, perfil, cliente, true);
+                Plaza plaza = plazaSession.findPlazaNoExists(perfil.getTipoVehiculo(), cubierto, cliente);
+                Reserva reserva = new Reserva(dia, hora, true, plaza, perfil);
+                reservaSession.create(reserva);
 
-                reservaSession.create(reservaRegistrar);
+//                Reserva reservaRegistrar = new Reserva(dia, hora, "", 0, null, perfil);
+//
+//                reservaSession.create(reservaRegistrar);
                 /**
                  * if (reservaSession.create(reservaRegistrar)) {
                  * System.err.println("CREADO RESERVA"); } else {
                  * System.err.println("RESERVA NO CREADA"); }*
                  *
                  */
-                request.getRequestDispatcher("asignar.jsp").forward(request, response);
+                request.getRequestDispatcher("reservar.jsp").forward(request, response);
             }
         } else {
             response.sendRedirect("index.jsp");

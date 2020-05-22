@@ -5,8 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil</title>
@@ -22,9 +23,9 @@
             </header>
             <nav>
                 <ul id="listaItems">
-                    <li class="seleccionItem">PERFIL</li>
-                    <li>AJUSTES</li>
-                    <li>CAMBIOS</li>
+                    <li class="seleccionItem">CUENTA</li>
+                    <!--<li>AJUSTES</li>-->
+                    <!--<li>PERFIL</li>-->
                     <li>INFO</li>
                 </ul>
             </nav>

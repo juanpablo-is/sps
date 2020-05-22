@@ -33,10 +33,12 @@ function iconoAccount() {
     pnlInfo.innerHTML = "";
     if (click) {
         let divPerfil = document.createElement("div");
-        divPerfil.addEventListener('click',function(){
-            window.open("http://localhost:8080/SPS_Software-war/perfil.jsp","_self");
-        });
         let divSoporte = document.createElement("div");
+
+        divPerfil.addEventListener('click', function () {
+            window.open("./perfil.jsp", "_self");
+        });
+
         divPerfil.classList.add("menuDesplegable");
         divSoporte.classList.add("menuDesplegable");
 
@@ -65,21 +67,26 @@ function iconoAccount() {
         for (let i = 0; i < accounts.length - 1; i++) {
             let elements = Object.values(accounts[i]);
             if (elements[0] !== Object.values(accounts[accounts.length - 1])[0]) {
+                let accountDiv = document.createElement("div");
+                let icono = document.createElement("img");
+                icono.setAttribute('src', './images/' + (elements[2] === 'usuario' ? (elements[3]=== 'true' ? 'usuarioCarro' : 'usuarioMoto') : (elements[2] === 'cliente') ? 'clienteSeleccion' : 'adminSeleccion') + '.png');
+                accountDiv.appendChild(icono);
                 let elementH2 = document.createElement("h2");
                 elementH2.innerHTML = elements[1];
-                elementH2.addEventListener('click', function () {
+                accountDiv.appendChild(elementH2);
+                accountDiv.addEventListener('click', function () {
                     pnlInfo.style.display = "none";
                     click = false;
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function () {
                         if (this.readyState === 4 && this.status === 200) {
-                            window.open("http://localhost:8080/SPS_Software-war/inicio", "_self");
+                            window.open("./inicio", "_self");
                         }
                     };
                     xhttp.open("GET", "AJAXCuentasPersona?proceso=2&valor=" + elements[0] + "&perfil=" + elements[2], true);
                     xhttp.send();
                 }, false);
-                pnlInfo.appendChild(elementH2);
+                pnlInfo.appendChild(accountDiv);
             }
         }
     }

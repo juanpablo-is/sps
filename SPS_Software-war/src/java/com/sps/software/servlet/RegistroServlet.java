@@ -1,8 +1,6 @@
 package com.sps.software.servlet;
 
-import com.sps.session.ClienteFacadeLocal;
-import com.sps.session.UsuarioFacadeLocal;
-import com.sps.session.PersonaFacadeLocal;
+import com.sps.session.*;
 import com.sps.entity.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +22,10 @@ public class RegistroServlet extends HttpServlet {
     private UsuarioFacadeLocal sessionBeanUsuario;
     @EJB
     private ClienteFacadeLocal sessionBeanCliente;
+    @EJB
+    private MovilidadFacadeLocal sessionBeanMovilidad;
+    @EJB
+    private PlazaFacadeLocal sessionBeanPlaza;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,12 +45,13 @@ public class RegistroServlet extends HttpServlet {
         //Datos 'PERSONA'
         String password = request.getParameter("password");
         String name = request.getParameter("name");
-        String cedula = request.getParameter("idPerson");
+        Integer cedula = Integer.parseInt(request.getParameter("idPerson"));
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 
         Persona personaFind = sessioBeanPersona.find(cedula);
-        Persona persona = new Persona(cedula, name, password, email, phone);
+        Persona persona = new Persona(cedula, name, password, email);
+        persona.setTelefono(phone);
 
         switch (radio) {
             case "Usuario":
@@ -56,8 +59,9 @@ public class RegistroServlet extends HttpServlet {
                 String placa = request.getParameter("placa").toUpperCase();
                 String marca = request.getParameter("marca");
                 String idPropiedad = request.getParameter("idPropiedad").toUpperCase();
-                String tipoVehiculo = request.getParameter("tipoVehiculo").toUpperCase();
-                Usuario usuarioFind = sessionBeanUsuario.find(idPropiedad);
+                boolean tipoVehiculo = Boolean.parseBoolean(request.getParameter("tipoVehiculo").toUpperCase());
+
+                Usuario usuarioFind = sessionBeanUsuario.find(placa);
                 if (usuarioFind == null) {
                     if (personaFind == null) {
                         sessioBeanPersona.create(persona);
@@ -80,30 +84,35 @@ public class RegistroServlet extends HttpServlet {
                 break;
             case "Cliente":
                 //Datos 'CLIENTE'
-                String cupos = request.getParameter("cupos");
+                String idParqueadero = request.getParameter("idParqueadero");
                 String horaEntrada = request.getParameter("horaEntrada");
                 String horaCierre = request.getParameter("horaCierre");
                 String precio = request.getParameter("precio");
                 String carros = request.getParameter("cantidadCarros");
                 String motos = request.getParameter("cantidadMotos");
+                String direccion = request.getParameter("direccion");
+                String nombre = request.getParameter("nombreParqueadero");
 
-                ArrayList<Cliente> clienteFind = (ArrayList<Cliente>) sessionBeanCliente.findByCedula(persona);
+                Cliente clienteFind = sessionBeanCliente.find(idParqueadero);
 
-                if (clienteFind.isEmpty()) {
+                if (clienteFind == null) {
                     if (personaFind == null) {
                         sessioBeanPersona.create(persona);
                     }
                     Cliente cliente = new Cliente();
-                    cliente.setCupos(Integer.parseInt(cupos));
+                    cliente.setId(idParqueadero);
                     cliente.setInicio(horaEntrada);
                     cliente.setFin(horaCierre);
                     cliente.setIdPersona(persona);
+                    cliente.setNombre(nombre);
+                    cliente.setDireccion(direccion);
                     cliente.setPrecio(Integer.parseInt(precio));
                     cliente.setCarros(Integer.parseInt(carros));
                     cliente.setMotos(Integer.parseInt(motos));
 
                     if (sessionBeanCliente.create(cliente)) {
                         ingreso = true;
+                        crearPlaza(cliente);
                     } else {
                         // EL USUARIO NO SE PUDO REGISTRAR
                         sessioBeanPersona.remove(persona);
@@ -111,18 +120,43 @@ public class RegistroServlet extends HttpServlet {
                     }
                 } else {
                     //EL USUARIO YA ESTA REGISTRADO
-                    request.setAttribute("error", "EL CLIENTE YA ESTA REGISTRADO");
+                    request.setAttribute("error", "EL CLIENTE YA ESTA REGISTRADÓ");
                     request.setAttribute("persona", persona);
                 }
                 break;
-            case "Administracion":
+            case "Movilidad":
+                String idMovilidad = request.getParameter("id");
+                String sede = request.getParameter("empresa");
+
+                Movilidad movilidad = sessionBeanMovilidad.find(idMovilidad);
+
+                if (movilidad == null) {
+                    if (personaFind == null) {
+                        sessioBeanPersona.create(persona);
+                    }
+
+                    movilidad = new Movilidad(idMovilidad, sede, persona);
+                    if (sessionBeanMovilidad.create(movilidad)) {
+                        ingreso = true;
+                    } else {
+                        sessioBeanPersona.remove(persona);
+                        request.setAttribute("error", "EL CLIENTE NO PUDO SER REGISTRADO, INTENTE DE NUEVO");
+                    }
+                } else {
+                    request.setAttribute("error", "EL USUARIO DE MOVILIDAD YA ESTA REGISTRADÓ");
+                    request.setAttribute("persona", persona);
+                }
                 break;
         }
 
-        request.getRequestDispatcher(ingreso ? "index.jsp" : "registro.jsp").forward(request, response);
+        if (ingreso) {
+            response.sendRedirect("index.jsp");
+        } else {
+            request.getRequestDispatcher("registro.jsp").forward(request, response);
+        }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -160,5 +194,24 @@ public class RegistroServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void crearPlaza(Cliente cliente) {
+        String id = "";
+        boolean cubierto = true;
+        Plaza plaza = null;
+        boolean tipo = true;
+        for (int i = 0; i < cliente.getCarros() + cliente.getMotos(); i++) {
+            if (i < cliente.getCarros()) {
+                id = "C" + (i + 1) + "-" + cliente.getId();
+                tipo = true;
+            } else {
+                id = "M" + (i + 1 - cliente.getCarros()) + "-" + cliente.getId();
+                tipo = false;
+            }
+            cubierto = (int) Math.round(Math.random()) == 1;
+            plaza = new Plaza(id, tipo, cubierto, cliente);
+            sessionBeanPlaza.create(plaza);
+        }
+    }
 
 }

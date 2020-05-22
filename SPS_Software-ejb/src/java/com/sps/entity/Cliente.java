@@ -7,8 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,51 +29,63 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
     , @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :id")
+    , @NamedQuery(name = "Cliente.findByCarros", query = "SELECT c FROM Cliente c WHERE c.carros = :carros")
+    , @NamedQuery(name = "Cliente.findByMotos", query = "SELECT c FROM Cliente c WHERE c.motos = :motos")
     , @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion")
-    , @NamedQuery(name = "Cliente.findByCupos", query = "SELECT c FROM Cliente c WHERE c.cupos = :cupos")
+    , @NamedQuery(name = "Cliente.findByLatitud", query = "SELECT c FROM Cliente c WHERE c.latitud = :latitud")
+    , @NamedQuery(name = "Cliente.findByLongitud", query = "SELECT c FROM Cliente c WHERE c.longitud = :longitud")
     , @NamedQuery(name = "Cliente.findByInicio", query = "SELECT c FROM Cliente c WHERE c.inicio = :inicio")
+    , @NamedQuery(name = "Cliente.findByFin", query = "SELECT c FROM Cliente c WHERE c.fin = :fin")
+    , @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre")
     , @NamedQuery(name = "Cliente.findByCedula", query = "SELECT c FROM Cliente c WHERE c.idPersona = :idPersona")
-    , @NamedQuery(name = "Cliente.findByFin", query = "SELECT c FROM Cliente c WHERE c.fin = :fin")})
+    , @NamedQuery(name = "Cliente.findByPrecio", query = "SELECT c FROM Cliente c WHERE c.precio = :precio")})
+
 public class Cliente implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "ID")
+    private String id;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "CARROS")
-    private Integer carros;
+    private int carros;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "MOTOS")
-    private Integer motos;
-
+    private int motos;
+    @Size(max = 50)
+    @Column(name = "DIRECCION")
+    private String direccion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "LATITUD")
     private BigDecimal latitud;
     @Column(name = "LONGITUD")
     private BigDecimal longitud;
-
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "INICIO")
+    private String inicio;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "FIN")
+    private String fin;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "NOMBRE")
+    private String nombre;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRECIO")
     private double precio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
-    private Collection<Reserva> reservaCollection;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Basic(optional = false)
-    @Size(min = 1, max = 50)
-    @Column(name = "DIRECCION")
-    private String direccion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CUPOS")
-    private int cupos;
-    @Size(max = 5)
-    @Column(name = "INICIO")
-    private String inicio;
-    @Size(max = 5)
-    @Column(name = "FIN")
-    private String fin;
+    private Collection<Plaza> plazaCollection;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "CEDULA")
     @ManyToOne(optional = false)
     private Persona idPersona;
@@ -83,16 +93,42 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Integer id) {
+    public Cliente(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public Cliente(String id, int carros, int motos, String inicio, String fin, String nombre, double precio) {
+        this.id = id;
+        this.carros = carros;
+        this.motos = motos;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public int getCarros() {
+        return carros;
+    }
+
+    public void setCarros(int carros) {
+        this.carros = carros;
+    }
+
+    public int getMotos() {
+        return motos;
+    }
+
+    public void setMotos(int motos) {
+        this.motos = motos;
     }
 
     public String getDireccion() {
@@ -101,46 +137,6 @@ public class Cliente implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public int getCupos() {
-        return cupos;
-    }
-
-    public void setCupos(int cupos) {
-        this.cupos = cupos;
-    }
-
-    public String getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(String inicio) {
-        this.inicio = inicio;
-    }
-
-    public String getFin() {
-        return fin;
-    }
-
-    public void setFin(String fin) {
-        this.fin = fin;
-    }
-
-    public Persona getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(Persona idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public BigDecimal getLatitud() {
@@ -159,20 +155,53 @@ public class Cliente implements Serializable {
         this.longitud = longitud;
     }
 
-    public Integer getCarros() {
-        return carros;
+    public String getInicio() {
+        return inicio;
     }
 
-    public void setCarros(Integer carros) {
-        this.carros = carros;
+    public void setInicio(String inicio) {
+        this.inicio = inicio;
     }
 
-    public Integer getMotos() {
-        return motos;
+    public String getFin() {
+        return fin;
     }
 
-    public void setMotos(Integer motos) {
-        this.motos = motos;
+    public void setFin(String fin) {
+        this.fin = fin;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    @XmlTransient
+    public Collection<Plaza> getPlazaCollection() {
+        return plazaCollection;
+    }
+
+    public void setPlazaCollection(Collection<Plaza> plazaCollection) {
+        this.plazaCollection = plazaCollection;
+    }
+
+    public Persona getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Persona idPersona) {
+        this.idPersona = idPersona;
     }
 
     @Override
@@ -197,16 +226,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "{\"id\":" + id + ", \"direccion\":\"" + direccion + "\", \"perfil\":\"cliente\"}";
-    }
-
-    @XmlTransient
-    public Collection<Reserva> getReservaCollection() {
-        return reservaCollection;
-    }
-
-    public void setReservaCollection(Collection<Reserva> reservaCollection) {
-        this.reservaCollection = reservaCollection;
+        return "{\"id\":\"" + id + "\", \"nombre\":\"" + nombre + "\", \"perfil\":\"cliente\", \"direccion\":\"" + direccion + "\"}";
     }
 
 }

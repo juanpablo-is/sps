@@ -3,7 +3,6 @@ package com.sps.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,33 +30,30 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByMarca", query = "SELECT u FROM Usuario u WHERE u.marca = :marca")
     , @NamedQuery(name = "Usuario.findByCedula", query = "SELECT u FROM Usuario u WHERE u.idPersona = :idPersona")
     , @NamedQuery(name = "Usuario.findByIdPropiedad", query = "SELECT u FROM Usuario u WHERE u.idPropiedad = :idPropiedad")})
+
 public class Usuario implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "TIPO_VEHICULO")
-    private String tipoVehiculo;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Reserva> reservaCollection;
-
     private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 6)
     @Column(name = "PLACA")
     private String placa;
-    @NotNull
-    @Size(min = 1, max = 15)
+    @Size(max = 15)
     @Column(name = "MARCA")
     private String marca;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "ID_PROPIEDAD")
     private String idPropiedad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TIPO_VEHICULO")
+    private Boolean tipoVehiculo;
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<Reserva> reservaCollection;
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "CEDULA")
     @ManyToOne(optional = false)
     private Persona idPersona;
@@ -65,11 +61,15 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Persona idPersona, String idPropiedad, String placa, String marca, String tipoVehiculo) {
-        this.idPersona = idPersona;
-        this.idPropiedad = idPropiedad;
+    public Usuario(String placa) {
         this.placa = placa;
+    }
+
+    public Usuario(Persona persona, String idPropiedad, String placa, String marca, Boolean tipoVehiculo) {
+        this.idPersona = persona;
         this.marca = marca;
+        this.placa = placa;
+        this.idPropiedad = idPropiedad;
         this.tipoVehiculo = tipoVehiculo;
     }
 
@@ -97,6 +97,23 @@ public class Usuario implements Serializable {
         this.idPropiedad = idPropiedad;
     }
 
+    public Boolean getTipoVehiculo() {
+        return tipoVehiculo;
+    }
+
+    public void setTipoVehiculo(Boolean tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
+    }
+
+    @XmlTransient
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
+    }
+
     public Persona getIdPersona() {
         return idPersona;
     }
@@ -105,18 +122,10 @@ public class Usuario implements Serializable {
         this.idPersona = idPersona;
     }
 
-    public String getTipoVehiculo() {
-        return tipoVehiculo;
-    }
-
-    public void setTipoVehiculo(String tipoVehiculo) {
-        this.tipoVehiculo = tipoVehiculo;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idPropiedad != null ? idPropiedad.hashCode() : 0);
+        hash += (placa != null ? placa.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +136,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.idPropiedad == null && other.idPropiedad != null) || (this.idPropiedad != null && !this.idPropiedad.equals(other.idPropiedad))) {
+        if ((this.placa == null && other.placa != null) || (this.placa != null && !this.placa.equals(other.placa))) {
             return false;
         }
         return true;
@@ -135,16 +144,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "{\"id\":\"" + placa + "\", \"marca\":\"" + marca + "\", \"perfil\":\"usuario\"}";
-    }
-
-    @XmlTransient
-    public Collection<Reserva> getReservaCollection() {
-        return reservaCollection;
-    }
-
-    public void setReservaCollection(Collection<Reserva> reservaCollection) {
-        this.reservaCollection = reservaCollection;
+        return "{\"id\":\"" + placa + "\", \"marca\":\"" + marca + "\", \"perfil\":\"usuario\", \"tipo\":\"" + tipoVehiculo + "\"}";
     }
 
 }

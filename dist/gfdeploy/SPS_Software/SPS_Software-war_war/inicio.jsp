@@ -7,11 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-        <title>BIENVENIDO</title>
+        <title>Inicio</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
         <link rel="stylesheet" href="css/inicio.css"/>
@@ -35,7 +35,6 @@
         <main>
             <c:choose>
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
-                    <input id="parqueaderos" type="hidden" value="${parqueaderos}"/>
                     <%@include  file="inicioUsuario.jsp" %>
                     <script>
                         var parqueaderosArray = ${parqueaderos};

@@ -32,6 +32,10 @@
         <servlet-name>InicioServlet</servlet-name>
         <servlet-class>com.sps.software.servlet.InicioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ParqueaderoIndividualServlet</servlet-name>
+        <servlet-class>com.sps.software.servlet.ParqueaderoIndividualServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/ingresar</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>InicioServlet</servlet-name>
         <url-pattern>/inicio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ParqueaderoIndividualServlet</servlet-name>
+        <url-pattern>/parqueadero</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

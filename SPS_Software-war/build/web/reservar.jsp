@@ -52,12 +52,18 @@
                                     <input type="time" id="entrada" name="entrada" required/>
                                 </div>
                                 <div>
+                                    <input type="radio" id="cubierto" name="cubierto" value="si">
+                                    <label for="cubierto">Cubierto</label><br>
+                                    <input type="radio" id="noCubierto" name="cubierto" value="no">
+                                    <label for="noCubierto">No cubierto</label><br>
+                                </div>
+                                <div>
                                     <label for="parqueadero">PARQUEADERO:</label>
-                                    <select name="idCliente" id="parqueadero">
-                                        <option value="vacio">SELECCIONE UN PARQUEADERO:</option>
+                                    <select class="select" name="idCliente" id="parqueadero">
+                                        <%--<option value="vacio">SELECCIONE UN PARQUEADERO:</option>
                                         <c:forEach items="${parqueaderos}" var="parqueadero">
-                                            <option value="${parqueadero.id}">${parqueadero.direccion} - Cupos Disponibles: ${parqueadero.cupos}</option>
-                                        </c:forEach>
+                                            <option value="${parqueadero.id}">${parqueadero.nombre} - ${parqueadero.direccion}<%-- - Cupos Disponibles: ${parqueadero.cupos}</option>
+                                        </c:forEach>--%>
                                     </select>
                                 </div>
                                 <input type="submit" value="RESERVAR" name="reservar"/>
@@ -80,7 +86,21 @@
                                     <input type="text" id="placa" name="placa" required/>
                                 </div>
 
-                                <input type="submit" value="ASIGNAR" name="reservar"/>
+                                <div>
+                                    <label for="tipoVehiculo">TIPO VEHICULO</label>
+                                    <select name="tipoVehiculo" id="tipoVehiculo">
+                                        <option value="1">CARRO</option>
+                                        <option value="2">MOTO</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <input type="radio" id="cubierto" name="cubierto" value="si">
+                                    <label for="cubierto">Cubierto</label><br>
+                                    <input type="radio" id="noCubierto" name="cubierto" value="no">
+                                    <label for="noCubierto">No cubierto</label><br>
+                                </div>
+                                <input type="submit" value="RESERVAR" name="reservar"/>
                             </form>
                         </c:when>    
                         <c:otherwise>

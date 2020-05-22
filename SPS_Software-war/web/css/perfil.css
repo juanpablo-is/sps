@@ -23,8 +23,9 @@ a{
 }
 
 #top{
-   position: absolute;
-   width: 100%;
+    background-color: white;
+    position: fixed;
+    width: 100%;
 }
 
 header{
@@ -97,6 +98,130 @@ nav li:hover{
 
 #target{
     padding-top: 110px;
-    width: 100vw;
     height: 100vh;
 }
+
+/*Panel Perfil*/
+
+#pnlPerfil{
+    font-family: 'Roboto Condensed', sans-serif;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center
+}
+#pnlPerfil h2{
+    text-transform: uppercase; 
+}
+
+#pnlPerfil hr{
+    margin: 50px auto;
+    width: 70%;
+}
+
+.row{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px 0px;
+}
+
+.column{
+    display: flex;
+    flex: 1 1 50%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.column input{
+    width: 50%;
+    height: 36px;
+    padding-left: 10px;
+}
+
+.column label{
+    font-family: 'Roboto Condensed', sans-serif;
+    width: 30%;
+}
+
+input[type="submit"]{
+    cursor: pointer;
+    color:white;
+    outline: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    margin-top: 15px;
+    background-color: #DE4C33;
+    border-radius:5px;
+}
+
+input[type="submit"]:hover{
+    opacity: .8;
+}
+
+/*Panel Info*/
+
+#pnlInfo{
+    font-family: 'Roboto Condensed', sans-serif;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#pnlInfo h1{
+    text-transform: uppercase;
+}
+
+#textoFAQ{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#textoFAQ h2{
+    margin:0;
+    padding: 0;
+}
+
+#textoFAQ svg{
+    margin: 0 20px;
+    font-size: 25px !important;
+    color: #DE4C33;
+}
+
+.pnlDrop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.pnlDrop div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.pnlDrop p{
+    display: none;
+}
+
+.pnlDrop:hover, .preguntaSeleccion{
+    background-color: #f2f2f2;
+}
+
+.pnlDrop svg{
+    margin-right: 20px;
+}
+
+.pnlDrop h3 {
+    padding-left: 15px;
+    flex: 1;
+    text-align: left;
+}
+

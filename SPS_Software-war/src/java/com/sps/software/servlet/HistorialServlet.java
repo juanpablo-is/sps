@@ -1,10 +1,7 @@
 package com.sps.software.servlet;
 
-import com.sps.session.ClienteFacadeLocal;
-import com.sps.session.ReservaFacadeLocal;
-import com.sps.entity.Cliente;
-import com.sps.entity.Reserva;
-import com.sps.entity.Usuario;
+import com.sps.session.*;
+import com.sps.entity.*;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,6 +20,8 @@ public class HistorialServlet extends HttpServlet {
     private ReservaFacadeLocal reservaSession;
     @EJB
     private ClienteFacadeLocal clienteSession;
+    @EJB
+    private HistorialFacadeLocal historialSession;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,9 +41,10 @@ public class HistorialServlet extends HttpServlet {
             if (perfilObject instanceof Usuario) {
                 Usuario perfil = (Usuario) perfilObject;
 
-                List<Reserva> reservas = reservaSession.findAllByUsuario(perfil);
-                if (!reservas.isEmpty()) {
-                    request.setAttribute("reservas", reservas);
+                List<Historial> historiales = historialSession.findByUsuario(perfil);
+                
+                if (!historiales.isEmpty()) {
+                    request.setAttribute("historiales", historiales);
                 }
                 /**
                  * Persona persona = (Persona)
@@ -76,9 +76,11 @@ public class HistorialServlet extends HttpServlet {
             } else if (perfilObject instanceof Cliente) {
                 Cliente parqueo = (Cliente) request.getSession().getAttribute("perfil");
 
-                List<Reserva> reservas = reservaSession.findAllByCliente(parqueo);
-                if (!reservas.isEmpty()) {
-                    request.setAttribute("reservas", reservas);
+//                List<Reserva> reservas = reservaSession.findAllByCliente(parqueo);
+                List<Historial> historiales = historialSession.findByCliente(parqueo);
+                
+                if (!historiales.isEmpty()) {
+                    request.setAttribute("historiales", historiales);
                 }
             }
             request.getRequestDispatcher("historial.jsp").forward(request, response);

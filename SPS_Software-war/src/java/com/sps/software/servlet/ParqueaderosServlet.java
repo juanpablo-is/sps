@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Juan Pablo
  */
-//@WebServlet(name = "ParqueaderosServlet", urlPatterns = {"/ParqueaderosServlet"})
 public class ParqueaderosServlet extends HttpServlet {
 
     @EJB
@@ -47,8 +46,8 @@ public class ParqueaderosServlet extends HttpServlet {
 
             for (int i = 0; i < clientesSelector.size(); i++) {
                 Cliente cliente = clientesSelector.get(i);
-                Number count = reservaSession.findBySelector(cliente);
-                cliente.setCupos(cliente.getCupos() - count.intValue());
+//                Number count = reservaSession.findBySelector(cliente);
+//                cliente.setCupos(cliente.getCupos() - count.intValue());
                 clientes.add(cliente);
             }
 

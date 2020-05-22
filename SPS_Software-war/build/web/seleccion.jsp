@@ -32,18 +32,18 @@
                 <section id="seccionPerfil">
                     <c:forEach items="${perfiles}" var="perfil">
                         <div class="cardPerfil">
-                            <input type="hidden" value="<c:out value="${((perfil.getClass().name == 'com.sps.entity.Usuario')?'U-'+=perfil.idPropiedad:(perfil.getClass().name eq 'com.sps.entity.Cliente')?'C-'+=perfil.id:'A-'+=perfil.id)}"/>"/>
+                            <input type="hidden" value="<c:out value="${((perfil.getClass().name == 'com.sps.entity.Usuario')?'U-'+=perfil.placa:(perfil.getClass().name eq 'com.sps.entity.Cliente')?'C-'+=perfil.id:'A-'+=perfil.id)}"/>"/>
 
                             <div id="topCard">
-                                <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'CARRO'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
+                                <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'true'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
                                 <h3>
                                     ${((perfil.class.name == 'com.sps.entity.Usuario')? 'USUARIO' :(perfil.class.name == 'com.sps.entity.Cliente')?'CLIENTE':'MOVILIDAD')}
                                 </h3>
                             </div>
                             <hr>
                             <div id="textoCard">
-                                <p><strong>${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'DIRECCIÓN':'LUGAR')}: 
-                                    </strong>${((perfil.class.name == 'com.sps.entity.Usuario')? perfil.placa :(perfil.class.name == 'com.sps.entity.Cliente')?perfil.direccion:perfil.empresa)}
+                                <p><strong>${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'NOMBRE':'LUGAR')}: 
+                                    </strong>${((perfil.class.name == 'com.sps.entity.Usuario')? perfil.placa :(perfil.class.name == 'com.sps.entity.Cliente')?perfil.nombre:perfil.empresa)}
                                 </p>
                             </div>
                         </div>

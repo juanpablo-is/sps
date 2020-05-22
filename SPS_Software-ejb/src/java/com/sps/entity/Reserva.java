@@ -1,7 +1,9 @@
 package com.sps.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,22 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
-    ,
-    @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
-    ,
-    @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia ORDER BY r.id DESC")
-    ,
-    @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada")
-    ,
-    @NamedQuery(name = "Reserva.findBySalida", query = "SELECT r FROM Reserva r WHERE r.salida = :salida")
-    ,
-    @NamedQuery(name = "Reserva.findBySelector", query = "SELECT COUNT(r) FROM Reserva r WHERE r.idCliente =:idCliente")
-    ,
-    @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario")
-    ,
-    @NamedQuery(name = "Reserva.findByCliente", query = "SELECT r FROM Reserva r WHERE r.idCliente =:idCliente")
-    ,
-    @NamedQuery(name = "Reserva.findByOcupado", query = "SELECT r FROM Reserva r WHERE r.ocupado = :ocupado")})
+    , @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
+    , @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia")
+    , @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada")
+    , @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario")
+    , @NamedQuery(name = "Reserva.findByUsuarioInicio", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario ORDER BY r.id DESC")
+    , @NamedQuery(name = "Reserva.findByUsuarioCliente", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario AND r.idPlaza.idCliente = :idCliente ORDER BY r.id DESC")
+    , @NamedQuery(name = "Reserva.findByIdCliente", query = "SELECT p.id, r.idUsuario, p.tipoVehiculo FROM Plaza p LEFT JOIN Reserva r ON p.id = r.idPlaza AND r.id IN (SELECT r2.id FROM Reserva r2 WHERE r2.id IN (SELECT MAX(r3.id) FROM Reserva r3 GROUP BY r3.idPlaza)) WHERE p.idCliente = :idCliente")
+    , @NamedQuery(name = "Reserva.findByEstado", query = "SELECT r FROM Reserva r WHERE r.estado = :estado")})
 
 public class Reserva implements Serializable {
 
@@ -52,6 +48,7 @@ public class Reserva implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "DIA")
     private String dia;
     @Basic(optional = false)
@@ -61,31 +58,30 @@ public class Reserva implements Serializable {
     private String entrada;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PRECIO")
-    private double precio;
-    @Basic(optional = false)
-    @Size(max = 8)
-    @Column(name = "SALIDA")
-    private String salida;
-    @Column(name = "OCUPADO")
-    private Boolean ocupado;
-    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
+    @Column(name = "ESTADO")
+    private Boolean estado;
+    @JoinColumn(name = "ID_PLAZA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Cliente idCliente;
+    private Plaza idPlaza;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "PLACA")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Usuario idUsuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReserva")
+    private Collection<Historial> historialCollection;
 
     public Reserva() {
     }
 
-    public Reserva(String dia, String entrada, String salida, Usuario usuario, Cliente cliente, boolean opcion) {
+    public Reserva(Integer id) {
+        this.id = id;
+    }
+
+    public Reserva(String dia, String entrada, Boolean estado, Plaza plaza, Usuario usuario) {
         this.dia = dia;
         this.entrada = entrada;
-        this.salida = salida;
+        this.estado = estado;
+        this.idPlaza = plaza;
         this.idUsuario = usuario;
-        this.idCliente = cliente;
-        this.ocupado = opcion;
     }
 
     public Integer getId() {
@@ -112,36 +108,20 @@ public class Reserva implements Serializable {
         this.entrada = entrada;
     }
 
-    public String getSalida() {
-        return salida;
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public void setSalida(String salida) {
-        this.salida = salida;
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
-    public Boolean getOcupado() {
-        return ocupado;
+    public Plaza getIdPlaza() {
+        return idPlaza;
     }
 
-    public void setOcupado(Boolean ocupado) {
-        this.ocupado = ocupado;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setIdPlaza(Plaza idPlaza) {
+        this.idPlaza = idPlaza;
     }
 
     public Usuario getIdUsuario() {
@@ -150,6 +130,15 @@ public class Reserva implements Serializable {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @XmlTransient
+    public Collection<Historial> getHistorialCollection() {
+        return historialCollection;
+    }
+
+    public void setHistorialCollection(Collection<Historial> historialCollection) {
+        this.historialCollection = historialCollection;
     }
 
     @Override
@@ -174,7 +163,7 @@ public class Reserva implements Serializable {
 
     @Override
     public String toString() {
-        return "Reserva{" + "id=" + id + ", dia=" + dia + ", entrada=" + entrada + ", salida=" + salida + ", ocupado=" + ocupado + ", idCliente=" + idCliente + ", idUsuario=" + idUsuario + '}';
+        return "com.sps.entity.Reserva[ id=" + id + " ]";
     }
 
 }
