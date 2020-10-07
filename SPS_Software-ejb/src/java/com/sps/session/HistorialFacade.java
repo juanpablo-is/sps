@@ -43,5 +43,14 @@ public class HistorialFacade extends AbstractFacade<Historial> implements Histor
         List<Historial> historial = query.getResultList();
         return historial;
     }
+
+    @Override
+    public List<Historial> findByPIndividual(Usuario usuario, Cliente cliente) {
+        Query query = getEntityManager().createNamedQuery("Historial.findByPIndividual");
+        query.setParameter("idCliente", cliente);
+        query.setParameter("idUsuario", usuario);
+        List<Historial> historial = query.getResultList();
+        return historial;
+    }
     
 }

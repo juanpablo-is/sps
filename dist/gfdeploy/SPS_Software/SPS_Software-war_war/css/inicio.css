@@ -109,6 +109,10 @@ header{
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.divCompleto{
+    width: 100%;
+}
+
 main{
     display:flex;
     height: auto;
@@ -127,11 +131,12 @@ main{
 #pnlPrincipal{
     flex: 0 0 80%;
     width: 100%;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
+    /*min-height: 100vh;*/
     margin-left: 20%;
     padding-top: 60px;
     background-color: #fafafa;
+    display: flex;
 }
 
 #contenido{
@@ -263,14 +268,14 @@ main{
 
 =======*/
 
-#pnlInicio{
+#pnlInicioUsuario{
     display: flex;
     width: 100%;
     height: 100%;
     flex-direction: column;
 }
 
-#pnlInicio h2{
+#pnlInicioUsuario h2{
     font-family: 'Roboto Condensed', sans-serif;
     color:#323232;
 }
@@ -330,7 +335,7 @@ main{
     flex-direction: column;    
 }
 
-#mapaInicio h2, #pnlInicio h2{
+#mapaInicio h2, #pnlInicioUsuario h2{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -375,8 +380,22 @@ main{
     margin: auto;
 }
 
-h3{
+h2,h3,h4{
     font-family: 'Roboto Condensed', sans-serif;
+}
+
+#botonesReserva button{
+    padding: 15px 20px;
+    outline: none;
+    margin: 20px;
+    background: #DE4C33;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#botonesReserva button:hover{
+    opacity: .7;
 }
 
 #formReserva{
@@ -488,6 +507,7 @@ tr:hover{
     margin:15px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
 }
 
 
@@ -498,6 +518,7 @@ tr:hover{
     -webkit-box-shadow: 0px 0px 19px -5px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 19px -5px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 19px -5px rgba(0,0,0,0.75);
+    height: 100%;
 }
 
 .cardParqueaderoInterno img{
@@ -596,17 +617,20 @@ tr:hover{
 }
 
 #mapaParqueaderoIndividual{
-    width: 70%;
-    background-color: red;
+    width: 55%;
+    background-color: white;
     height: 100%;
+    position: fixed;
 }
 
 #infoParqueadero{
-    width: 30%;
+    width: 25%;
     background-color: white;
     height: 100%;
     padding: 7px;
     font-family: 'Roboto Condensed', sans-serif;
+    position: absolute;
+    right: 0;
 }
 
 #infoParqueadero h2{
@@ -623,7 +647,7 @@ tr:hover{
 #reservarPI{
     display: flex;   
     padding: 10px 0;
-    flex-direction: column;
+    width: 100%;
 }
 
 #reservarPI button, #reservarPI input[type='submit']{
@@ -650,4 +674,106 @@ tr:hover{
 #reservarPI input[type='submit']{
     display: flex;
     justify-content: center;
+}
+
+#formSoporte{
+    width: 100%;
+}
+
+#reservarPI textarea{
+    width: 100%;
+    margin: 10px 0px;
+    height: 60px;
+}
+
+
+/*REPORTE*/
+
+#pnlReportesMovilidad{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;    
+}
+
+#noReportes{
+    width: 100%;
+    /*margin: auto;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;    
+}
+
+.reporteCard{
+    cursor: pointer;
+    width: 100%;
+    background-color: white;
+    padding: 0 10px;
+    color: black;
+    display: flex;
+    align-items: center;
+    -webkit-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    transition: all .3s ease;
+}
+.bloqueada{
+    color: #aaaaaa;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.reporteCard:hover{
+    /*border: .5px solid #DE4C33;*/
+    /*transform: scale(1.010);*/
+}
+
+.reporteCard h3, .headerReporte h3{
+    font-weight: normal;
+}
+
+.reporteCard h2, .reporteCard h3{
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.reporteCard > h2{
+    flex:1;
+    text-align: center;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.contenidoReporte{
+    flex: 2 !important;
+}
+
+.reporteCard .usuarioReporte{
+    flex:1;
+    text-align: center;
+}
+
+.reporteCard .clienteReporte{
+    flex: 1;
+    text-align: center;
+}
+
+.headerReporte{
+    display: flex;
+    text-align: center;
+    margin: 15px 0px;
+    font-size: 14px;
+}
+
+.headerReporte h2{
+    flex: 1;
+    margin: 5px 0;
+}
+
+#reporteIndividual{
+    width: 80%;
+    margin: 20px auto;
 }

@@ -84,29 +84,90 @@ function urlInfo() {
     }
 }
 
-function informacionPersonal() {
-
+function informacionModificacion(info) {
     if (confirm("¿Esta seguro modificar los valores?")) {
-        let nombre = document.getElementById("nombre");
-        let cedula = document.getElementById("cedula");
-        let telefono = document.getElementById("telefono");
-        formData.append("nombre", nombre.value);
-        formData.append("cedula", cedula.value);
-        formData.append("telefono", telefono.value);
+        let data = null;
+        switch (info) {
+            case 'personal':
+                let nombre = document.getElementById("nombre");
+                let cedula = document.getElementById("cedula");
+                let telefono = document.getElementById("telefono");
+                data = `info=${info}&nombre=${nombre.value}&cedula=${cedula.value}&telefono=${telefono.value}`;
+                break;
+            case 'acceso':
+                let correo = document.getElementById("correo");
+                let contrasenia = document.getElementById("contrasenia");
+                data = `info=${info}&correo=${correo.value}&contrasenia=${contrasenia.value}`;
+                break;
+            default:
+                return;
+        }
+        ajaxInformacion(data);
+    }
+}
 
-        var r = new XMLHttpRequest();
-        r.open("GET", 'AJAXPerfilCuenta', true);
-        r.onreadystatechange = function () {
-            if (r.readyState !== 4 || r.status !== 200)
-                location.reload();
-            return;
+function ajaxInformacion(data) {
+    var r = new XMLHttpRequest();
+    r.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
             let respuesta = r.responseText;
-            console.log(respuesta);
-            if (respuesta === "guardado") {
+            if (respuesta) {
+                notificacion("Se ha modificado correctamente");
             } else {
                 location.reload();
             }
-        };
-        r.send(formData);
+        }
+    };
+    r.open("POST", 'AJAXPerfilCuenta', true);
+    r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+    r.send(data);
+}
+
+function informacionPerfil(tipo) {
+    if (confirm("¿Esta seguro modificar los valores?")) {
+        let data = null;
+        switch (tipo) {
+            case 'cliente':
+                let precio = document.getElementById("precio");
+                let nombre = document.getElementById("nombreCliente");
+                let direccion = document.getElementById("direccion");
+                let horaEntrada = document.getElementById("entrada");
+                let horaSalida = document.getElementById("salida");
+                data = `tipo=cliente&info=perfil&precio=${precio.value}&nombreCliente=${nombre.value}&direccion=${direccion.value}&entrada=${horaEntrada.value}&salida=${horaSalida.value}`;
+                break;
+            case 'usuario':
+                let marca = document.getElementById("marca");
+                data = `tipo=usuario&info=perfil&marca=${marca.value}`;
+                break;
+            case 'movilidad':
+                let sede = document.getElementById("sede");
+                data = `tipo=movilidad&info=perfil&sede=${sede.value}`;
+                break;
+            default:
+                return;
+        }
+        ajaxInformacion(data);
+    }
+}
+
+function notificacion(texto) {
+
+    if (!("Notification" in window)) {
+        alert(texto);
+    } else if (Notification.permission === "granted") {
+        var notification = new Notification('SPS Software', {
+            body: texto,
+            icon: "http://localhost:8080/SPS_Software-war/images/logo.jpg"
+        });
+
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission(function () {
+            if (Notification.permission === "granted") {
+                var notification = new Notification('SPS Software', {
+                    body: texto,
+                    icon: "SPS_Software-war/images/logo.jpg"
+                });
+            }
+        });
     }
 }

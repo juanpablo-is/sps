@@ -106,11 +106,13 @@ nav li:hover{
 #pnlPerfil{
     font-family: 'Roboto Condensed', sans-serif;
     width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
     text-align: center
 }
 #pnlPerfil h2{
     text-transform: uppercase; 
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 #pnlPerfil hr{
@@ -209,6 +211,8 @@ input[type="submit"]:hover{
 
 .pnlDrop p{
     display: none;
+    text-align: start;
+    padding: 0 15px;
 }
 
 .pnlDrop:hover, .preguntaSeleccion{

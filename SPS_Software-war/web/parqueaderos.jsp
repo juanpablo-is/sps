@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Parqueaderos</title>
         <script src="js/all.min.js"></script>
@@ -18,25 +19,28 @@
         <input type="hidden" id="inputPerfil" value="${perfil}"/>
         <script>
             if (document.getElementById("inputPerfil").value === '') {
-                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+                window.open("./", "_self");
             }
+            document.getElementById("inputPerfil").remove();
         </script>
         <input id="namePage" type="hidden" value="4"/>
         <main>
             <%@include  file="menu.jsp" %>
             <section id="pnlPrincipal">
-                <div id="pnlParqueaderos">
-                    <c:forEach items="${parqueaderos}" var="parqueadero" varStatus="loop">
-                        <a href="./parqueadero?id=${parqueadero.id}"><div class="cardParqueaderoInterno">
-                                <img src="images/imagen_parking_<c:out value="<%= (int) (Math.random() * 5 + 1)%>"/>.jpg"/>
-                                <div>
-                                    <h3><span>Ubicación: </span>${parqueadero.direccion}</h3>
-                                    <h3><span>Nombre: </span>${parqueadero.nombre}</h3>
-                                    <h3><span>Precio/min :</span>${parqueadero.precio}</h3>
+                <div class="divCompleto">
+                    <div id="pnlParqueaderos">
+                        <c:forEach items="${parqueaderos}" var="parqueadero" varStatus="loop">
+                            <a href="./parqueadero?id=${parqueadero.id}"><div class="cardParqueaderoInterno">
+                                    <img src="images/imagen_parking_<c:out value="<%= (int) (Math.random() * 5 + 1)%>"/>.jpg"/>
+                                    <div>
+                                        <h3><span>Ubicación: </span>${parqueadero.direccion}</h3>
+                                        <h3><span>Nombre: </span>${parqueadero.nombre}</h3>
+                                        <h3><span>Precio/min :</span>${parqueadero.precio}</h3>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </c:forEach>
+                            </a>
+                        </c:forEach>
+                    </div>
                 </div>
             </section>
         </main>

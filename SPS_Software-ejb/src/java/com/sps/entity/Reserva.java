@@ -2,6 +2,7 @@ package com.sps.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,15 +33,22 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
     , @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
-    , @NamedQuery(name = "Reserva.findByDia", query = "SELECT r FROM Reserva r WHERE r.dia = :dia")
-    , @NamedQuery(name = "Reserva.findByEntrada", query = "SELECT r FROM Reserva r WHERE r.entrada = :entrada")
     , @NamedQuery(name = "Reserva.findByUsuario", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario")
     , @NamedQuery(name = "Reserva.findByUsuarioInicio", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario ORDER BY r.id DESC")
     , @NamedQuery(name = "Reserva.findByUsuarioCliente", query = "SELECT r FROM Reserva r WHERE r.idUsuario =:idUsuario AND r.idPlaza.idCliente = :idCliente ORDER BY r.id DESC")
-    , @NamedQuery(name = "Reserva.findByIdCliente", query = "SELECT p.id, r.idUsuario, p.tipoVehiculo FROM Plaza p LEFT JOIN Reserva r ON p.id = r.idPlaza AND r.id IN (SELECT r2.id FROM Reserva r2 WHERE r2.id IN (SELECT MAX(r3.id) FROM Reserva r3 GROUP BY r3.idPlaza)) WHERE p.idCliente = :idCliente")
+//    , @NamedQuery(name = "Reserva.findLastCheck", query = "SELECT r FROM Reserva r INNER JOIN Historial h ON h.idReserva = r WHERE r.id = (SELECT MAX(r2.id) FROM Reserva r2 WHERE r2.idUsuario = :idUsuario GROUP BY r2.idUsuario)")
+    , @NamedQuery(name = "Reserva.findLastCheck", query = "SELECT r FROM Reserva r WHERE NOT EXISTS (SELECT h FROM Historial h WHERE h.idReserva = r) AND r.id = (SELECT MAX(r2.id) FROM Reserva r2 WHERE r2.idUsuario = :idUsuario GROUP BY r2.idUsuario)")
+    , @NamedQuery(name = "Reserva.findByIdCliente", query = "SELECT p.id, r.idUsuario, p.tipoVehiculo FROM Plaza p LEFT JOIN Reserva r ON p.id = r.idPlaza AND r.id IN (SELECT r2.id FROM Reserva r2 WHERE r2.id IN (SELECT MAX(r3.id) FROM Reserva r3 GROUP BY r3.idPlaza)) WHERE p.idCliente = :idCliente  AND r.fecha >= current_timestamp")
+    , @NamedQuery(name = "Reserva.findAllTime", query = "SELECT r FROM Reserva r WHERE r.idPlaza IN (SELECT p FROM Plaza p WHERE p.idCliente.id = :idCliente) AND func('DATE',r.fecha) = CURRENT_DATE AND r.fecha <= CURRENT_TIMESTAMP ORDER BY r.id DESC")
     , @NamedQuery(name = "Reserva.findByEstado", query = "SELECT r FROM Reserva r WHERE r.estado = :estado")})
 
 public class Reserva implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FECHA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,16 +56,6 @@ public class Reserva implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "DIA")
-    private String dia;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
-    @Column(name = "ENTRADA")
-    private String entrada;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ESTADO")
@@ -76,9 +76,8 @@ public class Reserva implements Serializable {
         this.id = id;
     }
 
-    public Reserva(String dia, String entrada, Boolean estado, Plaza plaza, Usuario usuario) {
-        this.dia = dia;
-        this.entrada = entrada;
+    public Reserva(Date fecha, Boolean estado, Plaza plaza, Usuario usuario) {
+        this.fecha = fecha;
         this.estado = estado;
         this.idPlaza = plaza;
         this.idUsuario = usuario;
@@ -92,20 +91,12 @@ public class Reserva implements Serializable {
         this.id = id;
     }
 
-    public String getDia() {
-        return dia;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public String getEntrada() {
-        return entrada;
-    }
-
-    public void setEntrada(String entrada) {
-        this.entrada = entrada;
+    public void setEntrada(Date fecha) {
+        this.fecha = fecha;
     }
 
     public Boolean getEstado() {

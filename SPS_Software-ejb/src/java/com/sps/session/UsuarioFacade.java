@@ -5,6 +5,7 @@ import com.sps.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -37,10 +38,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
 
     @Override
     public Usuario findByPlaca(String placa) {
-        Query query = getEntityManager().createNamedQuery("Usuario.findByPlaca");
-        query.setParameter("placa", placa);
-        Usuario usuario = (Usuario) query.getSingleResult();
-        return usuario;
+        try {
+            Query query = getEntityManager().createNamedQuery("Usuario.findByPlaca");
+            query.setParameter("placa", placa);
+            Usuario usuario = (Usuario) query.getSingleResult();
+            return usuario;
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

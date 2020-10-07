@@ -30,4 +30,10 @@ public interface ClienteFacadeLocal {
 
     Cliente findByID(Integer id);
     
+    Object getDinero(String id);
+        
+    int getReservas(String id);
+    
+    String graficaHistorial(String id);
+    
 }

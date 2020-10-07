@@ -22,20 +22,20 @@ public interface ReservaFacadeLocal {
     List<Reserva> findAll();
 
     List<Reserva> findAllByUsuario(Usuario usuario);
-    
+
     List<Reserva> findAllByUsuarioInicio(Usuario usuario);
-    
-    List<Reserva> findAllByUsuarioCliente(Usuario usuario, Cliente cliente);
 
     List<Reserva> findAllByCliente(Cliente parqueo);
+
+    List<Reserva> findAllTime(String id);
+
+    Reserva findLastCheck(Usuario usuario);
 
     List<Reserva> findRange(int[] range);
 
     int count();
 
     Number findBySelector(Cliente idCliente);
-
-    Reserva findByUsuario(Usuario persona);
 
     void getReservasPorHora();
 

@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Historial.findByIdReserva", query = "SELECT h FROM Historial h WHERE h.idReserva = :idReserva")
     , @NamedQuery(name = "Historial.findByPrecio", query = "SELECT h FROM Historial h WHERE h.precio = :precio")
     , @NamedQuery(name = "Historial.findByCliente", query = "SELECT h FROM Historial h WHERE h.idReserva IN (SELECT r FROM Reserva r WHERE r.idPlaza IN (SELECT p FROM Plaza p WHERE p.idCliente = :idCliente))")
-    , @NamedQuery(name = "Historial.findByUsuario", query = "SELECT h FROM Historial h WHERE h.idReserva IN (SELECT r FROM Reserva r WHERE r.idUsuario = :idUsuario)")
+    , @NamedQuery(name = "Historial.findByUsuario", query = "SELECT h FROM Historial h WHERE h.idReserva IN (SELECT r FROM Reserva r WHERE r.idUsuario = :idUsuario) ORDER BY h.id DESC")
+    , @NamedQuery(name = "Historial.findByPIndividual", query = "SELECT h FROM Historial h WHERE h.idReserva IN (SELECT r FROM Reserva r WHERE r.idPlaza IN (SELECT p FROM Plaza p WHERE p.idCliente = :idCliente) AND r.idUsuario = :idUsuario) ORDER BY h.id DESC")
     , @NamedQuery(name = "Historial.findBySalida", query = "SELECT h FROM Historial h WHERE h.salida = :salida")})
 
 public class Historial implements Serializable {
@@ -58,14 +59,10 @@ public class Historial implements Serializable {
     public Historial() {
     }
 
-    public Historial(Integer id) {
-        this.id = id;
-    }
-
-    public Historial(Integer id, Date salida, double precio) {
-        this.id = id;
+    public Historial(Date salida, double precio, Reserva idReserva) {
         this.salida = salida;
         this.precio = precio;
+        this.idReserva = idReserva;
     }
 
     public Integer getId() {
@@ -124,5 +121,5 @@ public class Historial implements Serializable {
     public String toString() {
         return "com.sps.entity.Historial[ id=" + id + " ]";
     }
-    
+
 }

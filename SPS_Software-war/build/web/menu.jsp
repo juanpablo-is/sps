@@ -7,8 +7,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <header>
+    <input type="hidden" id="inputPerfil" value="${perfil}"/>
+    <script>
+        if (document.getElementById("inputPerfil").value === '') {
+            window.open("./", "_self");
+        }
+        document.getElementById("inputPerfil").remove();
+    </script>
     <div id="headerLogo">
-        <a href="http://localhost:8080/SPS_Software-war/" style="display: contents;">
+        <a href="./" style="display: contents;">
             <img src="images/logo.jpg" alt="Logo"/>
             <h2>SPSystem</h2>
         </a>
@@ -28,9 +35,9 @@
         <img src='images/<c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? (perfil.tipoVehiculo eq 'true'?'usuarioCarro':'usuarioMoto') :(perfil.class.name == 'com.sps.entity.Cliente')?'clienteSeleccion':'adminSeleccion')}"/>.png' alt="Logo Perfil"/>
         <h2>
             <strong>
-                <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :(perfil.class.name == 'com.sps.entity.Cliente')?'LUGAR':'CEDULA')}: "/>
+                <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')? 'PLACA' :'LUGAR')}: "/>
             </strong>
-            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?perfil.nombre:'adminSeleccion')}"/>
+            <c:out value="${((perfil.class.name == 'com.sps.entity.Usuario')?perfil.placa:(perfil.class.name == 'com.sps.entity.Cliente')?perfil.nombre:perfil.empresa)}"/>
         </h2>
     </div>
     <hr>
@@ -38,20 +45,21 @@
         <ul>
             <c:choose>
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
-                    <a href="./inicio" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
-                    <a href="./reservar.jsp" id="enlaceReserva"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
-                    <a href="./historial" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
-                    <a href="./parqueaderos" id="enlaceParqueadero"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
-                </c:when>    
+                    <a href="./inicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                    <a href="./reservar"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
+                    <a href="./historial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+                    <a href="./parqueaderos"><li><i class="fas fa-parking"></i>PARQUEADEROS</li></a>
+                </c:when>
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
-                    <a href="./inicio" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
-                    <a href="./reservar.jsp" id="enlaceAsignar"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
-                    <a href="./historial" id="enlaceHistorial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
-                    <a href="./tiemporeal" id="enlaceTiempoReal"><li><i class="fas fa-stopwatch"></i>TIEMPO REAL</li></a>
-                </c:when>  
+                    <a href="./inicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                    <a href="./reservar.jsp"><li><i class="fas fa-receipt"></i>RESERVAR</li></a>
+                    <a href="./historial"><li><i class="fas fa-history"></i>HISTORIAL</li></a>
+                    <a href="./tiemporeal"><li><i class="fas fa-stopwatch"></i>TIEMPO REAL</li></a>
+                </c:when>
                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Movilidad'}">
-                    <a href="./#" id="enlaceInicio"><li><i class="fas fa-home"></i>INICIO</li></a>
-                </c:when>  
+                    <a style="display: none;" href="./inicio"><li><i class="fas fa-home"></i>INICIO</li></a>
+                    <a href="./reportes"><li><i class="fas fa-envelope-open-text"></i>REPORTE</li></a>
+                </c:when>
                 <c:otherwise>
                     <h2>SE HA PRESENTADO UN ERROR</h2>
                 </c:otherwise>

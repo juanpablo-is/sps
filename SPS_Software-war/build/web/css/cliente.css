@@ -1,0 +1,164 @@
+/* 
+    Created on : 28/05/2020, 04:40:18 PM
+    Author     : Juan Pablo
+*/
+
+#pnlInicioCliente{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#infoCliente{
+    width: 70%;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    
+    width: 60%;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    padding-bottom: 60px;
+}
+
+#pnlTopInfo{
+    height: 50%;
+    display: flex;
+}
+
+#tarjetasInfo{
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin: 10px;
+
+}
+
+.tarjetaInfo{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    border-top: 4px solid #3f51b5;
+}
+
+.tarjetaInfo h3, .tarjetaInfo h2{
+    margin: 0;
+}
+.tarjetaInfo svg{
+    font-size: 30px;
+}
+
+.tarjetaInfo div{
+    text-align: center;
+    margin: 0px 20px;
+}
+
+#reportesInfo{
+    width: 40%;
+    border-radius: 15px;    
+    margin: 10px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+#reportesInfo h4{
+    margin: 2px 0;
+    text-align: start;
+}
+
+#pnlGrafico{
+    height: 50%;
+    margin: 10px;
+}
+
+#pnlGrafico img{
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    -webkit-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+}
+
+#usuariosCliente{    
+    top: 0;
+    width: 20%;
+    background-color: #242424;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    position: absolute;
+    right: 0;
+    height: auto;
+    padding-top: 60px;
+    min-height: 100%;
+}
+
+#usuariosCliente h3{
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+}
+
+#usuariosCliente > div{
+    width: 100%;
+    height: 100%;
+}
+
+.centrado{
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.cardUsuario, .cardReporte{
+    display: flex;
+    align-items: center;
+    margin: 10px 5px;
+}
+
+.cardReporte{
+    justify-content: space-around;
+}
+
+.cardUsuario img{
+    width: 15%;
+    margin: 0 10px;
+
+}
+
+.cardUsuario div{
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardUsuario div h4{
+    margin: 2px 0;
+    color:white;
+}
+
+.desocupado{
+    filter: grayscale(1);
+}
+
+.desocupado h4{
+    color: #a1a1a1 !important;
+}

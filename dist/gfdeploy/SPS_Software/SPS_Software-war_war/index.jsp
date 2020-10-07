@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/acceso.css"/>
@@ -18,8 +19,9 @@
         <input type="hidden" id="inputPerfil" value="${perfil}"/>
         <script>
             if (document.getElementById("inputPerfil").value !== '') {
-                window.open("http://localhost:8080/SPS_Software-war/inicio", "_self");
+                window.open("./inicio", "_self");
             }
+            document.getElementById("inputPerfil").remove();
         </script>
         <main>
             <section id="pnlJoin">

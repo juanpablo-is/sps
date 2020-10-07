@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Cliente implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private Collection<Reporte> reporteCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -226,7 +229,16 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "{\"id\":\"" + id + "\", \"nombre\":\"" + nombre + "\", \"perfil\":\"cliente\", \"direccion\":\"" + direccion + "\"}";
+        return "{id:'" + id + "', nombre:'" + nombre + "', perfil:'cliente', direccion:'" + direccion + "', latitud:" + latitud + ", longitud:" + longitud + ",precio:" + precio + "}";
+    }
+
+    @XmlTransient
+    public Collection<Reporte> getReporteCollection() {
+        return reporteCollection;
+    }
+
+    public void setReporteCollection(Collection<Reporte> reporteCollection) {
+        this.reporteCollection = reporteCollection;
     }
 
 }

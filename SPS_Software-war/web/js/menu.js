@@ -58,35 +58,38 @@ function iconoAccount() {
 
         pnlInfo.appendChild(divPerfil);
         pnlInfo.appendChild(divSoporte);
-        pnlInfo.appendChild(document.createElement("hr"));
-        let textoCuenta = document.createElement("h3");
-        textoCuenta.innerHTML = "CAMBIAR CUENTA";
-        textoCuenta.id = "textoCuenta";
-        pnlInfo.appendChild(textoCuenta);
-        pnlInfo.classList.add("accountsList");
-        for (let i = 0; i < accounts.length - 1; i++) {
-            let elements = Object.values(accounts[i]);
-            if (elements[0] !== Object.values(accounts[accounts.length - 1])[0]) {
-                let accountDiv = document.createElement("div");
-                let icono = document.createElement("img");
-                icono.setAttribute('src', './images/' + (elements[2] === 'usuario' ? (elements[3]=== 'true' ? 'usuarioCarro' : 'usuarioMoto') : (elements[2] === 'cliente') ? 'clienteSeleccion' : 'adminSeleccion') + '.png');
-                accountDiv.appendChild(icono);
-                let elementH2 = document.createElement("h2");
-                elementH2.innerHTML = elements[1];
-                accountDiv.appendChild(elementH2);
-                accountDiv.addEventListener('click', function () {
-                    pnlInfo.style.display = "none";
-                    click = false;
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function () {
-                        if (this.readyState === 4 && this.status === 200) {
-                            window.open("./inicio", "_self");
-                        }
-                    };
-                    xhttp.open("GET", "AJAXCuentasPersona?proceso=2&valor=" + elements[0] + "&perfil=" + elements[2], true);
-                    xhttp.send();
-                }, false);
-                pnlInfo.appendChild(accountDiv);
+
+        if (accounts.length > 1) {
+            pnlInfo.appendChild(document.createElement("hr"));
+            let textoCuenta = document.createElement("h3");
+            textoCuenta.innerHTML = "CAMBIAR CUENTA";
+            textoCuenta.id = "textoCuenta";
+            pnlInfo.appendChild(textoCuenta);
+            pnlInfo.classList.add("accountsList");
+            for (let i = 0; i < accounts.length - 1; i++) {
+                let elements = Object.values(accounts[i]);
+                if (elements[0] !== Object.values(accounts[accounts.length - 1])[0]) {
+                    let accountDiv = document.createElement("div");
+                    let icono = document.createElement("img");
+                    icono.setAttribute('src', './images/' + (elements[2] === 'usuario' ? (elements[3] === 'true' ? 'usuarioCarro' : 'usuarioMoto') : (elements[2] === 'cliente') ? 'clienteSeleccion' : 'adminSeleccion') + '.png');
+                    accountDiv.appendChild(icono);
+                    let elementH2 = document.createElement("h2");
+                    elementH2.innerHTML = elements[1];
+                    accountDiv.appendChild(elementH2);
+                    accountDiv.addEventListener('click', function () {
+                        pnlInfo.style.display = "none";
+                        click = false;
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {
+                                window.open("./inicio", "_self");
+                            }
+                        };
+                        xhttp.open("GET", "AJAXCuentasPersona?proceso=2&valor=" + elements[0] + "&perfil=" + elements[2], true);
+                        xhttp.send();
+                    }, false);
+                    pnlInfo.appendChild(accountDiv);
+                }
             }
         }
     }
@@ -100,9 +103,11 @@ function getAccounts() {
             let array = this.responseText.split("\n");
             let accountActive = array.pop();
             for (let i = 0; i < array.length; i++) {
-                accounts[i] = JSON.parse(array[i]);
+                eval("var obj=" + array[i]);
+                accounts[i] = obj;
             }
-            accounts.push(JSON.parse(accountActive));
+            eval("var obj=" + accountActive);   
+            accounts.push(obj);
         }
     };
     xhttp.open("GET", "AJAXCuentasPersona?proceso=1", true);

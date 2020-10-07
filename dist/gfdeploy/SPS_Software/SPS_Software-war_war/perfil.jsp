@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil</title>
         <link rel="stylesheet" href="css/perfil.css"/>       
@@ -16,6 +17,13 @@
         <script src="js/all.min.js"></script>
     </head>
     <body>
+        <input type="hidden" id="inputPerfil" value="${perfil}"/>
+        <script>
+            if (document.getElementById("inputPerfil").value === '') {
+                window.open("./", "_self");
+            }
+            document.getElementById("inputPerfil").remove();
+        </script>
         <div id="top">
             <header>
                 <i onclick="goBack()" class="fas fa-arrow-circle-left" id="botonBack"></i>

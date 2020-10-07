@@ -9,10 +9,11 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/acceso.css"/>
-        <title>REGISTRO SPS</title>
+        <title>Registro SPS</title>
     </head>
     <body>
         <main>

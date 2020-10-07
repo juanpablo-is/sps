@@ -9,8 +9,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>HISTORIAL</title>
+        <title>Historial</title>
         <script src="js/all.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/inicio.css"/>
@@ -19,8 +20,9 @@
         <input type="hidden" id="inputPerfil" value="${perfil}"/>
         <script>
             if (document.getElementById("inputPerfil").value === '') {
-                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+                window.open("./", "_self");
             }
+            document.getElementById("inputPerfil").remove();
         </script>
         <input id="namePage" type="hidden" value="3"/>
         <main>
@@ -37,17 +39,19 @@
                             <c:choose>
                                 <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
                                     <tr class="row">
-                                        <th>DIA</th>
-                                        <th>ENTRADA</th>
-                                        <th>UBICACIÓN</th>
+                                        <th>PARQUEADERO</th>
+                                        <th>FECHA ENTRADA</th>
+                                        <th>FECHA SALIDA</th>
                                         <th>PRECIO</th>
+                                        <!--<th>ENTRADA</th>-->
                                     </tr>
                                     <c:forEach items="${historiales}" var="historial">
                                         <tr class="row">
-                                            <td>${historial.idReserva.dia}</td>
-                                            <td>${historial.idReserva.entrada}</td>
-                                            <td>${historial.idReserva.idPlaza.idCliente.direccion}</td>
+                                            <td>${historial.idReserva.idPlaza.idCliente.nombre} - ${historial.idReserva.idPlaza.idCliente.direccion}</td>
+                                            <td>${historial.idReserva.fecha}</td>
+                                            <td>${historial.salida}</td>
                                             <td>${historial.precio}</td>
+                                            <%--<td>${historial.idReserva.entrada}</td>--%>
                                         </tr>
                                     </c:forEach>
 
@@ -64,7 +68,7 @@
                                         <tr class="row">
                                             <td>${historial.idReserva.idUsuario.idPersona.cedula}</td>
                                             <td>${historial.idReserva.idUsuario.placa}</td>
-                                            <td> ${historial.idReserva.entrada}</td>
+                                            <td> ${historial.idReserva.fecha}</td>
                                             <td>${historial.salida}</td>
                                             <td>$ ${historial.precio}</td>
                                         </tr>

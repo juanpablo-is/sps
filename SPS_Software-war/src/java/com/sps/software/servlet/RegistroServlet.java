@@ -3,6 +3,7 @@ package com.sps.software.servlet;
 import com.sps.session.*;
 import com.sps.entity.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -109,6 +110,8 @@ public class RegistroServlet extends HttpServlet {
                     cliente.setPrecio(Integer.parseInt(precio));
                     cliente.setCarros(Integer.parseInt(carros));
                     cliente.setMotos(Integer.parseInt(motos));
+                    cliente.setLatitud(new BigDecimal("4.60" + (int) (Math.random() * 9999 + 1111)));
+                    cliente.setLongitud(new BigDecimal("-74.07" + (int) (Math.random() * 9999 + 1111)));
 
                     if (sessionBeanCliente.create(cliente)) {
                         ingreso = true;

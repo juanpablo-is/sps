@@ -18,43 +18,41 @@
 
     <div class="pnlDrop">
         <div>
-            <h3>Pregunta #1</h3><i class="fas fa-chevron-down"></i>
+            <h3>¿Puedo cancelar una reserva?</h3><i class="fas fa-chevron-down"></i>
         </div>
-        <p>Lorem imsump djw sakwjdaskdjakwdj lhckwkcrgmj ergjweg crawegr acwnec awnegrmanhweg cmaheg rawhe rawgce rm</p>
+        <p>Las reservas se van a poder cancelar siempre y cuando sea antes de la fecha de la reserva, una vez se pase la fecha de la reserva se empezará a cobrar el servicio.</p>
     </div>
     <hr>
     <div class="pnlDrop">
         <div>
-            <h3>Pregunta #2</h3><i class="fas fa-chevron-down"></i>
+            <h3>¿Puedo hacer las reservas a cualquier hora?</h3><i class="fas fa-chevron-down"></i>
         </div>
-        <p>Lorem imsump djw sakwjdaskdjakwdj lhckwkcrgmj ergjweg crawegr acwnec awnegrmanhweg cmaheg rawhe rawgce rm</p>
+        <p>Las reservas se pueden agendar a cualquier hora en cualquier día, el sistema le notificará cuales son los parqueaderos que estan libres a esa hora y ese día para agendar la reserva.
+            <br><br>Debido a que no es posible saber el tiempo exacto de un servicio puede que la fecha cuando agendó su reserva no se presente plazas habilitadas.</p>
     </div>
     <hr>
     <div class="pnlDrop">
         <div>
-            <h3>Pregunta #3</h3><i class="fas fa-chevron-down"></i>
+            <h3>¿Puedo cambiar mis datos?</h3><i class="fas fa-chevron-down"></i>
         </div>
-        <p>Lorem imsump djw sakwjdaskdjakwdj lhckwkcrgmj ergjweg crawegr acwnec awnegrmanhweg cmaheg rawhe rawgce rm</p>
+        <p>Si, usted podrá cambiar sus datos tanto los personales, de acceso y de perfil en cualquier momento, tenga en cuenta que hay algunos datos que no van a poder cambiar como la <b>cedula o el ID de su rol.</b></p>
     </div>
     <hr>
     <div class="pnlDrop">
         <div>
-            <h3>Pregunta #4</h3><i class="fas fa-chevron-down"></i>
+            <h3>¿Puedo enviar una queja o sugerencia de un parqueadero?</h3><i class="fas fa-chevron-down"></i>
         </div>
-        <p>Lorem imsump djw sakwjdaskdjakwdj lhckwkcrgmj ergjweg crawegr acwnec awnegrmanhweg cmaheg rawhe rawgce rm</p>
+        <p>Si claro, <b>SPS Software</b> cuenta con un <b>PQRS</b> donde usted podrá enviar un mensaje ya sea para una petición, queja, reclamo o sugerencia.<br><br>
+            Para poder enviar una debe acceder a <b>Parqueaderos</b> en el menu izquierdo, despues seleccionar el parqueadero para la solicitud, en la parte derecha de la página oprima el botón
+            <b>Reportar.</b></p>
     </div>
     <hr>
     <div class="pnlDrop">
         <div>
-            <h3>Pregunta #5</h3><i class="fas fa-chevron-down"></i>
+            <h3>¿Puedo crear más de un perfil?</h3><i class="fas fa-chevron-down"></i>
         </div>
-        <p>Lorem imsump djw sakwjdaskdjakwdj lhckwkcrgmj ergjweg crawegr acwnec awnegrmanhweg cmaheg rawhe rawgce rm</p>
+        <p>Si, podrá crear más de un perfil <b>(Usuario, Cliente o Movilidad)</b> con la misma cuenta de acceso <b>(correo y contraseña).</b><br><br>
+            Si desea crear más de un perfil en nuestro sistema debe se hacer los mismos pasos que hizó al registrarse, tenga en cuenta que si registra otra cedula distinta se tomará como una nueva cuenta.</p>
     </div>
     <hr>
-    <div class="pnlDrop">
-        <div>
-            <h3>Pregunta #6</h3><i class="fas fa-chevron-down"></i>
-        </div>
-        <p>Lorem imsump djw sakwjdaskdjakwdj lhckwkcrgmj ergjweg crawegr acwnec awnegrmanhweg cmaheg rawhe rawgce rm</p>
-    </div>
 </main>

@@ -28,5 +28,7 @@ public interface HistorialFacadeLocal {
     List<Historial> findByCliente(Cliente cliente);
 
     List<Historial> findByUsuario(Usuario usuario);
+    
+    List<Historial> findByPIndividual(Usuario usuario, Cliente cliente);
 
 }

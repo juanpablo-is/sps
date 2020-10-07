@@ -19,7 +19,7 @@ public class ParqueaderoIndividualServlet extends HttpServlet {
     @EJB
     private ClienteFacadeLocal clienteSession;
     @EJB
-    private ReservaFacadeLocal reservaSession;
+    private HistorialFacadeLocal historialSession;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +41,10 @@ public class ParqueaderoIndividualServlet extends HttpServlet {
                 response.sendRedirect("parqueaderos");
             } else {
                 Cliente cliente = clienteSession.find(idCliente);
-                List<Reserva> reservas = reservaSession.findAllByUsuarioCliente((Usuario) usuario, cliente);
+                List<Historial> historial = historialSession.findByPIndividual((Usuario) usuario, cliente);
 
                 request.setAttribute("cliente", cliente);
-                request.setAttribute("reservas", reservas);
+                request.setAttribute("historiales", historial);
                 request.getRequestDispatcher("parqueadero.jsp").forward(request, response);
             }
         } else {

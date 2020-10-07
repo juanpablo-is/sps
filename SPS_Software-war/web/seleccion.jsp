@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/seleccion.css"/>
@@ -18,7 +19,7 @@
         <input type="hidden" id="inputPerfil" value="${persona}"/>
         <script>
             if (document.getElementById("inputPerfil").value === '') {
-                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+                window.open("./", "_self");
             }
             document.getElementById("inputPerfil").remove();
         </script>

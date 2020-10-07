@@ -9,8 +9,9 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link rel="icon" type="image/gif" href="images/logo.jpg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RESERVAR</title>
+        <title>Reservar</title>
         <script src="js/all.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/inicio.css"/>
@@ -19,8 +20,9 @@
         <input type="hidden" id="inputPerfil" value="${perfil}"/>
         <script>
             if (document.getElementById("inputPerfil").value === '') {
-                window.open("http://localhost:8080/SPS_Software-war/", "_self");
+                window.open("./", "_self");
             }
+            document.getElementById("inputPerfil").remove();
         </script>
         <input id="namePage" type="hidden" value="2"/>
         <header>
@@ -34,53 +36,58 @@
             <%@include  file="menu.jsp" %>
             <section id="pnlPrincipal">
                 <div id="formR">
-                    <%--<c:choose>--%>
-                    <%--<c:when test="${parqueaderos == 3}">--%>
-                    <%--<h3>YA TIENE UNA RESERVA</h3>--%>
-                    <%--</c:when>--%>    
-                    <%--<c:otherwise>--%>
-                    <h3>RESERVA TU ESPACIO AHORA</h3>
                     <c:choose>
                         <c:when test="${perfil.getClass().name eq 'com.sps.entity.Usuario'}">
-                            <form action="./reservar" method="POST" id="formReserva">
-                                <div>
-                                    <label for="dia">DIA:</label>
-                                    <input type="date" id="dia" name="dia" required/>
-                                </div>
-                                <div>
-                                    <label for="entrada">HORA ENTRADA:</label>
-                                    <input type="time" id="entrada" name="entrada" required/>
-                                </div>
-                                <div>
-                                    <input type="radio" id="cubierto" name="cubierto" value="si">
-                                    <label for="cubierto">Cubierto</label><br>
-                                    <input type="radio" id="noCubierto" name="cubierto" value="no">
-                                    <label for="noCubierto">No cubierto</label><br>
-                                </div>
-                                <div>
-                                    <label for="parqueadero">PARQUEADERO:</label>
-                                    <select class="select" name="idCliente" id="parqueadero">
-                                        <%--<option value="vacio">SELECCIONE UN PARQUEADERO:</option>
-                                        <c:forEach items="${parqueaderos}" var="parqueadero">
-                                            <option value="${parqueadero.id}">${parqueadero.nombre} - ${parqueadero.direccion}<%-- - Cupos Disponibles: ${parqueadero.cupos}</option>
-                                        </c:forEach>--%>
-                                    </select>
-                                </div>
-                                <input type="submit" value="RESERVAR" name="reservar"/>
-                            </form>
+                            <c:choose>
+                                <c:when test="${reservaCheck != null}">
+                                    <h2>RESERVA EN ESPERA</h2>
+                                    <h3><span>Nombre: </span>${reservaCheck.idPlaza.idCliente.nombre}</h3>
+                                    <h3><span>Dirección: </span>${reservaCheck.idPlaza.idCliente.direccion}</h3>
+                                    <h3><span>Fecha: </span>${reservaCheck.fecha}</h3>
+                                    <c:choose>
+                                        <c:when test="${cancelar eq 'si'}">
+                                            <div id="botonesReserva">
+                                                <button onclick="cancelarReserva()">CANCELAR RESERVA</button>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h3><span>Precio: </span>$ ${precio}</h3>
+                                            <div id="botonesReserva">
+                                                <button onclick="liquidarReserva()">LIQUIDAR RESERVA</button>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3>RESERVA TU ESPACIO AHORA</h3>
+                                    <form action="./reservar" method="POST" id="formReserva">
+                                        <div>
+                                            <label for="fecha">FECHA:</label>
+                                            <input type="datetime-local" id="fecha" name="fecha" required/>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="cubierto" name="cubierto" value="si" required>
+                                            <label for="cubierto">Cubierto</label><br>
+                                            <input type="radio" id="noCubierto" name="cubierto" value="no">
+                                            <label for="noCubierto">No cubierto</label><br>
+                                        </div>
+                                        <div>
+                                            <label for="parqueadero">PARQUEADERO:</label>
+                                            <select class="select" name="idCliente" id="parqueadero">
+                                            </select>
+                                        </div>
+                                        <input onclick="notificacion('Reserva creada')" type="submit" value="RESERVAR" name="proceso"/>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
                         </c:when>  
                         <c:when test="${perfil.getClass().name eq 'com.sps.entity.Cliente'}">
                             <form action="./reservar" method="POST" id="formReserva">
                                 <div>
-                                    <label for="dia">DIA:</label>
-                                    <input type="date" id="dia" name="dia" required/>
+                                    <label for="fecha">FECHA:</label>
+                                    <input type="datetime-local" id="fecha" name="fecha" required/>
                                     <input type="hidden" name="cliente" value="${perfil.id}"/>
                                 </div>
-                                <div>
-                                    <label for="hora">HORA:</label>
-                                    <input type="time" id="hora" name="hora" required/>
-                                </div>
-
                                 <div>
                                     <label for="placa">PLACA:</label>
                                     <input type="text" id="placa" name="placa" required/>
@@ -95,12 +102,12 @@
                                 </div>
 
                                 <div>
-                                    <input type="radio" id="cubierto" name="cubierto" value="si">
+                                    <input type="radio" id="cubierto" name="cubierto" value="si" required>
                                     <label for="cubierto">Cubierto</label><br>
                                     <input type="radio" id="noCubierto" name="cubierto" value="no">
                                     <label for="noCubierto">No cubierto</label><br>
                                 </div>
-                                <input type="submit" value="RESERVAR" name="reservar"/>
+                                <input onclick="notificacion('Reserva creada')" type="submit" value="RESERVAR" name="reservar"/>
                             </form>
                         </c:when>    
                         <c:otherwise>

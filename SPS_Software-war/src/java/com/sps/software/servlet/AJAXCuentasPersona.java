@@ -48,7 +48,7 @@ public class AJAXCuentasPersona extends HttpServlet {
                 ArrayList<Object> cuentas = (ArrayList<Object>) request.getSession().getAttribute("perfiles");
                 if (cuentas != null) {
                     for (Object cuenta : cuentas) {
-                        out.println(cuenta);
+                        out.println(cuenta.toString());
                     }
                 }
 

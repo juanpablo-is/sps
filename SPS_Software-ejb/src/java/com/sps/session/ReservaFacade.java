@@ -6,6 +6,7 @@ import com.sps.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -37,15 +38,15 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
 
     @Override
-    public Reserva findByUsuario(Usuario usuario) {
-        Query query = getEntityManager().createNamedQuery("Reserva.findByUsuario");
+    public Reserva findLastCheck(Usuario usuario) {
+        Query query = getEntityManager().createNamedQuery("Reserva.findLastCheck");
         query.setParameter("idUsuario", usuario);
 
-        if (query.getResultList().size() < 1) {
+        try {
+            return (Reserva) query.getSingleResult();
+        } catch (NoResultException e) {
             return null;
         }
-        Reserva reserva = (Reserva) query.getResultList().get(0);
-        return reserva;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
 
     @Override
     public List<Object[]> getPlazasByCliente(Cliente cliente) {
-        Query query = getEntityManager().createNativeQuery("SELECT p.id, r.ID_USUARIO, p.TIPO_VEHICULO FROM Plaza p LEFT JOIN Reserva r ON p.id = r.ID_PLAZA AND r.id IN (SELECT r2.id FROM Reserva r2 WHERE r2.id IN (SELECT MAX(r3.id) FROM Reserva r3 GROUP BY r3.ID_PLAZA)) WHERE p.ID_CLIENTE = '" + cliente.getId() + "'");
+        Query query = getEntityManager().createNativeQuery("SELECT p.id, r.ID_USUARIO, p.TIPO_VEHICULO FROM Plaza p LEFT JOIN Reserva r ON p.id = r.ID_PLAZA AND r.id IN (SELECT r2.id FROM Reserva r2 WHERE r2.id IN (SELECT MAX(r3.id) FROM Reserva r3 GROUP BY r3.ID_PLAZA)  AND r2.fecha <= current_timestamp AND r2.estado = true) WHERE p.ID_CLIENTE = '" + cliente.getId() + "'");
         return query.getResultList();
     }
 
@@ -79,12 +80,10 @@ public class ReservaFacade extends AbstractFacade<Reserva> implements ReservaFac
     }
     
     @Override
-    public List<Reserva> findAllByUsuarioCliente(Usuario usuario, Cliente cliente) {
-        Query query = getEntityManager().createNamedQuery("Reserva.findByUsuarioCliente");
-        query.setParameter("idUsuario", usuario);
-        query.setParameter("idCliente", cliente);
-        List<Reserva> reservas = query.setMaxResults(5).getResultList();
-        return reservas;
+    public List<Reserva> findAllTime(String id) {
+        Query query = getEntityManager().createNamedQuery("Reserva.findAllTime");
+        query.setParameter("idCliente", id);
+        return query.getResultList();
     }
 
     @Override

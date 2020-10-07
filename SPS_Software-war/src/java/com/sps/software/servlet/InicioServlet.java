@@ -1,8 +1,7 @@
 package com.sps.software.servlet;
 
 import com.sps.entity.*;
-import com.sps.session.ClienteFacadeLocal;
-import com.sps.session.ReservaFacadeLocal;
+import com.sps.session.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,8 @@ public class InicioServlet extends HttpServlet {
     private ReservaFacadeLocal reservaSession;
     @EJB
     private ClienteFacadeLocal clienteSession;
+    @EJB
+    private ReporteFacadeLocal reporteSession;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,9 +44,9 @@ public class InicioServlet extends HttpServlet {
                 ArrayList<String> parqueaderos = new ArrayList<>();
 
                 clientes.forEach((cliente) -> {
-                    parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "'}");
+                    parqueaderos.add("{latitud:" + cliente.getLatitud() + ",longitud:" + cliente.getLongitud() + ",direccion:'" + cliente.getDireccion() + "',nombre:'" + cliente.getNombre() + "',precio:" + cliente.getPrecio() + ",id:'" + cliente.getId() + "'}");
                 });
-                
+
                 List<Reserva> reservas = reservaSession.findAllByUsuarioInicio((Usuario) perfilObject);
 
                 request.setAttribute("parqueaderos", parqueaderos);
@@ -56,6 +57,22 @@ public class InicioServlet extends HttpServlet {
                  * instanceof Movilidad) { System.err.println("Movilidad");*
                  *
                  */
+            } else if (perfilObject instanceof Cliente) {
+                Cliente cliente = (Cliente) perfilObject;
+                Object[] consulta = (Object[]) clienteSession.getDinero(cliente.getId());
+                int cantidadReservas = clienteSession.getReservas(cliente.getId());
+                List<Reporte> reportecliente = reporteSession.findByCliente((Cliente) perfilObject, 4);
+                List<Reserva> reservas = reservaSession.findAllTime(cliente.getId());
+                String grafico = clienteSession.graficaHistorial(cliente.getId());
+
+                request.setAttribute("reportes", reportecliente);
+                request.setAttribute("cantidadPersonas", consulta[0]);
+                request.setAttribute("precio", consulta[1]);
+                request.setAttribute("cantidadReservas", cantidadReservas);
+                request.setAttribute("reservas", reservas);
+                request.setAttribute("grafico", grafico);
+            } else if (perfilObject instanceof Movilidad) {
+                request.getRequestDispatcher("./reportes").forward(request, response);
             }
 
             request.getRequestDispatcher("inicio.jsp").forward(request, response);

@@ -43,7 +43,6 @@ public class SeleccionServlet extends HttpServlet {
         Object perfilObject = request.getSession().getAttribute("persona");
         String id = request.getParameter("id");
 
-        System.out.println("IDDDDD: " + id);
         if (id != null) {
             String campos[] = id.split("-");
             id = campos[1];
@@ -62,9 +61,6 @@ public class SeleccionServlet extends HttpServlet {
 
             HttpSession sesion = request.getSession(true);
             sesion.setAttribute("perfil", perfil);
-
-            System.out.println("PERSONA: " + perfilObject);
-            System.out.println("PERFIL: " + perfil);
 
             response.sendRedirect("inicio");
             /**

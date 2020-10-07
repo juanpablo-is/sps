@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Usuario implements Serializable {
 
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<Reporte> reporteCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -145,6 +148,15 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "{\"id\":\"" + placa + "\", \"marca\":\"" + marca + "\", \"perfil\":\"usuario\", \"tipo\":\"" + tipoVehiculo + "\"}";
+    }
+
+    @XmlTransient
+    public Collection<Reporte> getReporteCollection() {
+        return reporteCollection;
+    }
+
+    public void setReporteCollection(Collection<Reporte> reporteCollection) {
+        this.reporteCollection = reporteCollection;
     }
 
 }
